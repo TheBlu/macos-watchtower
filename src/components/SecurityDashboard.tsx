@@ -74,7 +74,7 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-4 px-1">
               {/* macOS Updates */}
               {getFeatureByName('macOS Updates') && (
                 <SecurityFeature 
