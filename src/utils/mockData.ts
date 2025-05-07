@@ -1,4 +1,3 @@
-
 // This file contains mock data for the macOS security features
 // In a real application, this would be replaced with actual system calls
 
@@ -44,6 +43,20 @@ export const securityFeatures: SecurityFeature[] = [
     status: 'enabled',
     description: 'Prevents potentially malicious software from modifying protected files and folders.',
     lastUpdated: '2023-04-25T11:20:15Z',
+  },
+  {
+    name: 'Firewall',
+    status: 'disabled',
+    description: 'Controls incoming connections to your applications and services.',
+    lastUpdated: '2023-05-02T08:45:22Z',
+    setting: 'Allow all incoming connections',
+  },
+  {
+    name: 'macOS Updates',
+    status: 'warning',
+    description: 'Keeps your Mac secure with the latest security updates and patches.',
+    lastUpdated: '2023-05-04T16:10:30Z',
+    setting: 'macOS Sonoma 14.4.1 (Updates available)',
   },
 ];
 

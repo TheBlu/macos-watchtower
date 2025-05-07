@@ -15,28 +15,42 @@ const SecurityDashboard = () => {
     ? 'disabled'
     : 'warning';
 
+  const getStatusMessage = () => {
+    if (overallStatus === 'enabled') {
+      return "All security features are enabled and up to date.";
+    } else if (overallStatus === 'disabled') {
+      const disabledFeatures = securityFeatures
+        .filter(f => f.status === 'disabled')
+        .map(f => f.name)
+        .join(', ');
+      return `Some security features are disabled: ${disabledFeatures}.`;
+    } else {
+      return "Some security features need attention. Check the details below.";
+    }
+  };
+
   return (
     <div className="container mx-auto py-6 px-4">
       <div className="grid grid-cols-1 gap-6">
-        {/* Overall Security Status */}
+        {/* Security Status */}
         <StatusCard
           title="Security Status"
           status={overallStatus}
           description="Summary of your Mac's security features"
         >
           <div className="text-sm">
-            {overallStatus === 'enabled' ? (
-              <p className="text-green-700">All security features are enabled and up to date.</p>
-            ) : overallStatus === 'disabled' ? (
-              <p className="text-red-700">One or more security features are disabled. Review your settings below.</p>
-            ) : (
-              <p className="text-yellow-700">Some security features need attention. Check the details below.</p>
-            )}
+            <p className={`
+              ${overallStatus === 'enabled' ? 'text-green-700' : ''} 
+              ${overallStatus === 'disabled' ? 'text-red-700' : ''}
+              ${overallStatus === 'warning' ? 'text-yellow-700' : ''}
+            `}>
+              {getStatusMessage()}
+            </p>
           </div>
         </StatusCard>
 
         {/* Security Features */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {securityFeatures.map((feature, index) => (
             <SecurityFeature key={index} feature={feature} />
           ))}
