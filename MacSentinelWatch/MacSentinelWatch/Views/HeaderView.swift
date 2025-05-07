@@ -10,7 +10,7 @@ struct HeaderView: View {
                 .frame(width: 24, height: 24)
                 .foregroundColor(.blue)
             
-            Text("Mac Sentinel Watch")
+            Text("Watchtower")
                 .font(.system(size: 18, weight: .bold))
             
             Spacer()

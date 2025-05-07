@@ -22,7 +22,7 @@ const Header = () => {
             </svg>
           </div>
           <div>
-            <h1 className="text-xl font-semibold text-gray-900">macOS Sentinel Watch</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Watchtower</h1>
             <p className="text-sm text-gray-500">Monitoring your Mac's security features</p>
           </div>
         </div>
