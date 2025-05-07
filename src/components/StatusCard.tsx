@@ -38,10 +38,10 @@ const StatusCard = ({
   return (
     <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full", className)}>
       <div className="p-3">
-        <div className="flex justify-between items-start mb-2">
+        <div className="flex justify-between items-start mb-1">
           <div>
-            <h3 className="text-sm font-medium text-gray-900 mb-1">{title}</h3>
-            <p className="text-xs text-gray-500">{description}</p>
+            <h3 className="text-sm font-medium text-gray-900">{title}</h3>
+            {description && <p className="text-xs text-gray-500">{description}</p>}
           </div>
           <div className="flex items-center">
             <span className={`w-2 h-2 rounded-full ${statusColor[status]} mr-1`}></span>
@@ -50,7 +50,7 @@ const StatusCard = ({
         </div>
         
         {children && (
-          <div className="mt-2 border-t border-gray-100 pt-2">
+          <div className="mt-1 border-t border-gray-100 pt-1">
             {children}
           </div>
         )}
