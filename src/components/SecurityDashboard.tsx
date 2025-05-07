@@ -1,3 +1,4 @@
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -73,7 +74,7 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-0">
+            <div className="grid grid-cols-2 gap-4 mx-auto">
               {/* macOS Updates */}
               {getFeatureByName('macOS Updates') && (
                 <SecurityFeature 
