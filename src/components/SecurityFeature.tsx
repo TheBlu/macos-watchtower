@@ -46,7 +46,7 @@ const SecurityFeature = ({
       lastUpdated={feature.lastUpdated}
       className={className}
     >
-      <div className="flex flex-col space-y-1 py-0.5">
+      <div className="flex flex-col space-y-0.5 pb-0.5">
         {feature.setting && (
           <div className="text-xs">
             <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}

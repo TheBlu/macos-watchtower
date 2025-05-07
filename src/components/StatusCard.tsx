@@ -37,7 +37,7 @@ const StatusCard = ({
 
   return (
     <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full", className)}>
-      <div className="p-2.5">
+      <div className="p-2.5 pb-1">
         <div className="flex justify-between items-center mb-1">
           <h3 className="text-sm font-medium text-gray-900">{title}</h3>
           <div className="flex items-center">
@@ -46,16 +46,16 @@ const StatusCard = ({
           </div>
         </div>
         
-        {description && <p className="text-xs text-gray-500 mb-1.5">{description}</p>}
+        {description && <p className="text-xs text-gray-500 mb-1">{description}</p>}
         
         {children && (
-          <div className="mt-1">
+          <div className="mt-0.5">
             {children}
           </div>
         )}
         
         {lastUpdated && (
-          <div className="text-xs text-gray-500 mt-1">
+          <div className="text-xs text-gray-500 mt-0.5">
             Last updated: {new Date(lastUpdated).toLocaleString()}
           </div>
         )}
