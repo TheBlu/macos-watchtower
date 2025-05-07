@@ -36,6 +36,12 @@ export const securityFeatures: SecurityFeature[] = [
     description: 'Built-in malware scanning tool that automatically checks for known malicious content.',
     lastUpdated: '2023-05-03T09:15:33Z',
   },
+  {
+    name: 'System Integrity Protection',
+    status: 'enabled',
+    description: 'Prevents potentially malicious software from modifying protected files and folders.',
+    lastUpdated: '2023-04-25T11:20:15Z',
+  },
 ];
 
 // Mock Gatekeeper logs
