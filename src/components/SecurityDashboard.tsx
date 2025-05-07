@@ -1,6 +1,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
+import ActivityLogs from './ActivityLogs';
 import { securityFeatures, gatekeeperLogs } from '@/utils/mockData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
