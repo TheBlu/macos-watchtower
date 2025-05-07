@@ -9,13 +9,15 @@ interface SecurityFeatureProps {
   className?: string;
   children?: React.ReactNode;
   hideDescription?: boolean;
+  hideButton?: boolean;
 }
 
 const SecurityFeature = ({ 
   feature, 
   className, 
   children,
-  hideDescription = false
+  hideDescription = false,
+  hideButton = false
 }: SecurityFeatureProps) => {
   // Determine which icon to use based on the feature name and status
   const renderFeatureIcon = () => {
@@ -46,7 +48,7 @@ const SecurityFeature = ({
       lastUpdated={feature.lastUpdated}
       className={`${className} h-[170px]`}
     >
-      <div className="flex flex-col">
+      <div className="flex flex-col h-full">
         {feature.setting && (
           <div className="text-xs mb-1">
             <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
@@ -66,8 +68,8 @@ const SecurityFeature = ({
           </div>
         )}
         
-        {children && (
-          <div className="text-right mt-0.5">
+        {children && !hideButton && (
+          <div className="text-right mt-auto">
             {children}
           </div>
         )}

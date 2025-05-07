@@ -56,7 +56,7 @@ const SecurityDashboard = () => {
   };
 
   // Render individual feature tiles
-  const renderFeatureTile = (featureName: string, settingsSection: string) => {
+  const renderFeatureTile = (featureName: string, settingsSection: string, hideButton = false) => {
     const feature = getFeatureByName(featureName);
     if (!feature) return null;
 
@@ -68,6 +68,7 @@ const SecurityDashboard = () => {
               feature={feature}
               className="h-full w-full"
               hideDescription={true}
+              hideButton={hideButton}
             >
               <Button 
                 variant="outline" 
@@ -121,7 +122,7 @@ const SecurityDashboard = () => {
               {/* Left Column */}
               <div className="grid grid-cols-1 gap-4 h-full">
                 {renderFeatureTile('macOS Updates', 'Software Update')}
-                {renderFeatureTile('System Integrity Protection', 'Privacy & Security')}
+                {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
                 {renderFeatureTile('FileVault', 'Privacy & Security')}
               </div>
               
