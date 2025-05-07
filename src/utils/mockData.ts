@@ -1,3 +1,4 @@
+
 // This file contains mock data for the macOS security features
 // In a real application, this would be replaced with actual system calls
 
@@ -6,6 +7,7 @@ export interface SecurityFeature {
   status: 'enabled' | 'disabled' | 'warning' | 'unknown';
   description: string;
   lastUpdated?: string;
+  setting?: string; // Added setting field for features like Gatekeeper
 }
 
 export interface LogEntry {
@@ -29,6 +31,7 @@ export const securityFeatures: SecurityFeature[] = [
     status: 'enabled',
     description: 'Helps protect your Mac from malware by restricting software from unidentified developers.',
     lastUpdated: '2023-04-28T14:22:10Z',
+    setting: 'App Store and identified developers', // Added Gatekeeper setting
   },
   {
     name: 'XProtect',

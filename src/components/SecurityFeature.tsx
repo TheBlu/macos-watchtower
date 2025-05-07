@@ -16,7 +16,13 @@ const SecurityFeature = ({ feature, className }: SecurityFeatureProps) => {
       description={feature.description}
       lastUpdated={feature.lastUpdated}
       className={className}
-    />
+    >
+      {feature.setting && (
+        <div className="text-sm mt-2">
+          <span className="font-medium">Current Setting:</span> {feature.setting}
+        </div>
+      )}
+    </StatusCard>
   );
 };
 
