@@ -9,6 +9,7 @@ interface StatusCardProps {
   lastUpdated?: string;
   className?: string;
   children?: React.ReactNode;
+  footerContent?: React.ReactNode;
 }
 
 const StatusCard = ({ 
@@ -17,7 +18,8 @@ const StatusCard = ({
   description, 
   lastUpdated, 
   className,
-  children 
+  children,
+  footerContent
 }: StatusCardProps) => {
   // Status indicator colors
   const statusColor = {
@@ -68,9 +70,12 @@ const StatusCard = ({
         )}
       </div>
       
-      {lastUpdated && (
-        <div className="text-xs text-gray-500 px-3 py-1 border-t border-gray-100 mt-auto">
-          Last updated: {formatDate(lastUpdated)}
+      {(lastUpdated || footerContent) && (
+        <div className="text-xs text-gray-500 px-3 py-1 border-t border-gray-100 mt-auto flex items-center">
+          {lastUpdated && (
+            <span>Last updated: {formatDate(lastUpdated)}</span>
+          )}
+          {footerContent}
         </div>
       )}
     </div>

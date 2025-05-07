@@ -47,6 +47,13 @@ const SecurityFeature = ({
       description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
       className={`${className} h-[170px]`}
+      footerContent={
+        children && !hideButton ? (
+          <div className="ml-auto">
+            {children}
+          </div>
+        ) : undefined
+      }
     >
       <div className="flex flex-col h-full">
         {feature.setting && (
@@ -65,12 +72,6 @@ const SecurityFeature = ({
                 (feature.status === 'enabled' ? 'Up to date' : 
                  feature.status === 'warning' ? 'Updates available' : 'Updates disabled')}
             </span>
-          </div>
-        )}
-        
-        {children && !hideButton && (
-          <div className="text-right mt-auto">
-            {children}
           </div>
         )}
       </div>
