@@ -35,9 +35,22 @@ const StatusCard = ({
     unknown: 'Unknown'
   };
 
+  // Format the date to remove seconds
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return date.toLocaleString(undefined, {
+      year: 'numeric',
+      month: 'numeric',
+      day: 'numeric',
+      hour: 'numeric',
+      minute: '2-digit',
+      hour12: true
+    });
+  };
+
   return (
-    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full h-full", className)}>
-      <div className="p-3 pb-2">
+    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full h-full flex flex-col", className)}>
+      <div className="p-3 pb-2 flex-grow">
         <div className="flex justify-between items-center mb-1">
           <h3 className="text-sm font-medium text-gray-900">{title}</h3>
           <div className="flex items-center">
@@ -56,8 +69,8 @@ const StatusCard = ({
       </div>
       
       {lastUpdated && (
-        <div className="text-xs text-gray-500 px-3 py-1 mt-auto border-t border-gray-100">
-          Last updated: {new Date(lastUpdated).toLocaleString()}
+        <div className="text-xs text-gray-500 px-3 py-1 border-t border-gray-100 mt-auto">
+          Last updated: {formatDate(lastUpdated)}
         </div>
       )}
     </div>
