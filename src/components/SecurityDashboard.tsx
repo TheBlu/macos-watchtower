@@ -45,7 +45,7 @@ const SecurityDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto py-4 px-2">
+    <div className="container mx-auto py-4 px-0">
       <div className="grid grid-cols-1 gap-4">
         {/* Security Status */}
         <StatusCard
@@ -74,7 +74,7 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-4 gap-y-0 w-full">
+            <div className="grid grid-cols-2 gap-4 gap-y-2 w-full">
               {/* macOS Updates */}
               {getFeatureByName('macOS Updates') && (
                 <SecurityFeature 
