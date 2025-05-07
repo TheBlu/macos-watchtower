@@ -56,7 +56,7 @@ export const securityFeatures: SecurityFeature[] = [
     status: 'warning',
     description: 'Keeps your Mac secure with the latest security updates and patches.',
     lastUpdated: '2023-05-04T16:10:30Z',
-    setting: 'macOS Sonoma 14.4.1 (Updates available)',
+    setting: 'macOS Sonoma 14.4.1',
   },
 ];
 
