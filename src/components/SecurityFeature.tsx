@@ -46,7 +46,7 @@ const SecurityFeature = ({
       lastUpdated={feature.lastUpdated}
       className={className}
     >
-      <div className="text-xs space-y-1.5">
+      <div className="text-xs space-y-1.5 relative min-h-[40px]">
         {feature.setting && (
           <div className="text-xs">
             <span className="font-medium">Setting:</span> {feature.setting}
@@ -66,7 +66,11 @@ const SecurityFeature = ({
           </div>
         )}
         
-        {children}
+        {children && (
+          <div className="absolute bottom-0 right-0">
+            {children}
+          </div>
+        )}
       </div>
     </StatusCard>
   );
