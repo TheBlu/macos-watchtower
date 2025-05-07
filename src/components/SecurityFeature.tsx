@@ -8,9 +8,15 @@ interface SecurityFeatureProps {
   feature: SecurityFeatureType;
   className?: string;
   children?: React.ReactNode;
+  hideDescription?: boolean;
 }
 
-const SecurityFeature = ({ feature, className, children }: SecurityFeatureProps) => {
+const SecurityFeature = ({ 
+  feature, 
+  className, 
+  children,
+  hideDescription = false
+}: SecurityFeatureProps) => {
   // Determine which icon to use based on the feature name and status
   const renderFeatureIcon = () => {
     if (feature.name === 'Firewall') {
@@ -36,7 +42,7 @@ const SecurityFeature = ({ feature, className, children }: SecurityFeatureProps)
     <StatusCard
       title={feature.name}
       status={feature.status}
-      description={feature.description}
+      description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
       className={className}
     >

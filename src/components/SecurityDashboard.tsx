@@ -1,3 +1,4 @@
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -6,6 +7,17 @@ import { securityFeatures, gatekeeperLogs } from '@/utils/mockData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from 'lucide-react';
+import { 
+  HoverCard,
+  HoverCardTrigger,
+  HoverCardContent
+} from "@/components/ui/hover-card";
+import { 
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+  TooltipProvider
+} from "@/components/ui/tooltip";
 
 const SecurityDashboard = () => {
   // Calculate overall security status
@@ -43,6 +55,38 @@ const SecurityDashboard = () => {
     alert(`This would open System Settings: ${section} (Would use Swift in a native macOS app)`);
   };
 
+  // Render individual feature tiles
+  const renderFeatureTile = (featureName: string, settingsSection: string) => {
+    const feature = getFeatureByName(featureName);
+    if (!feature) return null;
+
+    return (
+      <HoverCard>
+        <HoverCardTrigger asChild>
+          <div className="h-full">
+            <SecurityFeature 
+              feature={feature}
+              className="h-full"
+              hideDescription={true}
+            >
+              <Button 
+                variant="outline" 
+                size="sm" 
+                className="mt-1 h-7 text-xs px-2 py-0"
+                onClick={() => openSystemSettings(settingsSection)}
+              >
+                <ExternalLink className="h-3 w-3 mr-1" /> Open
+              </Button>
+            </SecurityFeature>
+          </div>
+        </HoverCardTrigger>
+        <HoverCardContent className="w-80 p-2">
+          <p className="text-sm">{feature.description}</p>
+        </HoverCardContent>
+      </HoverCard>
+    );
+  };
+
   return (
     <div className="container mx-auto py-4 px-4">
       <div className="grid grid-cols-1 gap-4">
@@ -73,108 +117,13 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-4 gap-y-2 w-full pr-0">
-              {/* macOS Updates */}
-              {getFeatureByName('macOS Updates') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('macOS Updates')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Software Update')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
-              
-              {/* FileVault */}
-              {getFeatureByName('FileVault') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('FileVault')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Privacy & Security')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
-              
-              {/* Firewall */}
-              {getFeatureByName('Firewall') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('Firewall')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Network Firewall')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
-              
-              {/* XProtect */}
-              {getFeatureByName('XProtect') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('XProtect')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Privacy & Security')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
-              
-              {/* Gatekeeper */}
-              {getFeatureByName('Gatekeeper') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('Gatekeeper')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Privacy & Security')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
-              
-              {/* System Integrity Protection */}
-              {getFeatureByName('System Integrity Protection') && (
-                <SecurityFeature 
-                  feature={getFeatureByName('System Integrity Protection')!} 
-                  className="h-full"
-                >
-                  <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="mt-1 h-7 text-xs px-2 py-0"
-                    onClick={() => openSystemSettings('Privacy & Security')}
-                  >
-                    <ExternalLink className="h-3 w-3 mr-1" /> Open
-                  </Button>
-                </SecurityFeature>
-              )}
+            <div className="grid grid-cols-2 gap-4 gap-y-2 w-full">
+              {renderFeatureTile('macOS Updates', 'Software Update')}
+              {renderFeatureTile('FileVault', 'Privacy & Security')}
+              {renderFeatureTile('Firewall', 'Network Firewall')}
+              {renderFeatureTile('XProtect', 'Privacy & Security')}
+              {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
+              {renderFeatureTile('System Integrity Protection', 'Privacy & Security')}
             </div>
           </TabsContent>
           
