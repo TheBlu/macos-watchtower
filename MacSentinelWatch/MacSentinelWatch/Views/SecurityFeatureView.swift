@@ -12,24 +12,41 @@ struct SecurityFeatureView: View {
         self.hideButton = hideButton
     }
     
-    private func renderFeatureIcon() -> some View {
-        if feature.name == "Firewall" {
+    private func iconForFeature() -> (name: String, color: Color) {
+        switch feature.name {
+        case "Firewall":
             return feature.status == .enabled ? 
-                AnyView(Image(systemName: "shield").foregroundColor(.green)) : 
-                AnyView(Image(systemName: "shield.slash").foregroundColor(.red))
-        }
-        
-        if feature.name == "macOS Updates" {
+                ("shield.lefthalf.filled", .green) : 
+                ("shield.slash", .red)
+        case "macOS Updates":
             if feature.status == .enabled {
-                return AnyView(Image(systemName: "calendar.badge.clock").foregroundColor(.green))
+                return ("arrow.clockwise.circle.fill", .green)
             } else if feature.status == .warning {
-                return AnyView(Image(systemName: "calendar.badge.exclamationmark").foregroundColor(.yellow))
+                return ("exclamationmark.arrow.circlepath", .yellow)
             } else if feature.status == .disabled {
-                return AnyView(Image(systemName: "calendar.badge.minus").foregroundColor(.red))
+                return ("xmark.circle", .red)
             }
+        case "FileVault":
+            return feature.status == .enabled ?
+                ("lock.fill", .green) :
+                ("lock.open.fill", .red)
+        case "Gatekeeper":
+            return feature.status == .enabled ?
+                ("checkmark.shield.fill", .green) :
+                ("xmark.shield.fill", .red)
+        case "System Integrity Protection":
+            return feature.status == .enabled ?
+                ("internaldrive.fill", .green) :
+                ("internaldrive.fill.badge.exclamationmark", .red)
+        case "XProtect":
+            return feature.status == .enabled ?
+                ("laptopcomputer.and.arrow.down", .green) :
+                ("laptopcomputer.trianglebadge.exclamationmark", .red)
+        default:
+            return ("questionmark.circle", .gray)
         }
         
-        return AnyView(EmptyView())
+        return ("questionmark.circle", .gray)
     }
     
     private var statusText: String {
@@ -72,7 +89,9 @@ struct SecurityFeatureView: View {
                     
                     if !statusText.isEmpty {
                         HStack(spacing: 4) {
-                            renderFeatureIcon()
+                            let icon = iconForFeature()
+                            Image(systemName: icon.name)
+                                .foregroundColor(icon.color)
                                 .frame(width: 12, height: 12)
                             Text(statusText)
                                 .font(.system(size: 12))
