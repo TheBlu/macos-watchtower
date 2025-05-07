@@ -7,9 +7,10 @@ import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock } from 'luci
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
   className?: string;
+  children?: React.ReactNode; // Add support for children prop
 }
 
-const SecurityFeature = ({ feature, className }: SecurityFeatureProps) => {
+const SecurityFeature = ({ feature, className, children }: SecurityFeatureProps) => {
   // Determine which icon to use based on the feature name and status
   const renderFeatureIcon = () => {
     if (feature.name === 'Firewall') {
@@ -58,6 +59,9 @@ const SecurityFeature = ({ feature, className }: SecurityFeatureProps) => {
             </span>
           </div>
         )}
+        
+        {/* Render children if provided */}
+        {children}
       </div>
     </StatusCard>
   );
