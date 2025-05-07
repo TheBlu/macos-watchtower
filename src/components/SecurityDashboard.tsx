@@ -1,8 +1,6 @@
-
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
-import ActivityLogs from './ActivityLogs';
 import { securityFeatures, gatekeeperLogs } from '@/utils/mockData';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -74,7 +72,7 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-2 px-0">
+            <div className="grid grid-cols-2 gap-0">
               {/* macOS Updates */}
               {getFeatureByName('macOS Updates') && (
                 <SecurityFeature 
