@@ -36,7 +36,7 @@ const StatusCard = ({
   };
 
   return (
-    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden max-w-sm", className)}>
+    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full", className)}>
       <div className="p-3">
         <div className="flex justify-between items-start mb-2">
           <div>
