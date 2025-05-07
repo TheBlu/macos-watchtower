@@ -45,7 +45,7 @@ const SecurityDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto py-4 px-0">
+    <div className="container mx-auto py-4 px-4">
       <div className="grid grid-cols-1 gap-4">
         {/* Security Status */}
         <StatusCard
