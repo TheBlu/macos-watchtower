@@ -118,12 +118,19 @@ const SecurityDashboard = () => {
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-              {renderFeatureTile('macOS Updates', 'Software Update')}
-              {renderFeatureTile('FileVault', 'Privacy & Security')}
-              {renderFeatureTile('Firewall', 'Network Firewall')}
-              {renderFeatureTile('XProtect', 'Privacy & Security')}
-              {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
-              {renderFeatureTile('System Integrity Protection', 'Privacy & Security')}
+              {/* Left Column */}
+              <div className="space-y-4">
+                {renderFeatureTile('macOS Updates', 'Software Update')}
+                {renderFeatureTile('System Integrity Protection', 'Privacy & Security')}
+                {renderFeatureTile('FileVault', 'Privacy & Security')}
+              </div>
+              
+              {/* Right Column */}
+              <div className="space-y-4">
+                {renderFeatureTile('XProtect', 'Privacy & Security')}
+                {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
+                {renderFeatureTile('Firewall', 'Network Firewall')}
+              </div>
             </div>
           </TabsContent>
           
