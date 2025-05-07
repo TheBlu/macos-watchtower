@@ -61,7 +61,7 @@ const SecurityFeature = ({
                 (feature.status === 'enabled' ? 'Protection active' : 'Not protecting')}
               {feature.name === 'macOS Updates' && 
                 (feature.status === 'enabled' ? 'Up to date' : 
-                 feature.status === 'warning' ? '' : 'Updates disabled')}
+                 feature.status === 'warning' ? 'Updates available' : 'Updates disabled')}
             </span>
           </div>
         )}
