@@ -37,26 +37,25 @@ const StatusCard = ({
 
   return (
     <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full", className)}>
-      <div className="p-2">
-        <div className="flex justify-between items-start">
-          <div className="flex flex-col">
-            <h3 className="text-sm font-medium text-gray-900 leading-none">{title}</h3>
-            {description && <p className="text-xs text-gray-500 leading-tight mt-0.5">{description}</p>}
-          </div>
+      <div className="p-3">
+        <div className="flex justify-between items-center mb-1">
+          <h3 className="text-sm font-medium text-gray-900">{title}</h3>
           <div className="flex items-center">
             <span className={`w-2 h-2 rounded-full ${statusColor[status]} mr-1`}></span>
             <span className="text-xs font-medium text-gray-700">{statusText[status]}</span>
           </div>
         </div>
         
+        {description && <p className="text-xs text-gray-500 mb-2">{description}</p>}
+        
         {children && (
-          <div className="border-t border-gray-100 pt-0.5 mt-0.5">
+          <div className="mt-1">
             {children}
           </div>
         )}
         
         {lastUpdated && (
-          <div className="text-xs text-gray-500 mt-0.5 leading-none">
+          <div className="text-xs text-gray-500 mt-1">
             Last updated: {new Date(lastUpdated).toLocaleString()}
           </div>
         )}
