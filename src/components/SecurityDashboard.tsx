@@ -119,14 +119,14 @@ const SecurityDashboard = () => {
           <TabsContent value="features" className="mt-3">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
               {/* Left Column */}
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 h-full">
                 {renderFeatureTile('macOS Updates', 'Software Update')}
                 {renderFeatureTile('System Integrity Protection', 'Privacy & Security')}
                 {renderFeatureTile('FileVault', 'Privacy & Security')}
               </div>
               
               {/* Right Column */}
-              <div className="space-y-4">
+              <div className="grid grid-cols-1 gap-4 h-full">
                 {renderFeatureTile('XProtect', 'Privacy & Security')}
                 {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
                 {renderFeatureTile('Firewall', 'Network Firewall')}

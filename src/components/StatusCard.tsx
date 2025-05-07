@@ -36,8 +36,8 @@ const StatusCard = ({
   };
 
   return (
-    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full", className)}>
-      <div className="p-2.5 pb-1.5">
+    <div className={cn("bg-white rounded-md shadow-sm border border-gray-200 overflow-hidden w-full h-full", className)}>
+      <div className="p-3 pb-2">
         <div className="flex justify-between items-center mb-1">
           <h3 className="text-sm font-medium text-gray-900">{title}</h3>
           <div className="flex items-center">
@@ -55,9 +55,8 @@ const StatusCard = ({
         )}
       </div>
       
-      {/* Adjusted padding to bring this section closer to the content above */}
       {lastUpdated && (
-        <div className="text-xs text-gray-500 px-2.5 py-1.5 border-t border-gray-100">
+        <div className="text-xs text-gray-500 px-3 py-1 mt-auto border-t border-gray-100">
           Last updated: {new Date(lastUpdated).toLocaleString()}
         </div>
       )}

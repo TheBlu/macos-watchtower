@@ -44,7 +44,7 @@ const SecurityFeature = ({
       status={feature.status}
       description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
-      className={className}
+      className={`${className} h-[170px]`}
     >
       <div className="flex flex-col">
         {feature.setting && (
@@ -67,7 +67,7 @@ const SecurityFeature = ({
         )}
         
         {children && (
-          <div className="text-right mt-1">
+          <div className="text-right mt-0.5">
             {children}
           </div>
         )}
