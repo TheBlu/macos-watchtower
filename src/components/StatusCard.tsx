@@ -49,15 +49,15 @@ const StatusCard = ({
           </div>
         </div>
         
-        {lastUpdated && (
-          <div className="text-xs text-gray-500 mt-1">
-            Last updated: {new Date(lastUpdated).toLocaleString()}
-          </div>
-        )}
-        
         {children && (
           <div className="mt-2 border-t border-gray-100 pt-2">
             {children}
+          </div>
+        )}
+        
+        {lastUpdated && (
+          <div className="text-xs text-gray-500 mt-1">
+            Last updated: {new Date(lastUpdated).toLocaleString()}
           </div>
         )}
       </div>
