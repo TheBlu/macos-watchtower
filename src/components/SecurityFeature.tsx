@@ -46,7 +46,13 @@ const SecurityFeature = ({
       lastUpdated={feature.lastUpdated}
       className={className}
     >
-      <div className="text-xs space-y-1.5 relative min-h-[40px]">
+      <div className="text-xs space-y-1.5 relative">
+        {feature.setting && (
+          <div className="text-xs">
+            <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
+          </div>
+        )}
+        
         {renderFeatureIcon() && (
           <div className="flex items-center">
             {renderFeatureIcon()}
@@ -60,14 +66,8 @@ const SecurityFeature = ({
           </div>
         )}
         
-        {feature.setting && (
-          <div className="text-xs">
-            <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
-          </div>
-        )}
-        
         {children && (
-          <div className="absolute bottom-0 right-0">
+          <div className="mt-1 text-right">
             {children}
           </div>
         )}
