@@ -46,17 +46,17 @@ const SecurityFeature = ({
       lastUpdated={feature.lastUpdated}
       className={className}
     >
-      <div className="flex flex-col text-xs gap-1">
+      <div className="flex flex-col text-xs gap-0.5">
         {feature.setting && (
-          <div>
+          <div className="leading-tight">
             <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
           </div>
         )}
         
         {renderFeatureIcon() && (
-          <div className="flex items-center">
+          <div className="flex items-center leading-tight">
             {renderFeatureIcon()}
-            <span className="ml-1.5 text-xs">
+            <span className="ml-1 text-xs">
               {feature.name === 'Firewall' && 
                 (feature.status === 'enabled' ? 'Protection active' : 'Not protecting')}
               {feature.name === 'macOS Updates' && 
@@ -67,7 +67,7 @@ const SecurityFeature = ({
         )}
         
         {children && (
-          <div className="text-right">
+          <div className="text-right mt-0.5">
             {children}
           </div>
         )}
