@@ -44,13 +44,14 @@ const SecurityDashboard = () => {
   };
 
   return (
-    <div className="container mx-auto py-6 px-4">
-      <div className="grid grid-cols-1 gap-6">
+    <div className="container mx-auto py-4 px-2">
+      <div className="grid grid-cols-1 gap-4">
         {/* Security Status */}
         <StatusCard
           title="Security Status"
           status={overallStatus}
           description="Summary of your Mac's security features"
+          className="max-w-none"
         >
           <div className="text-sm">
             <p className={`
@@ -71,120 +72,114 @@ const SecurityDashboard = () => {
           </TabsList>
           
           {/* Security Features Tab */}
-          <TabsContent value="features" className="mt-4">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Left Column */}
-              <div className="space-y-6">
-                {/* macOS Updates */}
-                {getFeatureByName('macOS Updates') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('macOS Updates')!} 
-                    className="h-full"
+          <TabsContent value="features" className="mt-3">
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+              {/* macOS Updates */}
+              {getFeatureByName('macOS Updates') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('macOS Updates')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Software Update')}
                   >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Software Update')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open Software Update
-                    </Button>
-                  </SecurityFeature>
-                )}
-                
-                {/* FileVault */}
-                {getFeatureByName('FileVault') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('FileVault')!} 
-                    className="h-full"
-                  >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Privacy & Security')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open FileVault Settings
-                    </Button>
-                  </SecurityFeature>
-                )}
-                
-                {/* Firewall */}
-                {getFeatureByName('Firewall') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('Firewall')!} 
-                    className="h-full"
-                  >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Network Firewall')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open Firewall Settings
-                    </Button>
-                  </SecurityFeature>
-                )}
-              </div>
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
               
-              {/* Right Column */}
-              <div className="space-y-6">
-                {/* XProtect */}
-                {getFeatureByName('XProtect') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('XProtect')!} 
-                    className="h-full"
+              {/* FileVault */}
+              {getFeatureByName('FileVault') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('FileVault')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Privacy & Security')}
                   >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Privacy & Security')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open Security Settings
-                    </Button>
-                  </SecurityFeature>
-                )}
-                
-                {/* Gatekeeper */}
-                {getFeatureByName('Gatekeeper') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('Gatekeeper')!} 
-                    className="h-full"
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
+              
+              {/* Firewall */}
+              {getFeatureByName('Firewall') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('Firewall')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Network Firewall')}
                   >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Privacy & Security')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open App Security Settings
-                    </Button>
-                  </SecurityFeature>
-                )}
-                
-                {/* System Integrity Protection */}
-                {getFeatureByName('System Integrity Protection') && (
-                  <SecurityFeature 
-                    feature={getFeatureByName('System Integrity Protection')!} 
-                    className="h-full"
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
+              
+              {/* XProtect */}
+              {getFeatureByName('XProtect') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('XProtect')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Privacy & Security')}
                   >
-                    <Button 
-                      variant="outline" 
-                      size="sm" 
-                      className="mt-2"
-                      onClick={() => openSystemSettings('Privacy & Security')}
-                    >
-                      <ExternalLink className="h-4 w-4 mr-1" /> Open Security Settings
-                    </Button>
-                  </SecurityFeature>
-                )}
-              </div>
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
+              
+              {/* Gatekeeper */}
+              {getFeatureByName('Gatekeeper') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('Gatekeeper')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Privacy & Security')}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
+              
+              {/* System Integrity Protection */}
+              {getFeatureByName('System Integrity Protection') && (
+                <SecurityFeature 
+                  feature={getFeatureByName('System Integrity Protection')!} 
+                  className="h-full"
+                >
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="mt-1 h-7 text-xs px-2 py-0"
+                    onClick={() => openSystemSettings('Privacy & Security')}
+                  >
+                    <ExternalLink className="h-3 w-3 mr-1" /> Open
+                  </Button>
+                </SecurityFeature>
+              )}
             </div>
           </TabsContent>
           
           {/* Activity Logs Tab */}
-          <TabsContent value="logs" className="mt-4">
+          <TabsContent value="logs" className="mt-3">
             <ActivityLogs logs={gatekeeperLogs} />
           </TabsContent>
         </Tabs>
