@@ -49,7 +49,7 @@ const SecurityFeature = ({
       <div className="text-xs space-y-1.5 relative min-h-[40px]">
         {feature.setting && (
           <div className="text-xs">
-            <span className="font-medium">Setting:</span> {feature.setting}
+            <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
           </div>
         )}
         
