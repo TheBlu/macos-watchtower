@@ -1,3 +1,4 @@
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -19,7 +20,7 @@ const SecurityDashboard = () => {
       <div className="grid grid-cols-1 gap-6">
         {/* Overall Security Status */}
         <StatusCard
-          title="Overall Security Status"
+          title="Security Status"
           status={overallStatus}
           description="Summary of your Mac's security features"
         >
