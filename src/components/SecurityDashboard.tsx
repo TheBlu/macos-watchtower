@@ -117,7 +117,7 @@ const SecurityDashboard = () => {
           
           {/* Security Features Tab */}
           <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-2 gap-4 gap-y-2 w-full">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-2 w-full">
               {renderFeatureTile('macOS Updates', 'Software Update')}
               {renderFeatureTile('FileVault', 'Privacy & Security')}
               {renderFeatureTile('Firewall', 'Network Firewall')}
