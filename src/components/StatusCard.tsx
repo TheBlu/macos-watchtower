@@ -53,13 +53,14 @@ const StatusCard = ({
             {children}
           </div>
         )}
-        
-        {lastUpdated && (
-          <div className="text-xs text-gray-500 mt-0.5">
-            Last updated: {new Date(lastUpdated).toLocaleString()}
-          </div>
-        )}
       </div>
+      
+      {/* Moved lastUpdated outside the previous div and added a top border */}
+      {lastUpdated && (
+        <div className="text-xs text-gray-500 p-2 pt-1 border-t border-gray-100">
+          Last updated: {new Date(lastUpdated).toLocaleString()}
+        </div>
+      )}
     </div>
   );
 };
