@@ -2,9 +2,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
-import ActivityLogs from './ActivityLogs';
-import { securityFeatures, gatekeeperLogs } from '@/utils/mockData';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
 import { ExternalLink } from 'lucide-react';
 import { 
@@ -12,12 +10,6 @@ import {
   HoverCardTrigger,
   HoverCardContent
 } from "@/components/ui/hover-card";
-import { 
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-  TooltipProvider
-} from "@/components/ui/tooltip";
 
 const SecurityDashboard = () => {
   // Calculate overall security status
@@ -109,37 +101,22 @@ const SecurityDashboard = () => {
           </div>
         </StatusCard>
 
-        {/* Tabbed Interface */}
-        <Tabs defaultValue="features" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger value="features">Security Features</TabsTrigger>
-            <TabsTrigger value="logs">Activity Logs</TabsTrigger>
-          </TabsList>
+        {/* Security Features Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+          {/* Left Column */}
+          <div className="grid grid-cols-1 gap-4 h-full">
+            {renderFeatureTile('macOS Updates', 'Software Update')}
+            {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
+            {renderFeatureTile('FileVault', 'Privacy & Security')}
+          </div>
           
-          {/* Security Features Tab */}
-          <TabsContent value="features" className="mt-3">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-              {/* Left Column */}
-              <div className="grid grid-cols-1 gap-4 h-full">
-                {renderFeatureTile('macOS Updates', 'Software Update')}
-                {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
-                {renderFeatureTile('FileVault', 'Privacy & Security')}
-              </div>
-              
-              {/* Right Column */}
-              <div className="grid grid-cols-1 gap-4 h-full">
-                {renderFeatureTile('XProtect', 'Privacy & Security')}
-                {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
-                {renderFeatureTile('Firewall', 'Network Firewall')}
-              </div>
-            </div>
-          </TabsContent>
-          
-          {/* Activity Logs Tab */}
-          <TabsContent value="logs" className="mt-3">
-            <ActivityLogs logs={gatekeeperLogs} />
-          </TabsContent>
-        </Tabs>
+          {/* Right Column */}
+          <div className="grid grid-cols-1 gap-4 h-full">
+            {renderFeatureTile('XProtect', 'Privacy & Security')}
+            {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
+            {renderFeatureTile('Firewall', 'Network Firewall')}
+          </div>
+        </div>
       </div>
     </div>
   );
