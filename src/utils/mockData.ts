@@ -17,6 +17,16 @@ export interface LogEntry {
   reason?: string;
 }
 
+interface XProtectLog {
+  id: string;
+  timestamp: Date;
+  threat: string;
+  file: string;
+  action: 'blocked' | 'quarantined' | 'cleaned';
+  severity: 'low' | 'medium' | 'high';
+  details: string;
+}
+
 // Mock security features data
 export const securityFeatures: SecurityFeature[] = [
   {
@@ -111,4 +121,80 @@ export const gatekeeperLogs: LogEntry[] = [
     action: 'blocked',
     reason: 'Malicious content detected',
   },
+];
+
+// Mock XProtect logs
+export const xprotectLogs: XProtectLog[] = [
+  {
+    id: '1',
+    timestamp: new Date('2024-01-15T14:30:00'),
+    threat: 'Malware.Generic.12345',
+    file: '/Users/john/Downloads/suspicious_file.dmg',
+    action: 'blocked',
+    severity: 'high',
+    details: 'Detected malicious payload in downloaded DMG file'
+  },
+  {
+    id: '2',
+    timestamp: new Date('2024-01-15T13:45:00'),
+    threat: 'Adware.OSX.Bundler',
+    file: '/Applications/FreeApp.app/Contents/MacOS/installer',
+    action: 'quarantined',
+    severity: 'medium',
+    details: 'Suspicious adware component detected during scan'
+  },
+  {
+    id: '3',
+    timestamp: new Date('2024-01-15T12:20:00'),
+    threat: 'PUA.OSX.CoinMiner',
+    file: '/tmp/cryptominer_binary',
+    action: 'cleaned',
+    severity: 'high',
+    details: 'Cryptocurrency mining software removed automatically'
+  },
+  {
+    id: '4',
+    timestamp: new Date('2024-01-15T11:15:00'),
+    threat: 'Trojan.OSX.Backdoor',
+    file: '/Users/john/Desktop/update.pkg',
+    action: 'blocked',
+    severity: 'high',
+    details: 'Backdoor trojan prevented from executing'
+  },
+  {
+    id: '5',
+    timestamp: new Date('2024-01-15T10:30:00'),
+    threat: 'Spyware.OSX.KeyLogger',
+    file: '/Library/LaunchAgents/com.malware.plist',
+    action: 'quarantined',
+    severity: 'medium',
+    details: 'Keylogger launch agent moved to quarantine'
+  },
+  {
+    id: '6',
+    timestamp: new Date('2024-01-15T09:45:00'),
+    threat: 'Virus.OSX.FileInfector',
+    file: '/Applications/Games/infected_game.app',
+    action: 'cleaned',
+    severity: 'medium',
+    details: 'File infector virus successfully removed'
+  },
+  {
+    id: '7',
+    timestamp: new Date('2024-01-15T08:20:00'),
+    threat: 'Rootkit.OSX.Hidden',
+    file: '/System/Library/Extensions/malicious.kext',
+    action: 'blocked',
+    severity: 'high',
+    details: 'Rootkit kernel extension blocked from loading'
+  },
+  {
+    id: '8',
+    timestamp: new Date('2024-01-14T16:30:00'),
+    threat: 'Phishing.OSX.FakeApp',
+    file: '/Users/john/Downloads/BankingApp.dmg',
+    action: 'quarantined',
+    severity: 'medium',
+    details: 'Fake banking application moved to quarantine'
+  }
 ];
