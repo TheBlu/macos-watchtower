@@ -1,10 +1,10 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, RefreshCw } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -12,6 +12,9 @@ import {
 } from "@/components/ui/hover-card";
 
 const SecurityDashboard = () => {
+  const [lastRefresh, setLastRefresh] = useState(new Date());
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
   // Calculate overall security status
   const overallStatus = securityFeatures.every(
     feature => feature.status === 'enabled'
@@ -45,6 +48,19 @@ const SecurityDashboard = () => {
     // In a real macOS app, this would use Swift to open System Settings
     console.log(`Opening System Settings: ${section}`);
     alert(`This would open System Settings: ${section} (Would use Swift in a native macOS app)`);
+  };
+
+  // Function to handle refresh
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    console.log('Rescanning security attributes...');
+    
+    // Simulate a scan delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setLastRefresh(new Date());
+    setIsRefreshing(false);
+    console.log('Security attributes rescan completed');
   };
 
   // Render individual feature tiles
@@ -83,6 +99,26 @@ const SecurityDashboard = () => {
   return (
     <div className="px-4 py-4 w-full">
       <div className="grid grid-cols-1 gap-4 max-w-[1400px] mx-auto">
+        {/* Header with refresh button */}
+        <div className="flex items-center justify-between mb-2">
+          <div></div>
+          <div className="flex items-center gap-3">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRefresh}
+              disabled={isRefreshing}
+              className="flex items-center gap-2"
+            >
+              <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+              {isRefreshing ? 'Scanning...' : 'Refresh'}
+            </Button>
+            <span className="text-sm text-gray-500">
+              Last refresh: {lastRefresh.toLocaleTimeString()}
+            </span>
+          </div>
+        </div>
+
         {/* Security Status */}
         <StatusCard
           title="Security Status"
