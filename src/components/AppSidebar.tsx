@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Shield, FileText, Eye } from 'lucide-react';
 import {
@@ -19,7 +18,7 @@ import { gatekeeperLogs, xprotectLogs } from '@/utils/mockData';
 
 const menuItems = [
   {
-    title: "Security Features",
+    title: "Security Dashboard",
     icon: Shield,
     id: "security"
   },
@@ -77,11 +76,6 @@ export function AppSidebar() {
 
   return (
     <Sidebar>
-      <SidebarHeader>
-        <div className="px-2 py-2">
-          <h2 className="text-lg font-semibold">Watchtower</h2>
-        </div>
-      </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Navigation</SidebarGroupLabel>
