@@ -79,7 +79,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarHeader>
         <div className="px-2 py-2">
-          <h2 className="text-lg font-semibold">MacSentinel Watch</h2>
+          <h2 className="text-lg font-semibold">Watchtower</h2>
         </div>
       </SidebarHeader>
       <SidebarContent>
