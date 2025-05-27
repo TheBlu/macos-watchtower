@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -99,32 +98,29 @@ const SecurityDashboard = () => {
   return (
     <div className="px-4 py-4 w-full">
       <div className="grid grid-cols-1 gap-4 max-w-[1400px] mx-auto">
-        {/* Header with refresh button */}
-        <div className="flex items-center justify-between mb-2">
-          <div></div>
-          <div className="flex items-center gap-3">
-            <Button
-              variant="outline"
-              size="sm"
-              onClick={handleRefresh}
-              disabled={isRefreshing}
-              className="flex items-center gap-2"
-            >
-              <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
-              {isRefreshing ? 'Scanning...' : 'Refresh'}
-            </Button>
-            <span className="text-sm text-gray-500">
-              Last refresh: {lastRefresh.toLocaleTimeString()}
-            </span>
-          </div>
-        </div>
-
         {/* Security Status */}
         <StatusCard
           title="Security Status"
           status={overallStatus}
           description="Summary of your Mac's security features"
           className="max-w-none"
+          footerContent={
+            <div className="flex items-center gap-3 ml-auto">
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={handleRefresh}
+                disabled={isRefreshing}
+                className="flex items-center gap-2 h-7 text-xs px-2 py-0"
+              >
+                <RefreshCw className={`h-3 w-3 ${isRefreshing ? 'animate-spin' : ''}`} />
+                {isRefreshing ? 'Scanning...' : 'Refresh'}
+              </Button>
+              <span className="text-xs text-gray-500">
+                Last refresh: {lastRefresh.toLocaleTimeString()}
+              </span>
+            </div>
+          }
         >
           <div className="text-sm">
             <p className={`
