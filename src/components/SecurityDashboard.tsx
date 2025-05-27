@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { ExternalLink, RefreshCw } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -11,9 +12,6 @@ import {
 } from "@/components/ui/hover-card";
 
 const SecurityDashboard = () => {
-  const [lastRefresh, setLastRefresh] = useState(new Date());
-  const [isRefreshing, setIsRefreshing] = useState(false);
-
   // Calculate overall security status
   const overallStatus = securityFeatures.every(
     feature => feature.status === 'enabled'
@@ -47,19 +45,6 @@ const SecurityDashboard = () => {
     // In a real macOS app, this would use Swift to open System Settings
     console.log(`Opening System Settings: ${section}`);
     alert(`This would open System Settings: ${section} (Would use Swift in a native macOS app)`);
-  };
-
-  // Function to handle refresh
-  const handleRefresh = async () => {
-    setIsRefreshing(true);
-    console.log('Rescanning security attributes...');
-    
-    // Simulate a scan delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    setLastRefresh(new Date());
-    setIsRefreshing(false);
-    console.log('Security attributes rescan completed');
   };
 
   // Render individual feature tiles
@@ -104,23 +89,6 @@ const SecurityDashboard = () => {
           status={overallStatus}
           description="Summary of your Mac's security features"
           className="max-w-none"
-          footerContent={
-            <div className="flex items-center gap-3 ml-auto">
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={handleRefresh}
-                disabled={isRefreshing}
-                className="flex items-center gap-2 h-7 text-xs px-2 py-0"
-              >
-                <RefreshCw className={`h-3 w-3 ${isRefreshing ? 'animate-spin' : ''}`} />
-                {isRefreshing ? 'Scanning...' : 'Refresh'}
-              </Button>
-              <span className="text-xs text-gray-500">
-                Last refresh: {lastRefresh.toLocaleTimeString()}
-              </span>
-            </div>
-          }
         >
           <div className="text-sm">
             <p className={`

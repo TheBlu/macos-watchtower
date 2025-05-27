@@ -1,7 +1,25 @@
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Button } from "@/components/ui/button";
+import { RefreshCw } from 'lucide-react';
 
 const Header = () => {
+  const [lastRefresh, setLastRefresh] = useState(new Date());
+  const [isRefreshing, setIsRefreshing] = useState(false);
+
+  // Function to handle refresh
+  const handleRefresh = async () => {
+    setIsRefreshing(true);
+    console.log('Rescanning security attributes...');
+    
+    // Simulate a scan delay
+    await new Promise(resolve => setTimeout(resolve, 1500));
+    
+    setLastRefresh(new Date());
+    setIsRefreshing(false);
+    console.log('Security attributes rescan completed');
+  };
+
   return (
     <header className="border-b border-gray-200 py-4 px-6">
       <div className="container mx-auto flex items-center justify-between">
@@ -26,8 +44,19 @@ const Header = () => {
             <p className="text-sm text-gray-500">Monitoring your Mac's security features</p>
           </div>
         </div>
-        <div className="text-sm text-gray-500">
-          Last refresh: {new Date().toLocaleTimeString()}
+        <div className="flex items-center gap-3">
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={handleRefresh}
+            disabled={isRefreshing}
+            className="flex items-center gap-2 h-8 w-8 p-0"
+          >
+            <RefreshCw className={`h-4 w-4 ${isRefreshing ? 'animate-spin' : ''}`} />
+          </Button>
+          <div className="text-sm text-gray-500">
+            Last refresh: {lastRefresh.toLocaleTimeString()}
+          </div>
         </div>
       </div>
     </header>
