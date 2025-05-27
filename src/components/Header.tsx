@@ -23,7 +23,7 @@ const Header = () => {
   return (
     <header className="border-b border-gray-200 py-4 px-6">
       <div className="container mx-auto flex items-center justify-between">
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2">
           <div className="h-10 w-10 rounded-full bg-gradient-to-r from-blue-500 to-blue-600 flex items-center justify-center">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
