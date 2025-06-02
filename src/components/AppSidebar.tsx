@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Shield, FileText, Eye } from 'lucide-react';
 import {
@@ -78,7 +79,7 @@ export function AppSidebar() {
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
+          <SidebarGroupLabel>Protection</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
