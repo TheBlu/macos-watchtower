@@ -1,98 +1,117 @@
 
 import Foundation
 
-class MockData {
+struct MockData {
     static func getSecurityFeatures() -> [SecurityFeature] {
         return [
             SecurityFeature(
                 name: "macOS Updates",
-                description: "Keeps your Mac secure by installing the latest security updates",
                 status: .enabled,
-                setting: "macOS 14.5",
-                lastUpdated: Date().addingTimeInterval(-3600 * 24 * 2)
+                description: "Your system is up to date with the latest security patches.",
+                lastChecked: Date()
             ),
             SecurityFeature(
                 name: "System Integrity Protection",
-                description: "Helps prevent malicious software from modifying protected files",
                 status: .enabled,
-                setting: "Enabled",
-                lastUpdated: Date().addingTimeInterval(-3600 * 24 * 7)
+                description: "SIP protects critical system files and processes.",
+                lastChecked: Date()
             ),
             SecurityFeature(
                 name: "FileVault",
-                description: "Encrypts your Mac's disk to prevent unauthorized access to your information",
                 status: .enabled,
-                setting: "Full disk encryption enabled",
-                lastUpdated: Date().addingTimeInterval(-3600 * 24 * 14)
+                description: "Full disk encryption is active and protecting your data.",
+                lastChecked: Date()
             ),
             SecurityFeature(
                 name: "XProtect",
-                description: "Built-in malware detection and file quarantine system",
                 status: .enabled,
-                setting: "Version 2099.1",
-                lastUpdated: Date().addingTimeInterval(-3600 * 12)
+                description: "Built-in malware protection is active and up to date.",
+                lastChecked: Date()
             ),
             SecurityFeature(
                 name: "Gatekeeper",
-                description: "Ensures only trusted software runs on your Mac",
                 status: .enabled,
-                setting: "App Store and identified developers",
-                lastUpdated: Date().addingTimeInterval(-3600 * 48)
+                description: "App notarization and code signing verification is active.",
+                lastChecked: Date()
             ),
             SecurityFeature(
                 name: "Firewall",
-                description: "Controls connections made to your computer from other computers",
-                status: .warning,
-                setting: "Block all incoming connections: No",
-                lastUpdated: Date().addingTimeInterval(-3600 * 36)
-            ),
+                status: .disabled,
+                description: "Network firewall is currently disabled.",
+                lastChecked: Date()
+            )
         ]
     }
     
     static func getGatekeeperLogs() -> [LogEntry] {
+        let calendar = Calendar.current
+        let now = Date()
+        
         return [
             LogEntry(
-                timestamp: Date().addingTimeInterval(-60 * 15),
-                application: "Visual Studio Code.app",
-                path: "/Applications/Visual Studio Code.app/Contents/MacOS/Electron",
-                action: "allowed",
-                reason: "Developer ID signed"
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .minute, value: -5, to: now) ?? now,
+                level: "info",
+                source: "Gatekeeper",
+                message: "Application verified successfully",
+                details: "MyApp.app - Developer ID: Apple Development"
             ),
             LogEntry(
-                timestamp: Date().addingTimeInterval(-60 * 45),
-                application: "Chrome.app",
-                path: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
-                action: "allowed",
-                reason: "Developer ID signed"
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .hour, value: -2, to: now) ?? now,
+                level: "warning",
+                source: "Gatekeeper",
+                message: "Unsigned application blocked",
+                details: "Unknown-App.dmg - No valid signature found"
             ),
             LogEntry(
-                timestamp: Date().addingTimeInterval(-3600 * 2),
-                application: "Unknown.app",
-                path: "/Downloads/UnknownApp.app/Contents/MacOS/UnknownApp",
-                action: "blocked",
-                reason: "No valid code signature"
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .hour, value: -4, to: now) ?? now,
+                level: "info",
+                source: "Gatekeeper",
+                message: "Notarization check completed",
+                details: "Safari.app - Apple notarized application"
+            )
+        ]
+    }
+    
+    static func getXProtectLogs() -> [LogEntry] {
+        let calendar = Calendar.current
+        let now = Date()
+        
+        return [
+            LogEntry(
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .minute, value: -10, to: now) ?? now,
+                level: "info",
+                source: "XProtect",
+                message: "Malware definitions updated",
+                details: "Version 2156 - 1,247 new signatures added"
             ),
             LogEntry(
-                timestamp: Date().addingTimeInterval(-3600 * 12),
-                application: "Firefox.app",
-                path: "/Applications/Firefox.app/Contents/MacOS/firefox",
-                action: "allowed",
-                reason: "Developer ID signed"
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .hour, value: -1, to: now) ?? now,
+                level: "warning",
+                source: "XProtect",
+                message: "Suspicious file quarantined",
+                details: "file.suspicious - Moved to quarantine folder"
             ),
             LogEntry(
-                timestamp: Date().addingTimeInterval(-3600 * 25),
-                application: "SuspiciousApp.app",
-                path: "/Downloads/SuspiciousApp.app/Contents/MacOS/SuspiciousApp",
-                action: "blocked",
-                reason: "Malware detected"
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .hour, value: -3, to: now) ?? now,
+                level: "info",
+                source: "XProtect",
+                message: "System scan completed",
+                details: "No threats detected - 245,678 files scanned"
             ),
             LogEntry(
-                timestamp: Date().addingTimeInterval(-3600 * 48),
-                application: "Safari.app",
-                path: "/Applications/Safari.app/Contents/MacOS/Safari",
-                action: "allowed",
-                reason: "Apple signed"
-            ),
+                id: UUID(),
+                timestamp: calendar.date(byAdding: .day, value: -1, to: now) ?? now,
+                level: "error",
+                source: "XProtect",
+                message: "Malware detected and removed",
+                details: "Trojan.Generic.12345 - File deleted successfully"
+            )
         ]
     }
 }
