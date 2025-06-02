@@ -1,11 +1,12 @@
 
 import Foundation
+import SwiftUI
 
-enum SecurityStatus: String {
-    case enabled
-    case disabled
-    case warning
-    case unknown
+enum SecurityStatus: String, CaseIterable {
+    case enabled = "enabled"
+    case disabled = "disabled"
+    case warning = "warning"
+    case unknown = "unknown"
     
     var color: Color {
         switch self {
@@ -33,4 +34,12 @@ struct SecurityFeature: Identifiable {
     let status: SecurityStatus
     let setting: String?
     let lastUpdated: Date
+    
+    init(name: String, description: String, status: SecurityStatus, setting: String? = nil, lastUpdated: Date = Date()) {
+        self.name = name
+        self.description = description
+        self.status = status
+        self.setting = setting
+        self.lastUpdated = lastUpdated
+    }
 }
