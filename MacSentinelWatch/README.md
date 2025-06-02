@@ -1,5 +1,5 @@
 
-# Mac Sentinel Watch
+# Watchtower
 
 A native macOS application for monitoring and managing security features of your Mac.
 
@@ -21,7 +21,7 @@ A native macOS application for monitoring and managing security features of your
 
 ## Building the App
 
-1. Open the `MacSentinelWatch.xcodeproj` file in Xcode
+1. Open the `Watchtower.xcodeproj` file in Xcode
 2. Select your development team in the Signing & Capabilities tab
 3. Build and run the app
 
@@ -39,4 +39,3 @@ This app is built using SwiftUI and follows modern macOS app design guidelines. 
 ## Screenshots
 
 (Screenshots would be included here in a real README)
-
