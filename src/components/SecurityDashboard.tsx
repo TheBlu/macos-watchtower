@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -37,17 +36,17 @@ const SecurityDashboard = () => {
 
   // Get the appropriate header icon for the security status
   const getSecurityStatusIcon = () => {
-    const iconClass = "h-6 w-6 text-slate-600 dark:text-slate-400";
+    const baseIconClass = "h-6 w-6";
     
     switch (overallStatus) {
       case 'enabled':
-        return <Shield className={iconClass} />;
+        return <Shield className={`${baseIconClass} text-emerald-600 dark:text-emerald-400`} />;
       case 'warning':
-        return <ShieldAlert className={iconClass} />;
+        return <ShieldAlert className={`${baseIconClass} text-amber-600 dark:text-amber-400`} />;
       case 'disabled':
-        return <ShieldX className={iconClass} />;
+        return <ShieldX className={`${baseIconClass} text-red-600 dark:text-red-400`} />;
       default:
-        return <Shield className={iconClass} />;
+        return <Shield className={`${baseIconClass} text-slate-600 dark:text-slate-400`} />;
     }
   };
 
