@@ -7,24 +7,28 @@ import Header from '@/components/Header';
 
 const Index = () => {
   return (
-    <SidebarProvider>
-      <div className="min-h-screen flex w-full">
-        <AppSidebar />
-        <SidebarInset>
-          <header className="flex h-16 shrink-0 items-center gap-2 border-b px-4">
-            <SidebarTrigger className="-ml-1" />
-            <div className="flex-1">
-              <Header />
-            </div>
-          </header>
-          <div className="flex flex-1 flex-col gap-4 p-4">
-            <div id="main-content" className="w-full">
-              {/* Content will be rendered here based on sidebar selection */}
-            </div>
-          </div>
-        </SidebarInset>
-      </div>
-    </SidebarProvider>
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-white to-slate-100 dark:from-slate-900 dark:via-slate-800 dark:to-slate-900">
+      <SidebarProvider>
+        <div className="min-h-screen flex w-full">
+          <AppSidebar />
+          <SidebarInset className="flex-1">
+            <header className="flex h-auto shrink-0 items-center">
+              <div className="flex items-center gap-2 p-2">
+                <SidebarTrigger className="rounded-xl bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-slate-700/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200" />
+              </div>
+              <div className="flex-1">
+                <Header />
+              </div>
+            </header>
+            <main className="flex-1">
+              <div id="main-content" className="w-full">
+                {/* Content will be rendered here based on sidebar selection */}
+              </div>
+            </main>
+          </SidebarInset>
+        </div>
+      </SidebarProvider>
+    </div>
   );
 };
 

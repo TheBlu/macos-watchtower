@@ -65,57 +65,55 @@ const SecurityDashboard = () => {
               <Button 
                 variant="outline" 
                 size="sm" 
-                className="mt-1 h-7 text-xs px-2 py-0"
+                className="mt-2 h-8 text-xs px-3 py-0 rounded-lg border-white/20 dark:border-slate-700/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200"
                 onClick={() => openSystemSettings(settingsSection)}
               >
-                <ExternalLink className="h-3 w-3 mr-1" /> Open
+                <ExternalLink className="h-3 w-3 mr-1.5" /> 
+                Open
               </Button>
             </SecurityFeature>
           </div>
         </HoverCardTrigger>
-        <HoverCardContent className="w-80 p-2">
-          <p className="text-sm">{feature.description}</p>
+        <HoverCardContent className="w-80 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-white/20 dark:border-slate-700/30 rounded-xl shadow-xl">
+          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+            {feature.description}
+          </p>
         </HoverCardContent>
       </HoverCard>
     );
   };
 
   return (
-    <div className="px-4 py-4 w-full">
-      <div className="grid grid-cols-1 gap-4 max-w-[1400px] mx-auto">
+    <div className="px-6 py-6 w-full min-h-screen bg-gradient-to-br from-slate-50/50 to-slate-100/50 dark:from-slate-900/50 dark:to-slate-800/50">
+      <div className="grid grid-cols-1 gap-6 max-w-7xl mx-auto">
         {/* Security Status */}
-        <StatusCard
-          title="Security Status"
-          status={overallStatus}
-          description="Summary of your Mac's security features"
-          className="max-w-none"
-        >
-          <div className="text-sm">
-            <p className={`
-              ${overallStatus === 'enabled' ? 'text-green-700' : ''} 
-              ${overallStatus === 'disabled' ? 'text-red-700' : ''}
-              ${overallStatus === 'warning' ? 'text-yellow-700' : ''}
-            `}>
-              {getStatusMessage()}
-            </p>
-          </div>
-        </StatusCard>
+        <div className="mb-2">
+          <StatusCard
+            title="Security Status"
+            status={overallStatus}
+            description="Summary of your Mac's security features"
+            className="max-w-none h-auto"
+          >
+            <div className="mt-2">
+              <p className={`text-sm font-medium leading-relaxed ${
+                overallStatus === 'enabled' ? 'text-emerald-700 dark:text-emerald-400' : 
+                overallStatus === 'disabled' ? 'text-red-700 dark:text-red-400' :
+                'text-amber-700 dark:text-amber-400'
+              }`}>
+                {getStatusMessage()}
+              </p>
+            </div>
+          </StatusCard>
+        </div>
 
         {/* Security Features Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-          {/* Left Column */}
-          <div className="grid grid-cols-1 gap-4 h-full">
-            {renderFeatureTile('macOS Updates', 'Software Update')}
-            {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
-            {renderFeatureTile('FileVault', 'Privacy & Security')}
-          </div>
-          
-          {/* Right Column */}
-          <div className="grid grid-cols-1 gap-4 h-full">
-            {renderFeatureTile('XProtect', 'Privacy & Security')}
-            {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
-            {renderFeatureTile('Firewall', 'Network Firewall')}
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
+          {renderFeatureTile('macOS Updates', 'Software Update')}
+          {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
+          {renderFeatureTile('FileVault', 'Privacy & Security')}
+          {renderFeatureTile('XProtect', 'Privacy & Security')}
+          {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
+          {renderFeatureTile('Firewall', 'Network Firewall')}
         </div>
       </div>
     </div>

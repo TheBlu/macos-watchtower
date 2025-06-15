@@ -10,7 +10,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  SidebarHeader,
 } from '@/components/ui/sidebar';
 import SecurityDashboard from './SecurityDashboard';
 import ActivityLogs from './ActivityLogs';
@@ -76,20 +75,39 @@ export function AppSidebar() {
   }, []);
 
   return (
-    <Sidebar>
-      <SidebarContent>
+    <Sidebar className="border-r border-white/10 dark:border-slate-700/30 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl backdrop-saturate-150">
+      {/* Glass reflection */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/30 to-transparent" />
+      
+      <SidebarContent className="p-3">
         <SidebarGroup>
-          <SidebarGroupLabel>Protection</SidebarGroupLabel>
+          <SidebarGroupLabel className="px-3 py-2 text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">
+            Protection
+          </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="space-y-1">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.id}>
                   <SidebarMenuButton 
                     isActive={activeItem === item.id}
                     onClick={() => handleMenuClick(item.id)}
+                    className={`
+                      group relative px-3 py-2.5 rounded-xl font-medium transition-all duration-200
+                      ${activeItem === item.id 
+                        ? 'bg-blue-500/90 text-white shadow-lg shadow-blue-500/25 hover:bg-blue-500' 
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-white/60 dark:hover:bg-slate-800/60 hover:text-slate-900 dark:hover:text-white'
+                      }
+                    `}
                   >
-                    <item.icon className="h-4 w-4" />
-                    <span>{item.title}</span>
+                    <item.icon className={`h-4 w-4 transition-transform duration-200 ${
+                      activeItem === item.id ? 'scale-110' : 'group-hover:scale-105'
+                    }`} />
+                    <span className="ml-3 text-sm">{item.title}</span>
+                    
+                    {/* Active indicator glow */}
+                    {activeItem === item.id && (
+                      <div className="absolute inset-0 rounded-xl bg-blue-400/20 blur-lg -z-10" />
+                    )}
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

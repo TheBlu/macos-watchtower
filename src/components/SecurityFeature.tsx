@@ -2,7 +2,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
-import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock } from 'lucide-react';
+import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle } from 'lucide-react';
 
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
@@ -21,23 +21,68 @@ const SecurityFeature = ({
 }: SecurityFeatureProps) => {
   // Determine which icon to use based on the feature name and status
   const renderFeatureIcon = () => {
-    if (feature.name === 'Firewall') {
-      return feature.status === 'enabled' ? 
-        <Shield className="h-3 w-3 text-green-500" /> : 
-        <ShieldOff className="h-3 w-3 text-red-500" />;
-    }
+    const iconClass = "h-4 w-4";
     
-    if (feature.name === 'macOS Updates') {
-      if (feature.status === 'enabled') {
-        return <CalendarCheck className="h-3 w-3 text-green-500" />;
-      } else if (feature.status === 'warning') {
-        return <CalendarClock className="h-3 w-3 text-yellow-500" />;
-      } else if (feature.status === 'disabled') {
-        return <CalendarX className="h-3 w-3 text-red-500" />;
-      }
+    switch (feature.name) {
+      case 'Firewall':
+        return feature.status === 'enabled' ? 
+          <Shield className={`${iconClass} text-emerald-500`} /> : 
+          <ShieldOff className={`${iconClass} text-red-500`} />;
+          
+      case 'macOS Updates':
+        if (feature.status === 'enabled') {
+          return <CalendarCheck className={`${iconClass} text-emerald-500`} />;
+        } else if (feature.status === 'warning') {
+          return <CalendarClock className={`${iconClass} text-amber-500`} />;
+        } else if (feature.status === 'disabled') {
+          return <CalendarX className={`${iconClass} text-red-500`} />;
+        }
+        break;
+        
+      case 'FileVault':
+        return feature.status === 'enabled' ?
+          <Lock className={`${iconClass} text-emerald-500`} /> :
+          <LockOpen className={`${iconClass} text-red-500`} />;
+          
+      case 'Gatekeeper':
+        return feature.status === 'enabled' ?
+          <CheckCircle className={`${iconClass} text-emerald-500`} /> :
+          <XCircle className={`${iconClass} text-red-500`} />;
+          
+      case 'System Integrity Protection':
+        return feature.status === 'enabled' ?
+          <HardDrive className={`${iconClass} text-emerald-500`} /> :
+          <AlertTriangle className={`${iconClass} text-red-500`} />;
+          
+      case 'XProtect':
+        return feature.status === 'enabled' ?
+          <Shield className={`${iconClass} text-emerald-500`} /> :
+          <AlertTriangle className={`${iconClass} text-red-500`} />;
     }
     
     return null;
+  };
+
+  const getStatusText = () => {
+    if (feature.name === 'Firewall') {
+      return feature.status === 'enabled' ? 'Protection active' : 'Not protecting';
+    }
+    
+    if (feature.name === 'macOS Updates') {
+      switch (feature.status) {
+        case 'enabled': return 'Up to date';
+        case 'warning': return 'Updates available';
+        case 'disabled': return 'Updates disabled';
+        default: return '';
+      }
+    }
+    
+    switch (feature.status) {
+      case 'enabled': return 'Active';
+      case 'disabled': return 'Inactive';
+      case 'warning': return 'Needs attention';
+      default: return 'Unknown';
+    }
   };
 
   return (
@@ -46,7 +91,7 @@ const SecurityFeature = ({
       status={feature.status}
       description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
-      className={`${className} h-[170px]`}
+      className={`${className} min-h-[200px]`}
       footerContent={
         children && !hideButton ? (
           <div className="ml-auto">
@@ -55,22 +100,23 @@ const SecurityFeature = ({
         ) : undefined
       }
     >
-      <div className="flex flex-col h-full">
+      <div className="flex flex-col space-y-3 mt-2">
         {feature.setting && (
-          <div className="text-xs mb-1">
-            <span className="font-medium">{feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}</span> {feature.setting}
+          <div className="text-sm">
+            <span className="font-semibold text-slate-600 dark:text-slate-400">
+              {feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}
+            </span>
+            <span className="ml-2 text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-2 py-1 rounded-lg">
+              {feature.setting}
+            </span>
           </div>
         )}
         
         {renderFeatureIcon() && (
-          <div className="flex items-center">
+          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/20 dark:border-slate-700/30">
             {renderFeatureIcon()}
-            <span className="ml-1 text-xs">
-              {feature.name === 'Firewall' && 
-                (feature.status === 'enabled' ? 'Protection active' : 'Not protecting')}
-              {feature.name === 'macOS Updates' && 
-                (feature.status === 'enabled' ? 'Up to date' : 
-                 feature.status === 'warning' ? 'Updates available' : 'Updates disabled')}
+            <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+              {getStatusText()}
             </span>
           </div>
         )}
