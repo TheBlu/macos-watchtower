@@ -4,7 +4,7 @@ import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { ExternalLink } from 'lucide-react';
+import { ExternalLink, Shield, ShieldAlert, ShieldX } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -32,6 +32,22 @@ const SecurityDashboard = () => {
       return `Some security features are disabled: ${disabledFeatures}.`;
     } else {
       return "Some security features need attention. Check the details below.";
+    }
+  };
+
+  // Get the appropriate header icon for the security status
+  const getSecurityStatusIcon = () => {
+    const iconClass = "h-6 w-6 text-slate-600 dark:text-slate-400";
+    
+    switch (overallStatus) {
+      case 'enabled':
+        return <Shield className={iconClass} />;
+      case 'warning':
+        return <ShieldAlert className={iconClass} />;
+      case 'disabled':
+        return <ShieldX className={iconClass} />;
+      default:
+        return <Shield className={iconClass} />;
     }
   };
 
@@ -93,6 +109,7 @@ const SecurityDashboard = () => {
             status={overallStatus}
             description="Summary of your Mac's security features"
             className="max-w-none h-auto"
+            headerIcon={getSecurityStatusIcon()}
           >
             <div className="mt-2">
               <p className={`text-sm font-medium leading-relaxed ${
