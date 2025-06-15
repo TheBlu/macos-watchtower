@@ -2,7 +2,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
-import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle } from 'lucide-react';
+import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw } from 'lucide-react';
 
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
@@ -19,7 +19,7 @@ const SecurityFeature = ({
   hideDescription = false,
   hideButton = false
 }: SecurityFeatureProps) => {
-  // Determine which icon to use based on the feature name and status
+  // Determine which icon to use based on the feature name and status for content area
   const renderFeatureIcon = () => {
     const iconClass = "h-4 w-4";
     
@@ -63,6 +63,33 @@ const SecurityFeature = ({
     return null;
   };
 
+  // Determine which header icon to use based on the feature name
+  const renderHeaderIcon = () => {
+    const headerIconClass = "h-6 w-6";
+    
+    switch (feature.name) {
+      case 'Firewall':
+        return <Shield className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+          
+      case 'macOS Updates':
+        return <RefreshCw className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+        
+      case 'FileVault':
+        return <Lock className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+          
+      case 'Gatekeeper':
+        return <CheckCircle className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+          
+      case 'System Integrity Protection':
+        return <HardDrive className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+          
+      case 'XProtect':
+        return <Shield className={`${headerIconClass} text-slate-600 dark:text-slate-400`} />;
+    }
+    
+    return null;
+  };
+
   const getStatusText = () => {
     if (feature.name === 'Firewall') {
       return feature.status === 'enabled' ? 'Protection active' : 'Not protecting';
@@ -92,6 +119,7 @@ const SecurityFeature = ({
       description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
       className={`${className} min-h-[200px]`}
+      headerIcon={renderHeaderIcon()}
       footerContent={
         children && !hideButton ? (
           <div className="ml-auto">

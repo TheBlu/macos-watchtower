@@ -10,6 +10,7 @@ interface StatusCardProps {
   className?: string;
   children?: React.ReactNode;
   footerContent?: React.ReactNode;
+  headerIcon?: React.ReactNode;
 }
 
 const StatusCard = ({ 
@@ -19,7 +20,8 @@ const StatusCard = ({
   lastUpdated, 
   className,
   children,
-  footerContent
+  footerContent,
+  headerIcon
 }: StatusCardProps) => {
   // Status indicator colors with modern styling
   const statusColor = {
@@ -71,9 +73,16 @@ const StatusCard = ({
       
       <div className="relative flex-grow p-4 pb-3">
         <div className="flex justify-between items-start mb-3">
-          <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight">
-            {title}
-          </h3>
+          <div className="flex items-center gap-3">
+            {headerIcon && (
+              <div className="flex-shrink-0">
+                {headerIcon}
+              </div>
+            )}
+            <h3 className="text-base font-semibold text-slate-900 dark:text-white tracking-tight">
+              {title}
+            </h3>
+          </div>
           <div className="flex items-center gap-2">
             <span className={cn(
               "w-2.5 h-2.5 rounded-full shadow-lg",
