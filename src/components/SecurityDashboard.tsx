@@ -100,12 +100,12 @@ const SecurityDashboard = () => {
               {!hideButton && (
                 <div className="mt-auto pt-4 px-2 flex justify-start"> {/* Changed to justify-start for left alignment */}
                   <Button 
-                    variant={updatesAvailable ? "default" : "ghost"} 
+                    variant={updatesAvailable ? "outline" : "ghost"} 
                     size="sm" 
                     disabled={!updatesAvailable}
                     className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 flex items-center gap-1.5 ${
                       updatesAvailable 
-                        ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
+                        ? 'border-gray-300 text-black hover:bg-gray-50 bg-white' 
                         : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
                     }`}
                     onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
