@@ -28,15 +28,13 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-lg shadow-sky-400/25 overflow-hidden">
+              <div className="h-20 w-20 rounded-2xl flex items-center justify-center shadow-lg overflow-hidden">
                 <img 
                   src="/lovable-uploads/f2713749-728f-49bf-8044-63e560579c2d.png" 
                   alt="Watchtower" 
-                  className="h-full w-full object-cover"
+                  className="h-full w-full object-contain"
                 />
               </div>
-              {/* Subtle glow effect */}
-              <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-sky-300/20 to-sky-500/20 blur-lg -z-10" />
             </div>
             <div>
               <h1 className="text-xl font-semibold text-slate-900 dark:text-white tracking-tight">
