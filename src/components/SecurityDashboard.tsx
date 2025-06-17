@@ -3,9 +3,11 @@ import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Shield, ShieldAlert, ShieldX, Settings } from 'lucide-react';
+import { RefreshCw, Shield, ShieldAlert, ShieldX, Settings, Info } from 'lucide-react';
 
 const SecurityDashboard = () => {
+  const [areAllTilesFlipped, setAreAllTilesFlipped] = useState(false);
+
   // Calculate overall security status
   const overallStatus = securityFeatures.every(
     feature => feature.status === 'enabled'
@@ -57,6 +59,11 @@ const SecurityDashboard = () => {
     alert(`This would open System Settings: ${section} (Would use Swift in a native macOS app)`);
   };
 
+  // Toggle all tiles flip state
+  const toggleAllTilesFlip = () => {
+    setAreAllTilesFlipped(!areAllTilesFlipped);
+  };
+
   // Render individual feature tiles
   const renderFeatureTile = (featureName: string, settingsSection: string, hideButton = false) => {
     const feature = getFeatureByName(featureName);
@@ -70,6 +77,7 @@ const SecurityDashboard = () => {
           hideDescription={true}
           hideButton={true}
           onIconClick={hideButton ? undefined : () => openSystemSettings(settingsSection)}
+          isFlipped={areAllTilesFlipped}
         />
       </div>
     );
@@ -95,6 +103,19 @@ const SecurityDashboard = () => {
               }`}>
                 {getStatusMessage()}
               </p>
+              
+              {/* Info button to flip all tiles */}
+              <div className="mt-3 flex justify-start">
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={toggleAllTilesFlip}
+                  className="h-8 px-3 rounded-lg bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-700/30 hover:bg-white/60 dark:hover:bg-slate-800/60 transition-all duration-200 text-slate-600 dark:text-slate-300 hover:text-slate-800 dark:hover:text-slate-100"
+                >
+                  <Info className="h-4 w-4 mr-2" />
+                  {areAllTilesFlipped ? 'Hide Details' : 'Show Details'}
+                </Button>
+              </div>
             </div>
           </StatusCard>
         </div>

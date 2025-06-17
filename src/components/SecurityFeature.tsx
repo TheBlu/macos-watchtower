@@ -1,5 +1,4 @@
-
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
 import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Info } from 'lucide-react';
@@ -11,6 +10,7 @@ interface SecurityFeatureProps {
   hideDescription?: boolean;
   hideButton?: boolean;
   onIconClick?: () => void;
+  isFlipped?: boolean;
 }
 
 const SecurityFeature = ({ 
@@ -19,9 +19,15 @@ const SecurityFeature = ({
   children,
   hideDescription = false,
   hideButton = false,
-  onIconClick
+  onIconClick,
+  isFlipped = false
 }: SecurityFeatureProps) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const [internalIsFlipped, setInternalIsFlipped] = useState(false);
+
+  // Sync internal state with external prop
+  useEffect(() => {
+    setInternalIsFlipped(isFlipped);
+  }, [isFlipped]);
 
   // Get status-based colors
   const getStatusColors = () => {
@@ -130,7 +136,7 @@ const SecurityFeature = ({
   return (
     <div className={`${className} min-h-[240px] group relative overflow-hidden w-full h-full`}>
       {/* Card container with flip animation */}
-      <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+      <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${internalIsFlipped ? 'rotate-y-180' : ''}`}>
         
         {/* Front of card */}
         <div className={`absolute inset-0 backface-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 hover:bg-white/70 dark:hover:bg-slate-900/70 transition-all duration-300 ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 ${getStatusBorderColors()}`}>
@@ -142,7 +148,7 @@ const SecurityFeature = ({
             {feature.lastUpdated && (
               <div className="absolute top-4 right-4 z-10">
                 <button
-                  onClick={() => setIsFlipped(!isFlipped)}
+                  onClick={() => setInternalIsFlipped(!internalIsFlipped)}
                   className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
                 >
                   <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
@@ -192,7 +198,7 @@ const SecurityFeature = ({
                 {feature.name}
               </h3>
               <button
-                onClick={() => setIsFlipped(false)}
+                onClick={() => setInternalIsFlipped(false)}
                 className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
               >
                 <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
