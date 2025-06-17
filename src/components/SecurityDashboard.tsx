@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -116,11 +117,11 @@ const SecurityDashboard = () => {
         {/* Security Features Grid with consistent heights */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {renderFeatureTile('macOS Updates', 'Software Update')}
-          {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
           {renderFeatureTile('FileVault', 'Privacy & Security')}
+          {renderFeatureTile('Firewall', 'Network Firewall')}
           {renderFeatureTile('XProtect', 'Privacy & Security')}
           {renderFeatureTile('Gatekeeper', 'Privacy & Security')}
-          {renderFeatureTile('Firewall', 'Network Firewall')}
+          {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
         </div>
       </div>
     </div>
