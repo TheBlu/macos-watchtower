@@ -1,8 +1,7 @@
-
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
-import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw } from 'lucide-react';
+import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall } from 'lucide-react';
 
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
@@ -39,9 +38,7 @@ const SecurityFeature = ({
     
     switch (feature.name) {
       case 'Firewall':
-        return feature.status === 'enabled' ? 
-          <Shield className={iconClass} /> : 
-          <ShieldOff className={iconClass} />;
+        return <BrickWall className={iconClass} />;
           
       case 'macOS Updates':
         if (feature.status === 'enabled') {
@@ -83,7 +80,7 @@ const SecurityFeature = ({
     
     switch (feature.name) {
       case 'Firewall':
-        return <Shield className={headerIconClass} />;
+        return <BrickWall className={headerIconClass} />;
           
       case 'macOS Updates':
         return <RefreshCw className={headerIconClass} />;
