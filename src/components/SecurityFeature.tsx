@@ -1,7 +1,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
-import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Calendar } from 'lucide-react';
+import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Info } from 'lucide-react';
 
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
@@ -178,16 +178,29 @@ const SecurityFeature = ({
           )}
         </div>
 
-        {/* Calendar icon in bottom right corner */}
-        {feature.lastUpdated && (
-          <div className="absolute bottom-4 right-4">
-            <div className="group/calendar relative">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200">
-                <Calendar className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+        {/* Info icon in bottom left corner */}
+        {(feature.lastUpdated || feature.description) && (
+          <div className="absolute bottom-4 left-4">
+            <div className="group/info relative">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer">
+                <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               </div>
-              {/* Tooltip on hover */}
-              <div className="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs text-white bg-slate-900 dark:bg-slate-700 rounded opacity-0 group-hover/calendar:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
-                {formatDate(feature.lastUpdated)}
+              {/* Combined tooltip on hover */}
+              <div className="absolute bottom-full left-0 mb-2 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/info:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs shadow-lg">
+                <div className="space-y-1">
+                  {feature.lastUpdated && (
+                    <div className="text-xs font-medium text-slate-300">
+                      Last updated: {formatDate(feature.lastUpdated)}
+                    </div>
+                  )}
+                  {feature.description && (
+                    <div className="text-sm text-white">
+                      {feature.description}
+                    </div>
+                  )}
+                </div>
+                {/* Arrow pointing down */}
+                <div className="absolute top-full left-4 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
               </div>
             </div>
           </div>
