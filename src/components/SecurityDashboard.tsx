@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -104,7 +103,7 @@ const SecurityDashboard = () => {
         {/* Security Status */}
         <div className="mb-2">
           <StatusCard
-            title={`Security Status - ${getStatusDisplayText()}`}
+            title="Security Status"
             status={overallStatus}
             description="Summary of your Mac's security features"
             className="max-w-none h-auto"

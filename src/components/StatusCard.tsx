@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Clock } from 'lucide-react';
@@ -33,9 +34,9 @@ const StatusCard = ({
   
   // Status text
   const statusText = {
-    enabled: 'Enabled',
-    disabled: 'Disabled',
-    warning: 'Warning',
+    enabled: 'Fully Protected',
+    disabled: 'Critical',
+    warning: 'Needs Attention',
     unknown: 'Unknown'
   };
 
