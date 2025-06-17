@@ -1,5 +1,4 @@
 
-
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -31,6 +30,20 @@ const SecurityFeature = ({
         return 'text-red-600 dark:text-red-400';
       default:
         return 'text-slate-600 dark:text-slate-400';
+    }
+  };
+
+  // Get status ring colors
+  const getStatusRingColors = () => {
+    switch (feature.status) {
+      case 'enabled':
+        return 'ring-emerald-500/40 ring-4';
+      case 'warning':
+        return 'ring-amber-500/40 ring-4';
+      case 'disabled':
+        return 'ring-red-500/40 ring-4';
+      default:
+        return 'ring-slate-400/40 ring-4';
     }
   };
 
@@ -79,34 +92,6 @@ const SecurityFeature = ({
     return null;
   };
 
-  // Get status indicator colors
-  const getStatusIndicatorColors = () => {
-    switch (feature.status) {
-      case 'enabled':
-        return 'bg-emerald-500/90 shadow-emerald-500/20';
-      case 'warning':
-        return 'bg-amber-500/90 shadow-amber-500/20';
-      case 'disabled':
-        return 'bg-red-500/90 shadow-red-500/20';
-      default:
-        return 'bg-slate-400/90 shadow-slate-400/20';
-    }
-  };
-
-  // Get status text
-  const getStatusText = () => {
-    switch (feature.status) {
-      case 'enabled':
-        return 'Enabled';
-      case 'warning':
-        return 'Warning';
-      case 'disabled':
-        return 'Disabled';
-      default:
-        return 'Unknown';
-    }
-  };
-
   // Format the date to be more human-readable
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
@@ -146,14 +131,8 @@ const SecurityFeature = ({
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       
       <div className="relative flex-grow p-4 pb-3">
-        {/* Status and last updated row */}
-        <div className="flex justify-between items-center mb-6">
-          <div className="flex items-center gap-2">
-            <span className={`w-2.5 h-2.5 rounded-full shadow-lg ${getStatusIndicatorColors()}`}></span>
-            <span className="text-sm font-medium text-slate-600 dark:text-slate-300">
-              {getStatusText()}
-            </span>
-          </div>
+        {/* Last updated in upper right */}
+        <div className="flex justify-end items-center mb-6">
           {feature.lastUpdated && (
             <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
               <Clock className="h-3 w-3 text-slate-400 dark:text-slate-500" />
@@ -165,8 +144,8 @@ const SecurityFeature = ({
         </div>
 
         <div className="flex flex-col items-center space-y-4 mt-4">
-          {/* Large centered icon */}
-          <div className="flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
+          {/* Large centered icon with status ring */}
+          <div className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()}`}>
             {renderMainIcon()}
           </div>
           
@@ -204,4 +183,3 @@ const SecurityFeature = ({
 };
 
 export default SecurityFeature;
-
