@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -61,13 +60,13 @@ const SecurityDashboard = () => {
     const feature = getFeatureByName(featureName);
     if (!feature) return false;
     
-    // Check if feature needs updates based on status
+    // Only check for updates for macOS Updates - all other buttons should be enabled
     if (featureName === 'macOS Updates') {
       return feature.status === 'warning' || feature.status === 'disabled';
     }
     
-    // For other features, updates are available if they're disabled
-    return feature.status === 'disabled';
+    // For all other features, always return true so buttons are enabled
+    return true;
   };
 
   // Function to open system settings
