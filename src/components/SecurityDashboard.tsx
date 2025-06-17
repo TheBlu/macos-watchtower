@@ -1,15 +1,9 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
 import { RefreshCw, Shield, ShieldAlert, ShieldX, Settings } from 'lucide-react';
-import { 
-  HoverCard,
-  HoverCardTrigger,
-  HoverCardContent
-} from "@/components/ui/hover-card";
 
 const SecurityDashboard = () => {
   // Calculate overall security status
@@ -69,24 +63,15 @@ const SecurityDashboard = () => {
     if (!feature) return null;
 
     return (
-      <HoverCard>
-        <HoverCardTrigger asChild>
-          <div className="h-[280px] w-full"> {/* Fixed height for all tiles */}
-            <SecurityFeature 
-              feature={feature}
-              className="h-full w-full flex flex-col"
-              hideDescription={true}
-              hideButton={true}
-              onIconClick={hideButton ? undefined : () => openSystemSettings(settingsSection)}
-            />
-          </div>
-        </HoverCardTrigger>
-        <HoverCardContent className="w-80 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-white/20 dark:border-slate-700/30 rounded-xl shadow-xl">
-          <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-            {feature.description}
-          </p>
-        </HoverCardContent>
-      </HoverCard>
+      <div className="h-[280px] w-full">
+        <SecurityFeature 
+          feature={feature}
+          className="h-full w-full flex flex-col"
+          hideDescription={true}
+          hideButton={true}
+          onIconClick={hideButton ? undefined : () => openSystemSettings(settingsSection)}
+        />
+      </div>
     );
   };
 
