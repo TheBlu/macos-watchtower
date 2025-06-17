@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
-import { RefreshCw, Watch } from 'lucide-react';
+import { RefreshCw } from 'lucide-react';
 
 const Header = () => {
   const [lastRefresh, setLastRefresh] = useState(new Date());
@@ -30,7 +30,11 @@ const Header = () => {
           <div className="flex items-center gap-4">
             <div className="relative">
               <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25">
-                <Watch className="h-6 w-6 text-white" strokeWidth={2} />
+                <img 
+                  src="/lovable-uploads/be8585b7-47b0-4335-b54f-fedd6e38b5bf.png" 
+                  alt="Watchtower" 
+                  className="h-8 w-8"
+                />
               </div>
               {/* Subtle glow effect */}
               <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-400/20 to-blue-600/20 blur-lg -z-10" />
