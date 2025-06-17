@@ -10,6 +10,7 @@ interface SecurityFeatureProps {
   children?: React.ReactNode;
   hideDescription?: boolean;
   hideButton?: boolean;
+  onIconClick?: () => void;
 }
 
 const SecurityFeature = ({ 
@@ -17,7 +18,8 @@ const SecurityFeature = ({
   className, 
   children,
   hideDescription = false,
-  hideButton = false
+  hideButton = false,
+  onIconClick
 }: SecurityFeatureProps) => {
   // Get status-based colors
   const getStatusColors = () => {
@@ -132,10 +134,13 @@ const SecurityFeature = ({
       
       <div className="relative h-full p-4 pb-3 flex flex-col">
         <div className="flex-grow flex flex-col items-center justify-center space-y-4">
-          {/* Large centered icon with status ring */}
+          {/* Large centered icon with status ring - clickable if onIconClick is provided */}
           <div className="relative">
             <div 
-              className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()} transition-colors duration-200`}
+              className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()} transition-colors duration-200 ${
+                onIconClick ? 'cursor-pointer hover:bg-white/60 dark:hover:bg-slate-800/60 hover:scale-105 transform transition-transform' : ''
+              }`}
+              onClick={onIconClick}
             >
               {renderMainIcon()}
             </div>

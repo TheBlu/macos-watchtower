@@ -55,20 +55,6 @@ const SecurityDashboard = () => {
     return securityFeatures.find(feature => feature.name === name);
   };
 
-  // Function to check if updates are available for a feature
-  const hasUpdatesAvailable = (featureName: string) => {
-    const feature = getFeatureByName(featureName);
-    if (!feature) return false;
-    
-    // Only check for updates for macOS Updates - all other buttons should be enabled
-    if (featureName === 'macOS Updates') {
-      return feature.status === 'warning' || feature.status === 'disabled';
-    }
-    
-    // For all other features, always return true so buttons are enabled
-    return true;
-  };
-
   // Function to open system settings
   const openSystemSettings = (section: string) => {
     // In a real macOS app, this would use Swift to open System Settings
@@ -81,11 +67,6 @@ const SecurityDashboard = () => {
     const feature = getFeatureByName(featureName);
     if (!feature) return null;
 
-    const updatesAvailable = hasUpdatesAvailable(featureName);
-    const isMacOSUpdates = featureName === 'macOS Updates';
-    const buttonText = isMacOSUpdates ? 'Update' : 'Settings';
-    const ButtonIcon = isMacOSUpdates ? RefreshCw : Settings;
-
     return (
       <HoverCard>
         <HoverCardTrigger asChild>
@@ -94,36 +75,9 @@ const SecurityDashboard = () => {
               feature={feature}
               className="h-full w-full flex flex-col"
               hideDescription={true}
-              hideButton={true} // Always hide the built-in button
-            >
-              {/* Custom button positioned at bottom left */}
-              {!hideButton && (
-                <div className="mt-auto pt-4 px-2 flex justify-start"> {/* Changed to justify-start for left alignment */}
-                  <Button 
-                    variant={updatesAvailable ? "outline" : "ghost"} 
-                    size="sm" 
-                    disabled={!updatesAvailable}
-                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 flex items-center gap-1.5 ${
-                      updatesAvailable 
-                        ? 'border-gray-300 text-black hover:bg-gray-50 bg-white' 
-                        : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
-                    }`}
-                    onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
-                  >
-                    <ButtonIcon className="h-3 w-3" />
-                    {buttonText}
-                  </Button>
-                </div>
-              )}
-              {/* For tiles without buttons, add some visual balance */}
-              {hideButton && (
-                <div className="mt-auto pt-4 flex justify-center">
-                  <div className="text-xs text-slate-400 dark:text-slate-500 font-medium">
-                    System Managed
-                  </div>
-                </div>
-              )}
-            </SecurityFeature>
+              hideButton={true}
+              onIconClick={hideButton ? undefined : () => openSystemSettings(settingsSection)}
+            />
           </div>
         </HoverCardTrigger>
         <HoverCardContent className="w-80 p-4 bg-white/80 dark:bg-slate-900/80 backdrop-blur-xl border-white/20 dark:border-slate-700/30 rounded-xl shadow-xl">
