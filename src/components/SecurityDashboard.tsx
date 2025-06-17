@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -104,8 +105,8 @@ const SecurityDashboard = () => {
                 {getStatusMessage()}
               </p>
               
-              {/* Info button to flip all tiles */}
-              <div className="mt-3 flex justify-start">
+              {/* Info button moved directly under the status message */}
+              <div className="mt-2 flex justify-start">
                 <Button
                   variant="ghost"
                   size="sm"
