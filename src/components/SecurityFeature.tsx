@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -211,7 +210,7 @@ const SecurityFeature = ({
               {/* Description */}
               <div>
                 <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
                   {feature.description}
                 </p>
               </div>
@@ -222,7 +221,7 @@ const SecurityFeature = ({
                   <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">
                     {feature.name === 'macOS Updates' ? 'Version' : 'Current Setting'}
                   </h4>
-                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg">
+                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg font-bold">
                     {feature.setting}
                   </div>
                 </div>
