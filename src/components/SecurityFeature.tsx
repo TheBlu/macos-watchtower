@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -137,14 +138,14 @@ const SecurityFeature = ({
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           
           <div className="relative h-full p-4 pb-3 flex flex-col">
-            {/* Info button in upper right corner */}
+            {/* Info button in upper right corner - made larger */}
             {feature.lastUpdated && (
               <div className="absolute top-4 right-4 z-10">
                 <button
                   onClick={() => setIsFlipped(!isFlipped)}
-                  className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
                 >
-                  <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                  <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
                 </button>
               </div>
             )}
@@ -192,9 +193,9 @@ const SecurityFeature = ({
               </h3>
               <button
                 onClick={() => setIsFlipped(false)}
-                className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+                className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
               >
-                <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               </button>
             </div>
 
