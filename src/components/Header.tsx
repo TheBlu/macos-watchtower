@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from 'lucide-react';
@@ -32,7 +33,7 @@ const Header = () => {
                 <img 
                   src="/lovable-uploads/be8585b7-47b0-4335-b54f-fedd6e38b5bf.png" 
                   alt="Watchtower" 
-                  className="h-24 w-24 object-contain"
+                  className="h-28 w-28 object-contain"
                 />
               </div>
               {/* Subtle glow effect */}
