@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -52,10 +53,8 @@ const SecurityFeature = ({
 
   // Determine which icon to use based on the feature name and status for main content
   const renderMainIcon = () => {
-    // Make calendar icons smaller for macOS Updates
-    const iconClass = feature.name === 'macOS Updates' 
-      ? `h-8 w-8 ${getStatusColors()}` 
-      : `h-12 w-12 ${getStatusColors()}`;
+    // Make all icons uniform size
+    const iconClass = `h-12 w-12 ${getStatusColors()}`;
     
     switch (feature.name) {
       case 'Firewall':
@@ -139,6 +138,18 @@ const SecurityFeature = ({
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           
           <div className="relative h-full p-4 pb-3 flex flex-col">
+            {/* Info button in upper right corner */}
+            {feature.lastUpdated && (
+              <div className="absolute top-4 right-4 z-10">
+                <button
+                  onClick={() => setIsFlipped(!isFlipped)}
+                  className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+                >
+                  <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                </button>
+              </div>
+            )}
+
             <div className="flex-grow flex flex-col items-center justify-center space-y-4">
               {/* Large centered icon with status ring - clickable if onIconClick is provided */}
               <div className="relative">
@@ -152,35 +163,11 @@ const SecurityFeature = ({
                 </div>
               </div>
               
-              {/* Centered title with inline info button */}
+              {/* Centered title */}
               <div className="text-center">
-                <div className="flex items-center justify-center gap-2">
-                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
-                    {feature.name}
-                  </h3>
-                  {feature.lastUpdated && (
-                    <button
-                      onClick={() => setIsFlipped(!isFlipped)}
-                      className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
-                    >
-                      <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
-                    </button>
-                  )}
-                </div>
-              </div>
-              
-              {/* Centered content */}
-              <div className="text-center space-y-2">
-                {feature.setting && (
-                  <div className="text-sm">
-                    <div className="font-semibold text-slate-600 dark:text-slate-400 mb-1">
-                      {feature.name === 'macOS Updates' ? 'Version' : 'Setting'}
-                    </div>
-                    <div className="text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg inline-block">
-                      {feature.setting}
-                    </div>
-                  </div>
-                )}
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+                  {feature.name}
+                </h3>
               </div>
             </div>
 
