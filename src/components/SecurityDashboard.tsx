@@ -4,7 +4,7 @@ import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { Download, Shield, ShieldAlert, ShieldX, Settings } from 'lucide-react';
+import { RefreshCw, Shield, ShieldAlert, ShieldX, Settings } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -85,7 +85,7 @@ const SecurityDashboard = () => {
     const updatesAvailable = hasUpdatesAvailable(featureName);
     const isMacOSUpdates = featureName === 'macOS Updates';
     const buttonText = isMacOSUpdates ? 'Update' : 'Settings';
-    const buttonIcon = isMacOSUpdates ? Download : Settings;
+    const buttonIcon = isMacOSUpdates ? RefreshCw : Settings;
 
     return (
       <HoverCard>
@@ -99,12 +99,12 @@ const SecurityDashboard = () => {
             >
               {/* Custom button positioned at bottom */}
               {!hideButton && (
-                <div className="mt-auto pt-4"> {/* Push to bottom with margin-top auto */}
+                <div className="mt-auto pt-4 px-2"> {/* Added horizontal padding and push to bottom */}
                   <Button 
                     variant={updatesAvailable ? "default" : "ghost"} 
                     size="sm" 
                     disabled={!updatesAvailable}
-                    className={`w-full h-8 text-xs px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
+                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 mx-auto block ${
                       updatesAvailable 
                         ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
                         : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
