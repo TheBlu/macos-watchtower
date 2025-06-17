@@ -1,5 +1,4 @@
 
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -30,6 +29,20 @@ const SecurityDashboard = () => {
       return `Some security features are disabled: ${disabledFeatures}.`;
     } else {
       return "Some security features need attention. Check the details below.";
+    }
+  };
+
+  // Get display text for status
+  const getStatusDisplayText = () => {
+    switch (overallStatus) {
+      case 'enabled':
+        return 'Fully Protected';
+      case 'disabled':
+        return 'Critical';
+      case 'warning':
+        return 'Needs Attention';
+      default:
+        return 'Unknown';
     }
   };
 
@@ -91,7 +104,7 @@ const SecurityDashboard = () => {
         {/* Security Status */}
         <div className="mb-2">
           <StatusCard
-            title="Security Status"
+            title={`Security Status - ${getStatusDisplayText()}`}
             status={overallStatus}
             description="Summary of your Mac's security features"
             className="max-w-none h-auto"
@@ -137,4 +150,3 @@ const SecurityDashboard = () => {
 };
 
 export default SecurityDashboard;
-
