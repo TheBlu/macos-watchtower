@@ -3,7 +3,7 @@ import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { ExternalLink, Shield, ShieldAlert, ShieldX } from 'lucide-react';
+import { Download, Shield, ShieldAlert, ShieldX } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -55,6 +55,20 @@ const SecurityDashboard = () => {
     return securityFeatures.find(feature => feature.name === name);
   };
 
+  // Function to check if updates are available for a feature
+  const hasUpdatesAvailable = (featureName: string) => {
+    const feature = getFeatureByName(featureName);
+    if (!feature) return false;
+    
+    // Check if feature needs updates based on status
+    if (featureName === 'macOS Updates') {
+      return feature.status === 'warning' || feature.status === 'disabled';
+    }
+    
+    // For other features, updates are available if they're disabled
+    return feature.status === 'disabled';
+  };
+
   // Function to open system settings
   const openSystemSettings = (section: string) => {
     // In a real macOS app, this would use Swift to open System Settings
@@ -67,6 +81,8 @@ const SecurityDashboard = () => {
     const feature = getFeatureByName(featureName);
     if (!feature) return null;
 
+    const updatesAvailable = hasUpdatesAvailable(featureName);
+
     return (
       <HoverCard>
         <HoverCardTrigger asChild>
@@ -78,13 +94,18 @@ const SecurityDashboard = () => {
               hideButton={hideButton}
             >
               <Button 
-                variant="outline" 
+                variant={updatesAvailable ? "default" : "outline"} 
                 size="sm" 
-                className="mt-2 h-8 text-xs px-3 py-0 rounded-lg border-white/20 dark:border-slate-700/30 bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200"
-                onClick={() => openSystemSettings(settingsSection)}
+                disabled={!updatesAvailable}
+                className={`mt-2 h-9 text-xs px-4 py-2 rounded-lg font-semibold border transition-all duration-200 ${
+                  updatesAvailable 
+                    ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-600/25' 
+                    : 'border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed opacity-60'
+                }`}
+                onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
               >
-                <ExternalLink className="h-3 w-3 mr-1.5" /> 
-                Open
+                <Download className="h-3 w-3 mr-1.5" /> 
+                Update
               </Button>
             </SecurityFeature>
           </div>
