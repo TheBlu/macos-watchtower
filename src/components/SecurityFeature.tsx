@@ -209,8 +209,8 @@ const SecurityFeature = ({
             <div className="flex-grow space-y-4">
               {/* Description */}
               <div>
-                <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed font-semibold">
+                <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
                   {feature.description}
                 </p>
               </div>
@@ -218,10 +218,10 @@ const SecurityFeature = ({
               {/* Setting details */}
               {feature.setting && (
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                  <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">
                     {feature.name === 'macOS Updates' ? 'Version' : 'Current Setting'}
                   </h4>
-                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg font-bold">
+                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg">
                     {feature.setting}
                   </div>
                 </div>
