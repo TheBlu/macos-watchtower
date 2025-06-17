@@ -1,4 +1,5 @@
 
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -97,16 +98,16 @@ const SecurityDashboard = () => {
             headerIcon={getSecurityStatusIcon()}
           >
             <div className="mt-2">
-              <p className={`text-sm font-medium leading-relaxed ${
-                overallStatus === 'enabled' ? 'text-emerald-700 dark:text-emerald-400' : 
-                overallStatus === 'disabled' ? 'text-red-700 dark:text-red-400' :
-                'text-amber-700 dark:text-amber-400'
-              }`}>
-                {getStatusMessage()}
-              </p>
-              
-              {/* Info button moved directly under the status message */}
-              <div className="mt-1 flex justify-end">
+              <div className="flex items-center justify-between">
+                <p className={`text-sm font-medium leading-relaxed ${
+                  overallStatus === 'enabled' ? 'text-emerald-700 dark:text-emerald-400' : 
+                  overallStatus === 'disabled' ? 'text-red-700 dark:text-red-400' :
+                  'text-amber-700 dark:text-amber-400'
+                }`}>
+                  {getStatusMessage()}
+                </p>
+                
+                {/* Info button inline with the status message */}
                 <Button
                   variant="ghost"
                   size="sm"
@@ -136,3 +137,4 @@ const SecurityDashboard = () => {
 };
 
 export default SecurityDashboard;
+
