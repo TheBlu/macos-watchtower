@@ -33,7 +33,7 @@ const Header = () => {
                 <img 
                   src="/lovable-uploads/be8585b7-47b0-4335-b54f-fedd6e38b5bf.png" 
                   alt="Watchtower" 
-                  className="h-full w-full object-contain"
+                  className="h-20 w-20 object-contain"
                 />
               </div>
               {/* Subtle glow effect */}
