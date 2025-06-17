@@ -126,12 +126,12 @@ const SecurityFeature = ({
   };
 
   return (
-    <div className={`${className} min-h-[240px] group relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 hover:bg-white/70 dark:hover:bg-slate-900/70 transition-all duration-300 ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 w-full h-full flex flex-col`}>
+    <div className={`${className} min-h-[240px] group relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 hover:bg-white/70 dark:hover:bg-slate-900/70 transition-all duration-300 ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 w-full h-full`}>
       {/* Glass reflection effect */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       
-      <div className="relative flex-grow p-4 pb-3">
-        <div className="flex flex-col items-center space-y-4 mt-6">
+      <div className="relative h-full p-4 pb-3 flex flex-col">
+        <div className="flex-grow flex flex-col items-center justify-center space-y-4">
           {/* Large centered icon with status ring */}
           <div className="relative">
             <div 
@@ -161,14 +161,14 @@ const SecurityFeature = ({
               </div>
             )}
           </div>
-
-          {/* Centered button */}
-          {children && !hideButton && (
-            <div className="flex justify-center mt-4">
-              {children}
-            </div>
-          )}
         </div>
+
+        {/* Children content (buttons, etc.) positioned at bottom */}
+        {children && (
+          <div className="mt-auto">
+            {children}
+          </div>
+        )}
 
         {/* Info icon in bottom right corner */}
         {feature.lastUpdated && (

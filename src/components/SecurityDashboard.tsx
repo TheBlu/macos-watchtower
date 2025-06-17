@@ -90,27 +90,40 @@ const SecurityDashboard = () => {
     return (
       <HoverCard>
         <HoverCardTrigger asChild>
-          <div className="h-full w-full">
+          <div className="h-[280px] w-full"> {/* Fixed height for all tiles */}
             <SecurityFeature 
               feature={feature}
-              className="h-full w-full"
+              className="h-full w-full flex flex-col"
               hideDescription={true}
-              hideButton={hideButton}
+              hideButton={true} // Always hide the built-in button
             >
-              <Button 
-                variant={updatesAvailable ? "default" : "ghost"} 
-                size="sm" 
-                disabled={!updatesAvailable}
-                className={`mt-1 h-8 text-xs px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
-                  updatesAvailable 
-                    ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
-                    : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
-                }`}
-                onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
-              >
-                {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1" })}
-                {buttonText}
-              </Button>
+              {/* Custom button positioned at bottom */}
+              {!hideButton && (
+                <div className="mt-auto pt-4"> {/* Push to bottom with margin-top auto */}
+                  <Button 
+                    variant={updatesAvailable ? "default" : "ghost"} 
+                    size="sm" 
+                    disabled={!updatesAvailable}
+                    className={`w-full h-8 text-xs px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
+                      updatesAvailable 
+                        ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
+                        : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
+                    }`}
+                    onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
+                  >
+                    {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1" })}
+                    {buttonText}
+                  </Button>
+                </div>
+              )}
+              {/* For tiles without buttons, add some visual balance */}
+              {hideButton && (
+                <div className="mt-auto pt-4 flex justify-center">
+                  <div className="text-xs text-slate-400 dark:text-slate-500 font-medium">
+                    System Managed
+                  </div>
+                </div>
+              )}
             </SecurityFeature>
           </div>
         </HoverCardTrigger>
@@ -147,7 +160,7 @@ const SecurityDashboard = () => {
           </StatusCard>
         </div>
 
-        {/* Security Features Grid */}
+        {/* Security Features Grid with consistent heights */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 w-full">
           {renderFeatureTile('macOS Updates', 'Software Update')}
           {renderFeatureTile('System Integrity Protection', 'Privacy & Security', true)}
