@@ -85,7 +85,7 @@ const SecurityDashboard = () => {
     const updatesAvailable = hasUpdatesAvailable(featureName);
     const isMacOSUpdates = featureName === 'macOS Updates';
     const buttonText = isMacOSUpdates ? 'Update' : 'Settings';
-    const buttonIcon = isMacOSUpdates ? RefreshCw : Settings;
+    const ButtonIcon = isMacOSUpdates ? RefreshCw : Settings;
 
     return (
       <HoverCard>
@@ -104,14 +104,14 @@ const SecurityDashboard = () => {
                     variant={updatesAvailable ? "default" : "ghost"} 
                     size="sm" 
                     disabled={!updatesAvailable}
-                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 mx-auto block ${
+                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 mx-auto flex items-center gap-1.5 ${
                       updatesAvailable 
                         ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
                         : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
                     }`}
                     onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
                   >
-                    {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1.5" })}
+                    <ButtonIcon className="h-3 w-3" />
                     {buttonText}
                   </Button>
                 </div>
