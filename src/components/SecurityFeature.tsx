@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -255,7 +254,7 @@ const SecurityFeature = ({
       </div>
 
       {/* Custom CSS for 3D transforms */}
-      <style jsx>{`
+      <style>{`
         .transform-style-3d {
           transform-style: preserve-3d;
         }
