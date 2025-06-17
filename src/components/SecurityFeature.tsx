@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -230,8 +231,8 @@ const SecurityFeature = ({
               {/* Last updated */}
               {feature.lastUpdated && (
                 <div>
-                  <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Last Updated</h4>
                   <div className="flex items-center gap-2">
+                    <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400">Last Updated:</h4>
                     <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
                       <RefreshCw className="h-3 w-3 text-slate-400 dark:text-slate-500" />
                       <span className="text-sm text-slate-600 dark:text-slate-300">
