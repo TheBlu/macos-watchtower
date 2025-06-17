@@ -2,7 +2,7 @@
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
-import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Clock } from 'lucide-react';
+import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Calendar } from 'lucide-react';
 
 interface SecurityFeatureProps {
   feature: SecurityFeatureType;
@@ -131,19 +131,7 @@ const SecurityFeature = ({
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       
       <div className="relative flex-grow p-4 pb-3">
-        {/* Last updated in upper right */}
-        <div className="flex justify-end items-center mb-6">
-          {feature.lastUpdated && (
-            <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
-              <Clock className="h-3 w-3 text-slate-400 dark:text-slate-500" />
-              <span className="text-xs font-medium text-slate-500 dark:text-slate-400">
-                {formatDate(feature.lastUpdated)}
-              </span>
-            </div>
-          )}
-        </div>
-
-        <div className="flex flex-col items-center space-y-4 mt-4">
+        <div className="flex flex-col items-center space-y-4 mt-6">
           {/* Large centered icon with status ring */}
           <div className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()}`}>
             {renderMainIcon()}
@@ -177,6 +165,21 @@ const SecurityFeature = ({
             </div>
           )}
         </div>
+
+        {/* Calendar icon in bottom right corner */}
+        {feature.lastUpdated && (
+          <div className="absolute bottom-4 right-4">
+            <div className="group/calendar relative">
+              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200">
+                <Calendar className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+              </div>
+              {/* Tooltip on hover */}
+              <div className="absolute bottom-full right-0 mb-2 px-2 py-1 text-xs text-white bg-slate-900 dark:bg-slate-700 rounded opacity-0 group-hover/calendar:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none">
+                {formatDate(feature.lastUpdated)}
+              </div>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
