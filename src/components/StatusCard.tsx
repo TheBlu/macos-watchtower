@@ -2,6 +2,7 @@
 import React from 'react';
 import { cn } from '@/lib/utils';
 import { Clock } from 'lucide-react';
+import { formatDate } from '@/utils/formatters';
 
 interface StatusCardProps {
   title: string;
@@ -24,7 +25,6 @@ const StatusCard = ({
   footerContent,
   headerIcon
 }: StatusCardProps) => {
-  // Status indicator colors with modern styling
   const statusColor = {
     enabled: 'bg-emerald-500/90 shadow-emerald-500/20',
     disabled: 'bg-red-500/90 shadow-red-500/20',
@@ -32,50 +32,11 @@ const StatusCard = ({
     unknown: 'bg-slate-400/90 shadow-slate-400/20'
   };
   
-  // Status text
   const statusText = {
     enabled: 'Fully Protected',
     disabled: 'Critical',
     warning: 'Needs Attention',
     unknown: 'Unknown'
-  };
-
-  // Format the date to be more human-readable
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    const now = new Date();
-    const diffInMinutes = Math.floor((now.getTime() - date.getTime()) / (1000 * 60));
-    
-    // If less than 1 minute ago
-    if (diffInMinutes < 1) {
-      return 'Just now';
-    }
-    
-    // If less than 60 minutes ago
-    if (diffInMinutes < 60) {
-      return `${diffInMinutes}m ago`;
-    }
-    
-    // If less than 24 hours ago
-    const diffInHours = Math.floor(diffInMinutes / 60);
-    if (diffInHours < 24) {
-      return `${diffInHours}h ago`;
-    }
-    
-    // If less than 7 days ago
-    const diffInDays = Math.floor(diffInHours / 24);
-    if (diffInDays < 7) {
-      return `${diffInDays}d ago`;
-    }
-    
-    // Otherwise show the actual date
-    return date.toLocaleDateString(undefined, {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
-      hour12: true
-    });
   };
 
   return (
@@ -94,7 +55,6 @@ const StatusCard = ({
       "w-full h-full flex flex-col",
       className
     )}>
-      {/* Glass reflection effect */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
       
       <div className="relative flex-grow p-4 pb-3">
