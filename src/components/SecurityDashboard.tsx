@@ -1,9 +1,10 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
 import { securityFeatures } from '@/utils/mockData';
 import { Button } from "@/components/ui/button";
-import { Download, Shield, ShieldAlert, ShieldX } from 'lucide-react';
+import { Download, Shield, ShieldAlert, ShieldX, Settings } from 'lucide-react';
 import { 
   HoverCard,
   HoverCardTrigger,
@@ -82,6 +83,9 @@ const SecurityDashboard = () => {
     if (!feature) return null;
 
     const updatesAvailable = hasUpdatesAvailable(featureName);
+    const isMacOSUpdates = featureName === 'macOS Updates';
+    const buttonText = isMacOSUpdates ? 'Update' : 'Settings';
+    const buttonIcon = isMacOSUpdates ? Download : Settings;
 
     return (
       <HoverCard>
@@ -104,8 +108,8 @@ const SecurityDashboard = () => {
                 }`}
                 onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
               >
-                <Download className="h-3 w-3 mr-1.5" /> 
-                Update
+                {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1.5" })}
+                {buttonText}
               </Button>
             </SecurityFeature>
           </div>
