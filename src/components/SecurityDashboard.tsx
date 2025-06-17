@@ -98,17 +98,17 @@ const SecurityDashboard = () => {
               hideButton={hideButton}
             >
               <Button 
-                variant={updatesAvailable ? "default" : "outline"} 
+                variant={updatesAvailable ? "default" : "ghost"} 
                 size="sm" 
                 disabled={!updatesAvailable}
-                className={`mt-2 h-9 text-xs px-4 py-2 rounded-lg font-semibold border transition-all duration-200 ${
+                className={`mt-1 h-8 text-xs px-3 py-1.5 rounded-md font-medium transition-all duration-200 ${
                   updatesAvailable 
-                    ? 'bg-blue-600 hover:bg-blue-700 text-white border-blue-600 shadow-lg shadow-blue-600/25' 
-                    : 'border-slate-300 dark:border-slate-600 bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 cursor-not-allowed opacity-60'
+                    ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
+                    : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
                 }`}
                 onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
               >
-                {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1.5" })}
+                {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1" })}
                 {buttonText}
               </Button>
             </SecurityFeature>
