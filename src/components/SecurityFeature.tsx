@@ -1,3 +1,4 @@
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -32,9 +33,9 @@ const SecurityFeature = ({
     }
   };
 
-  // Determine which icon to use based on the feature name and status for content area
-  const renderFeatureIcon = () => {
-    const iconClass = `h-4 w-4 ${getStatusColors()}`;
+  // Determine which icon to use based on the feature name and status for main content
+  const renderMainIcon = () => {
+    const iconClass = `h-12 w-12 ${getStatusColors()}`;
     
     switch (feature.name) {
       case 'Firewall':
@@ -74,7 +75,7 @@ const SecurityFeature = ({
     return null;
   };
 
-  // Determine which header icon to use based on the feature name
+  // Determine which header icon to use based on the feature name (smaller for header)
   const renderHeaderIcon = () => {
     const headerIconClass = `h-6 w-6 ${getStatusColors()}`;
     
@@ -107,7 +108,7 @@ const SecurityFeature = ({
       status={feature.status}
       description={hideDescription ? "" : feature.description}
       lastUpdated={feature.lastUpdated}
-      className={`${className} min-h-[200px]`}
+      className={`${className} min-h-[240px]`}
       headerIcon={renderHeaderIcon()}
       footerContent={
         children && !hideButton ? (
@@ -117,17 +118,25 @@ const SecurityFeature = ({
         ) : undefined
       }
     >
-      <div className="flex flex-col space-y-3 mt-2">
-        {feature.setting && (
-          <div className="text-sm">
-            <span className="font-semibold text-slate-600 dark:text-slate-400">
-              {feature.name === 'macOS Updates' ? 'Version:' : 'Setting:'}
-            </span>
-            <span className="ml-2 text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-2 py-1 rounded-lg">
-              {feature.setting}
-            </span>
-          </div>
-        )}
+      <div className="flex flex-col items-center space-y-4 mt-4">
+        {/* Large centered icon */}
+        <div className="flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
+          {renderMainIcon()}
+        </div>
+        
+        {/* Centered content */}
+        <div className="text-center space-y-2">
+          {feature.setting && (
+            <div className="text-sm">
+              <div className="font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                {feature.name === 'macOS Updates' ? 'Version' : 'Setting'}
+              </div>
+              <div className="text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg inline-block">
+                {feature.setting}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
     </StatusCard>
   );
