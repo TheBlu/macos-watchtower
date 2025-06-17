@@ -1,5 +1,3 @@
-
-
 import React, { useState } from 'react';
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from 'lucide-react';
@@ -32,7 +30,7 @@ const Header = () => {
             <div className="relative">
               <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-sky-400 to-sky-500 flex items-center justify-center shadow-lg shadow-sky-400/25 overflow-hidden">
                 <img 
-                  src="/lovable-uploads/be8585b7-47b0-4335-b54f-fedd6e38b5bf.png" 
+                  src="/lovable-uploads/f2713749-728f-49bf-8044-63e560579c2d.png" 
                   alt="Watchtower" 
                   className="h-full w-full object-cover"
                 />
