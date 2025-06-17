@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import SecurityFeature from './SecurityFeature';
@@ -105,7 +106,7 @@ const SecurityDashboard = () => {
               </p>
               
               {/* Info button moved directly under the status message */}
-              <div className="mt-2 flex justify-end">
+              <div className="mt-1 flex justify-end">
                 <Button
                   variant="ghost"
                   size="sm"
