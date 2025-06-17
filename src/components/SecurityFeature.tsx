@@ -1,4 +1,5 @@
 
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -35,7 +36,10 @@ const SecurityFeature = ({
 
   // Determine which icon to use based on the feature name and status for main content
   const renderMainIcon = () => {
-    const iconClass = `h-12 w-12 ${getStatusColors()}`;
+    // Make calendar icons smaller for macOS Updates
+    const iconClass = feature.name === 'macOS Updates' 
+      ? `h-8 w-8 ${getStatusColors()}` 
+      : `h-12 w-12 ${getStatusColors()}`;
     
     switch (feature.name) {
       case 'Firewall':
@@ -124,6 +128,13 @@ const SecurityFeature = ({
           {renderMainIcon()}
         </div>
         
+        {/* Centered title */}
+        <div className="text-center">
+          <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+            {feature.name}
+          </h3>
+        </div>
+        
         {/* Centered content */}
         <div className="text-center space-y-2">
           {feature.setting && (
@@ -143,3 +154,4 @@ const SecurityFeature = ({
 };
 
 export default SecurityFeature;
+
