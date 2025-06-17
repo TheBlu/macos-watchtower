@@ -29,7 +29,7 @@ const Header = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="relative">
-              <div className="h-12 w-12 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 overflow-hidden">
+              <div className="h-16 w-16 rounded-2xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/25 overflow-hidden">
                 <img 
                   src="/lovable-uploads/be8585b7-47b0-4335-b54f-fedd6e38b5bf.png" 
                   alt="Watchtower" 
