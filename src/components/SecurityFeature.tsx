@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
 import { Shield, ShieldOff, CalendarCheck, CalendarX, CalendarClock, Lock, LockOpen, CheckCircle, XCircle, HardDrive, AlertTriangle, RefreshCw, BrickWall, Info } from 'lucide-react';
@@ -21,6 +21,8 @@ const SecurityFeature = ({
   hideButton = false,
   onIconClick
 }: SecurityFeatureProps) => {
+  const [isFlipped, setIsFlipped] = useState(false);
+
   // Get status-based colors
   const getStatusColors = () => {
     switch (feature.status) {
@@ -128,72 +130,142 @@ const SecurityFeature = ({
   };
 
   return (
-    <div className={`${className} min-h-[240px] group relative overflow-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 hover:bg-white/70 dark:hover:bg-slate-900/70 transition-all duration-300 ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300 w-full h-full`}>
-      {/* Glass reflection effect */}
-      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-      
-      <div className="relative h-full p-4 pb-3 flex flex-col">
-        <div className="flex-grow flex flex-col items-center justify-center space-y-4">
-          {/* Large centered icon with status ring - clickable if onIconClick is provided */}
-          <div className="relative">
-            <div 
-              className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()} transition-colors duration-200 ${
-                onIconClick ? 'cursor-pointer hover:bg-white/60 dark:hover:bg-slate-800/60 hover:scale-105 transform transition-transform' : ''
-              }`}
-              onClick={onIconClick}
-            >
-              {renderMainIcon()}
+    <div className={`${className} min-h-[240px] group relative overflow-hidden w-full h-full`}>
+      {/* Card container with flip animation */}
+      <div className={`relative w-full h-full transition-transform duration-700 transform-style-3d ${isFlipped ? 'rotate-y-180' : ''}`}>
+        
+        {/* Front of card */}
+        <div className="absolute inset-0 backface-hidden bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5 hover:shadow-2xl hover:shadow-black/10 hover:bg-white/70 dark:hover:bg-slate-900/70 transition-all duration-300 ease-out before:absolute before:inset-0 before:rounded-2xl before:bg-gradient-to-br before:from-white/10 before:to-transparent before:opacity-0 hover:before:opacity-100 before:transition-opacity before:duration-300">
+          {/* Glass reflection effect */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+          
+          <div className="relative h-full p-4 pb-3 flex flex-col">
+            <div className="flex-grow flex flex-col items-center justify-center space-y-4">
+              {/* Large centered icon with status ring - clickable if onIconClick is provided */}
+              <div className="relative">
+                <div 
+                  className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()} transition-colors duration-200 ${
+                    onIconClick ? 'cursor-pointer hover:bg-white/60 dark:hover:bg-slate-800/60 hover:scale-105 transform transition-transform' : ''
+                  }`}
+                  onClick={onIconClick}
+                >
+                  {renderMainIcon()}
+                </div>
+              </div>
+              
+              {/* Centered title with inline info button */}
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-2">
+                  <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+                    {feature.name}
+                  </h3>
+                  {feature.lastUpdated && (
+                    <button
+                      onClick={() => setIsFlipped(!isFlipped)}
+                      className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+                    >
+                      <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+                    </button>
+                  )}
+                </div>
+              </div>
+              
+              {/* Centered content */}
+              <div className="text-center space-y-2">
+                {feature.setting && (
+                  <div className="text-sm">
+                    <div className="font-semibold text-slate-600 dark:text-slate-400 mb-1">
+                      {feature.name === 'macOS Updates' ? 'Version' : 'Setting'}
+                    </div>
+                    <div className="text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg inline-block">
+                      {feature.setting}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
-          </div>
-          
-          {/* Centered title */}
-          <div className="text-center">
-            <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
-              {feature.name}
-            </h3>
-          </div>
-          
-          {/* Centered content */}
-          <div className="text-center space-y-2">
-            {feature.setting && (
-              <div className="text-sm">
-                <div className="font-semibold text-slate-600 dark:text-slate-400 mb-1">
-                  {feature.name === 'macOS Updates' ? 'Version' : 'Setting'}
-                </div>
-                <div className="text-slate-700 dark:text-slate-300 font-mono text-xs bg-slate-100/80 dark:bg-slate-800/80 px-3 py-1.5 rounded-lg inline-block">
-                  {feature.setting}
-                </div>
+
+            {/* Children content (buttons, etc.) positioned at bottom */}
+            {children && (
+              <div className="mt-auto">
+                {children}
               </div>
             )}
           </div>
         </div>
 
-        {/* Children content (buttons, etc.) positioned at bottom */}
-        {children && (
-          <div className="mt-auto">
-            {children}
-          </div>
-        )}
+        {/* Back of card */}
+        <div className="absolute inset-0 backface-hidden rotate-y-180 bg-white/60 dark:bg-slate-900/60 backdrop-blur-lg backdrop-saturate-150 border border-white/20 dark:border-slate-700/30 rounded-2xl shadow-xl shadow-black/5">
+          {/* Glass reflection effect */}
+          <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+          
+          <div className="relative h-full p-4 flex flex-col">
+            {/* Header with title and close button */}
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+                {feature.name}
+              </h3>
+              <button
+                onClick={() => setIsFlipped(false)}
+                className="flex items-center justify-center w-6 h-6 rounded-md bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+              >
+                <Info className="h-3 w-3 text-slate-500 dark:text-slate-400" />
+              </button>
+            </div>
 
-        {/* Info icon in bottom right corner */}
-        {feature.lastUpdated && (
-          <div className="absolute bottom-4 right-4">
-            <div className="group/info relative">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer">
-                <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+            {/* Content */}
+            <div className="flex-grow space-y-4">
+              {/* Description */}
+              <div>
+                <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
+                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                  {feature.description}
+                </p>
               </div>
-              {/* Last updated tooltip on hover */}
-              <div className="absolute bottom-full right-0 mb-2 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/info:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap shadow-lg">
-                <div className="text-xs font-medium">
-                  Last updated: {formatDate(feature.lastUpdated)}
+
+              {/* Setting details */}
+              {feature.setting && (
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">
+                    {feature.name === 'macOS Updates' ? 'Version' : 'Current Setting'}
+                  </h4>
+                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg">
+                    {feature.setting}
+                  </div>
                 </div>
-                {/* Arrow pointing down */}
-                <div className="absolute top-full right-4 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
-              </div>
+              )}
+
+              {/* Last updated */}
+              {feature.lastUpdated && (
+                <div>
+                  <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400 mb-2">Last Updated</h4>
+                  <div className="flex items-center gap-2">
+                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
+                      <RefreshCw className="h-3 w-3 text-slate-400 dark:text-slate-500" />
+                      <span className="text-sm text-slate-600 dark:text-slate-300">
+                        {formatDate(feature.lastUpdated)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
-        )}
+        </div>
       </div>
+
+      {/* Custom CSS for 3D transforms */}
+      <style jsx>{`
+        .transform-style-3d {
+          transform-style: preserve-3d;
+        }
+        .backface-hidden {
+          backface-visibility: hidden;
+        }
+        .rotate-y-180 {
+          transform: rotateY(180deg);
+        }
+      `}</style>
     </div>
   );
 };
