@@ -1,4 +1,3 @@
-
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -133,19 +132,21 @@ const SecurityFeature = ({
       <div className="relative flex-grow p-4 pb-3">
         <div className="flex flex-col items-center space-y-4 mt-6">
           {/* Large centered icon with status ring and hover tooltip */}
-          <div className="group/icon relative">
-            <div className={`flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()}`}>
+          <div className="relative">
+            <div 
+              className={`group/icon flex items-center justify-center p-4 rounded-2xl bg-white/40 dark:bg-slate-800/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30 ${getStatusRingColors()} hover:bg-white/60 dark:hover:bg-slate-800/60 transition-colors duration-200 cursor-pointer`}
+            >
               {renderMainIcon()}
+              
+              {/* Description tooltip on hover - positioned absolutely to avoid interference */}
+              {feature.description && !hideDescription && (
+                <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-3 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-50 max-w-xs shadow-lg">
+                  {feature.description}
+                  {/* Arrow pointing up */}
+                  <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-slate-900 dark:border-b-slate-700"></div>
+                </div>
+              )}
             </div>
-            
-            {/* Description tooltip on hover */}
-            {feature.description && !hideDescription && (
-              <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/icon:opacity-100 transition-opacity duration-200 whitespace-nowrap pointer-events-none z-10 max-w-xs">
-                {feature.description}
-                {/* Arrow pointing up */}
-                <div className="absolute bottom-full left-1/2 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-b-4 border-transparent border-b-slate-900 dark:border-b-slate-700"></div>
-              </div>
-            )}
           </div>
           
           {/* Centered title */}
