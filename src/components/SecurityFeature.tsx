@@ -1,3 +1,4 @@
+
 import React from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -170,25 +171,16 @@ const SecurityFeature = ({
         </div>
 
         {/* Info icon in bottom right corner */}
-        {(feature.lastUpdated || feature.description) && (
+        {feature.lastUpdated && (
           <div className="absolute bottom-4 right-4">
             <div className="group/info relative">
               <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer">
                 <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
               </div>
-              {/* Combined tooltip on hover */}
-              <div className="absolute bottom-full right-0 mb-2 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/info:opacity-100 transition-opacity duration-200 pointer-events-none z-50 max-w-xs shadow-lg">
-                <div className="space-y-1">
-                  {feature.lastUpdated && (
-                    <div className="text-xs font-medium text-slate-300">
-                      Last updated: {formatDate(feature.lastUpdated)}
-                    </div>
-                  )}
-                  {feature.description && (
-                    <div className="text-sm text-white">
-                      {feature.description}
-                    </div>
-                  )}
+              {/* Last updated tooltip on hover */}
+              <div className="absolute bottom-full right-0 mb-2 px-3 py-2 text-sm text-white bg-slate-900 dark:bg-slate-700 rounded-lg opacity-0 group-hover/info:opacity-100 transition-opacity duration-200 pointer-events-none z-50 whitespace-nowrap shadow-lg">
+                <div className="text-xs font-medium">
+                  Last updated: {formatDate(feature.lastUpdated)}
                 </div>
                 {/* Arrow pointing down */}
                 <div className="absolute top-full right-4 transform -translate-x-1/2 w-0 h-0 border-l-4 border-r-4 border-t-4 border-transparent border-t-slate-900 dark:border-t-slate-700"></div>
