@@ -111,7 +111,7 @@ const SecurityDashboard = () => {
                     }`}
                     onClick={() => updatesAvailable && openSystemSettings(settingsSection)}
                   >
-                    {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1" })}
+                    {React.createElement(buttonIcon, { className: "h-3 w-3 mr-1.5" })}
                     {buttonText}
                   </Button>
                 </div>
