@@ -1,3 +1,4 @@
+
 import React, { useState, useEffect } from 'react';
 import StatusCard from './StatusCard';
 import { SecurityFeature as SecurityFeatureType } from '@/utils/mockData';
@@ -191,57 +192,59 @@ const SecurityFeature = ({
           {/* Glass reflection effect */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/40 to-transparent" />
           
-          <div className="relative h-full p-4 flex flex-col">
-            {/* Header with title and close button */}
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
-                {feature.name}
-              </h3>
-              <button
-                onClick={() => setInternalIsFlipped(false)}
-                className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
-              >
-                <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
-              </button>
-            </div>
-
-            {/* Content */}
-            <div className="flex-grow space-y-4">
-              {/* Description */}
-              <div>
-                <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
-                <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
-                  {feature.description}
-                </p>
+          <div className="relative h-full flex flex-col">
+            <div className="flex-grow p-4 pb-3">
+              {/* Header with title and close button */}
+              <div className="flex items-center justify-between mb-4">
+                <h3 className="text-lg font-semibold text-slate-900 dark:text-white tracking-tight">
+                  {feature.name}
+                </h3>
+                <button
+                  onClick={() => setInternalIsFlipped(false)}
+                  className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/60 dark:bg-slate-800/60 backdrop-blur-sm border border-white/30 dark:border-slate-600/30 hover:bg-white/80 dark:hover:bg-slate-800/80 transition-all duration-200 cursor-pointer"
+                >
+                  <Info className="h-4 w-4 text-slate-500 dark:text-slate-400" />
+                </button>
               </div>
 
-              {/* Setting details */}
-              {feature.setting && (
+              {/* Content */}
+              <div className="space-y-4">
+                {/* Description */}
                 <div>
-                  <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">
-                    {feature.name === 'macOS Updates' ? 'Version' : 'Current Setting'}
-                  </h4>
-                  <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg">
-                    {feature.setting}
-                  </div>
+                  <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">Description</h4>
+                  <p className="text-sm text-slate-700 dark:text-slate-300 leading-relaxed">
+                    {feature.description}
+                  </p>
                 </div>
-              )}
 
-              {/* Last updated */}
-              {feature.lastUpdated && (
-                <div>
-                  <div className="flex items-center gap-2">
-                    <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400">Last Updated:</h4>
-                    <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
-                      <RefreshCw className="h-3 w-3 text-slate-400 dark:text-slate-500" />
-                      <span className="text-sm text-slate-600 dark:text-slate-300">
-                        {formatDate(feature.lastUpdated)}
-                      </span>
+                {/* Setting details */}
+                {feature.setting && (
+                  <div>
+                    <h4 className="text-sm font-bold text-slate-600 dark:text-slate-400 mb-2">
+                      {feature.name === 'macOS Updates' ? 'Version' : 'Current Setting'}
+                    </h4>
+                    <div className="text-slate-700 dark:text-slate-300 font-mono text-sm bg-slate-100/80 dark:bg-slate-800/80 px-3 py-2 rounded-lg">
+                      {feature.setting}
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
+
+            {/* Last updated footer - aligned at bottom */}
+            {feature.lastUpdated && (
+              <div className="relative border-t border-white/10 dark:border-slate-700/30 bg-white/30 dark:bg-slate-800/30 backdrop-blur-sm px-4 py-3 mt-auto">
+                <div className="flex items-center gap-2">
+                  <h4 className="text-sm font-semibold text-slate-600 dark:text-slate-400">Last Updated:</h4>
+                  <div className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-white/40 dark:bg-slate-700/40 backdrop-blur-sm border border-white/20 dark:border-slate-600/30">
+                    <RefreshCw className="h-3 w-3 text-slate-400 dark:text-slate-500" />
+                    <span className="text-sm text-slate-600 dark:text-slate-300">
+                      {formatDate(feature.lastUpdated)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
         </div>
       </div>
