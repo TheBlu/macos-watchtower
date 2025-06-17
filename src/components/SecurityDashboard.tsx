@@ -97,14 +97,14 @@ const SecurityDashboard = () => {
               hideDescription={true}
               hideButton={true} // Always hide the built-in button
             >
-              {/* Custom button positioned at bottom */}
+              {/* Custom button positioned at bottom left */}
               {!hideButton && (
-                <div className="mt-auto pt-4 px-2"> {/* Added horizontal padding and push to bottom */}
+                <div className="mt-auto pt-4 px-2 flex justify-start"> {/* Changed to justify-start for left alignment */}
                   <Button 
                     variant={updatesAvailable ? "default" : "ghost"} 
                     size="sm" 
                     disabled={!updatesAvailable}
-                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 mx-auto flex items-center gap-1.5 ${
+                    className={`w-auto h-8 text-xs px-4 py-1.5 rounded-md font-medium transition-all duration-200 flex items-center gap-1.5 ${
                       updatesAvailable 
                         ? 'bg-blue-500/90 hover:bg-blue-600/90 text-white border-0 shadow-sm hover:shadow-md' 
                         : 'text-slate-400 dark:text-slate-500 hover:text-slate-300 dark:hover:text-slate-400 hover:bg-slate-50/50 dark:hover:bg-slate-800/30 cursor-not-allowed opacity-50'
