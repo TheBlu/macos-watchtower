@@ -24,7 +24,7 @@ struct XProtectLogsView: View {
             ScrollView {
                 LazyVStack(spacing: 8) {
                     ForEach(logs, id: \.id) { log in
-                        LogEntryRow(log: log)
+                        XProtectLogRow(log: log)
                     }
                 }
                 .padding(.horizontal)
@@ -35,7 +35,7 @@ struct XProtectLogsView: View {
     }
 }
 
-struct LogEntryRow: View {
+struct XProtectLogRow: View {
     let log: LogEntry
     
     var body: some View {
@@ -47,7 +47,7 @@ struct LogEntryRow: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(log.message)
+                    Text(log.message ?? "No message")
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.primary)
                     
@@ -89,11 +89,5 @@ struct LogEntryRow: View {
         formatter.dateStyle = .short
         formatter.timeStyle = .medium
         return formatter.string(from: date)
-    }
-}
-
-struct XProtectLogsView_Previews: PreviewProvider {
-    static var previews: some View {
-        XProtectLogsView(logs: MockData.getXProtectLogs())
     }
 }

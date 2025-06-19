@@ -1,4 +1,3 @@
-
 // !$*UTF8*$!
 {
     archiveVersion = 1;
@@ -21,6 +20,15 @@
         E9A7BA0C2B2D901500F8A123 /* SecurityDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA0B2B2D901500F8A123 /* SecurityDashboardView.swift */; };
         E9A7BA0E2B2D903500F8A123 /* Color+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA0D2B2D903500F8A123 /* Color+Extensions.swift */; };
         E9A7BA102B2D905000F8A123 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA0F2B2D905000F8A123 /* HeaderView.swift */; };
+        E9A7BA142B2D910000F8A123 /* StatusUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA132B2D910000F8A123 /* StatusUtils.swift */; };
+        E9A7BA162B2D911000F8A123 /* DateFormatters.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA152B2D911000F8A123 /* DateFormatters.swift */; };
+        E9A7BA182B2D912000F8A123 /* SecurityFeatureIcon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA172B2D912000F8A123 /* SecurityFeatureIcon.swift */; };
+        E9A7BA1A2B2D913000F8A123 /* EnhancedSecurityFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA192B2D913000F8A123 /* EnhancedSecurityFeatureView.swift */; };
+        E9A7BA1C2B2D914000F8A123 /* EnhancedStatusCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA1B2B2D914000F8A123 /* EnhancedStatusCardView.swift */; };
+        E9A7BA1E2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA1D2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift */; };
+        E9A7BA202B2D916000F8A123 /* AppSidebarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA1F2B2D916000F8A123 /* AppSidebarView.swift */; };
+        E9A7BA222B2D917000F8A123 /* XProtectLogsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA212B2D917000F8A123 /* XProtectLogsView.swift */; };
+        E9A7BA242B2D918000F8A123 /* SystemSecurityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA232B2D918000F8A123 /* SystemSecurityManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -39,6 +47,15 @@
         E9A7BA0B2B2D901500F8A123 /* SecurityDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityDashboardView.swift; sourceTree = "<group>"; };
         E9A7BA0D2B2D903500F8A123 /* Color+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Color+Extensions.swift"; sourceTree = "<group>"; };
         E9A7BA0F2B2D905000F8A123 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
+        E9A7BA132B2D910000F8A123 /* StatusUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusUtils.swift; sourceTree = "<group>"; };
+        E9A7BA152B2D911000F8A123 /* DateFormatters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatters.swift; sourceTree = "<group>"; };
+        E9A7BA172B2D912000F8A123 /* SecurityFeatureIcon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityFeatureIcon.swift; sourceTree = "<group>"; };
+        E9A7BA192B2D913000F8A123 /* EnhancedSecurityFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedSecurityFeatureView.swift; sourceTree = "<group>"; };
+        E9A7BA1B2B2D914000F8A123 /* EnhancedStatusCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedStatusCardView.swift; sourceTree = "<group>"; };
+        E9A7BA1D2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EnhancedSecurityDashboardView.swift; sourceTree = "<group>"; };
+        E9A7BA1F2B2D916000F8A123 /* AppSidebarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppSidebarView.swift; sourceTree = "<group>"; };
+        E9A7BA212B2D917000F8A123 /* XProtectLogsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XProtectLogsView.swift; sourceTree = "<group>"; };
+        E9A7BA232B2D918000F8A123 /* SystemSecurityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemSecurityManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,8 +88,10 @@
         E9A7B9EF2B2D8F4C00F8A123 /* MacSentinelWatch */ = {
             isa = PBXGroup;
             children = (
+                E9A7BA252B2D919000F8A123 /* Services */,
                 E9A7BA122B2D907600F8A123 /* Models */,
                 E9A7BA112B2D906C00F8A123 /* Views */,
+                E9A7BA262B2D91A000F8A123 /* Utils */,
                 E9A7BA132B2D908500F8A123 /* Extensions */,
                 E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */,
                 E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */,
@@ -100,6 +119,11 @@
                 E9A7BA092B2D8FF900F8A123 /* ActivityLogsView.swift */,
                 E9A7BA0B2B2D901500F8A123 /* SecurityDashboardView.swift */,
                 E9A7BA0F2B2D905000F8A123 /* HeaderView.swift */,
+                E9A7BA192B2D913000F8A123 /* EnhancedSecurityFeatureView.swift */,
+                E9A7BA1B2B2D914000F8A123 /* EnhancedStatusCardView.swift */,
+                E9A7BA1D2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift */,
+                E9A7BA1F2B2D916000F8A123 /* AppSidebarView.swift */,
+                E9A7BA212B2D917000F8A123 /* XProtectLogsView.swift */,
             );
             path = Views;
             sourceTree = "<group>";
@@ -119,6 +143,24 @@
                 E9A7BA0D2B2D903500F8A123 /* Color+Extensions.swift */,
             );
             path = Extensions;
+            sourceTree = "<group>";
+        };
+        E9A7BA252B2D919000F8A123 /* Services */ = {
+            isa = PBXGroup;
+            children = (
+                E9A7BA232B2D918000F8A123 /* SystemSecurityManager.swift */,
+            );
+            path = Services;
+            sourceTree = "<group>";
+        };
+        E9A7BA262B2D91A000F8A123 /* Utils */ = {
+            isa = PBXGroup;
+            children = (
+                E9A7BA132B2D910000F8A123 /* StatusUtils.swift */,
+                E9A7BA152B2D911000F8A123 /* DateFormatters.swift */,
+                E9A7BA172B2D912000F8A123 /* SecurityFeatureIcon.swift */,
+            );
+            path = Utils;
             sourceTree = "<group>";
         };
 /* End PBXGroup section */
@@ -200,6 +242,15 @@
                 E9A7BA0C2B2D901500F8A123 /* SecurityDashboardView.swift in Sources */,
                 E9A7BA0E2B2D903500F8A123 /* Color+Extensions.swift in Sources */,
                 E9A7BA102B2D905000F8A123 /* HeaderView.swift in Sources */,
+                E9A7BA142B2D910000F8A123 /* StatusUtils.swift in Sources */,
+                E9A7BA162B2D911000F8A123 /* DateFormatters.swift in Sources */,
+                E9A7BA182B2D912000F8A123 /* SecurityFeatureIcon.swift in Sources */,
+                E9A7BA1A2B2D913000F8A123 /* EnhancedSecurityFeatureView.swift in Sources */,
+                E9A7BA1C2B2D914000F8A123 /* EnhancedStatusCardView.swift in Sources */,
+                E9A7BA1E2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift in Sources */,
+                E9A7BA202B2D916000F8A123 /* AppSidebarView.swift in Sources */,
+                E9A7BA222B2D917000F8A123 /* XProtectLogsView.swift in Sources */,
+                E9A7BA242B2D918000F8A123 /* SystemSecurityManager.swift in Sources */,
                 E9A7B9F32B2D8F4C00F8A123 /* ContentView.swift in Sources */,
                 E9A7B9F12B2D8F4C00F8A123 /* AppDelegate.swift in Sources */,
             );
