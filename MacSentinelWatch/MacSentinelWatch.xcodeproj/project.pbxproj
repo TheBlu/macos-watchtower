@@ -378,7 +378,7 @@
             };
             name = Release;
         };
-        E9A7B9FD2B2D8F4C00F8A123 /* Debug */ = {
+        E9A7B9FD2B2D8F4D00F8A123 /* Debug */ = {
             isa = XCBuildConfiguration;
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -405,7 +405,7 @@
             };
             name = Debug;
         };
-        E9A7B9FE2B2D8F4C00F8A123 /* Release */ = {
+        E9A7B9FE2B2D8F4D00F8A123 /* Release */ = {
             isa = XCBuildConfiguration;
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -447,7 +447,7 @@
         E9A7B9FC2B2D8F4D00F8A123 /* Build configuration list for PBXNativeTarget "MacSentinelWatch" */ = {
             isa = XCConfigurationList;
             buildConfigurations = (
-                E9A7B9FD2B2D8F4C00F8A123 /* Debug */,
+                E9A7B9FD2B2D8F4D00F8A123 /* Debug */,
                 E9A7B9FE2B2D8F4D00F8A123 /* Release */,
             );
             defaultConfigurationIsVisible = 0;
