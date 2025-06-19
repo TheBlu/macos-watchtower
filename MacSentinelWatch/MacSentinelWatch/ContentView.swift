@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct ContentView: View {
@@ -11,19 +10,28 @@ struct ContentView: View {
             Group {
                 switch selectedTab {
                 case "security":
-                    SecurityDashboardView()
+                    EnhancedSecurityDashboardView()
                 case "gatekeeper":
                     ActivityLogsView(logs: MockData.getGatekeeperLogs())
                 case "xprotect":
                     XProtectLogsView(logs: MockData.getXProtectLogs())
                 default:
-                    SecurityDashboardView()
+                    EnhancedSecurityDashboardView()
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color(NSColor.windowBackgroundColor))
+            .background(
+                LinearGradient(
+                    gradient: Gradient(colors: [
+                        Color(NSColor.windowBackgroundColor).opacity(0.5),
+                        Color(NSColor.windowBackgroundColor).opacity(0.8)
+                    ]),
+                    startPoint: .topLeading,
+                    endPoint: .bottomTrailing
+                )
+            )
         }
-        .frame(minWidth: 1000, minHeight: 700)
+        .frame(minWidth: 1200, minHeight: 800)
     }
 }
 
