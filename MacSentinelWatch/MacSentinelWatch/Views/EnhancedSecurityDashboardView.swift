@@ -1,21 +1,24 @@
-
 import SwiftUI
 
 struct EnhancedSecurityDashboardView: View {
-    @State private var securityFeatures = MockData.getSecurityFeatures()
+    @StateObject private var systemManager = SystemSecurityManager()
     @State private var gatekeeperLogs = MockData.getGatekeeperLogs()
     @State private var selectedTab: String = "features"
     @State private var areAllTilesFlipped = false
     
     private var overallStatus: SecurityStatus {
-        StatusUtils.calculateOverallStatus(securityFeatures)
+        StatusUtils.calculateOverallStatus(systemManager.securityFeatures)
     }
     
     private var statusMessage: String {
+        if systemManager.isLoading {
+            return "Checking security status..."
+        }
+        
         if overallStatus == .enabled {
             return "All security features are enabled and up to date."
         } else if overallStatus == .disabled {
-            let disabledFeatures = securityFeatures
+            let disabledFeatures = systemManager.securityFeatures
                 .filter { $0.status == .disabled }
                 .map { $0.name }
                 .joined(separator: ", ")
@@ -26,24 +29,30 @@ struct EnhancedSecurityDashboardView: View {
     }
     
     private func getFeatureByName(_ name: String) -> SecurityFeature? {
-        return securityFeatures.first(where: { $0.name == name })
+        return systemManager.securityFeatures.first(where: { $0.name == name })
     }
     
     private var securityStatusIcon: some View {
         Group {
-            switch overallStatus {
-            case .enabled:
-                Image(systemName: "shield.fill")
-                    .foregroundColor(.green)
-            case .warning:
-                Image(systemName: "shield.lefthalf.filled.badge.checkmark")
-                    .foregroundColor(.yellow)
-            case .disabled:
-                Image(systemName: "shield.slash")
-                    .foregroundColor(.red)
-            case .unknown:
-                Image(systemName: "shield")
-                    .foregroundColor(.gray)
+            if systemManager.isLoading {
+                Image(systemName: "arrow.triangle.2.circlepath")
+                    .foregroundColor(.blue)
+                    .symbolEffect(.rotate.byLayer, options: .repeat(.continuous))
+            } else {
+                switch overallStatus {
+                case .enabled:
+                    Image(systemName: "shield.fill")
+                        .foregroundColor(.green)
+                case .warning:
+                    Image(systemName: "shield.lefthalf.filled.badge.checkmark")
+                        .foregroundColor(.yellow)
+                case .disabled:
+                    Image(systemName: "shield.slash")
+                        .foregroundColor(.red)
+                case .unknown:
+                    Image(systemName: "shield")
+                        .foregroundColor(.gray)
+                }
             }
         }
         .font(.system(size: 24, weight: .medium))
@@ -55,36 +64,56 @@ struct EnhancedSecurityDashboardView: View {
                 // Security Status Card
                 EnhancedStatusCardView(
                     title: "Security Status",
-                    status: overallStatus,
-                    description: "Summary of your Mac's security features",
+                    status: systemManager.isLoading ? .unknown : overallStatus,
+                    description: "Live status of your Mac's security features",
+                    lastUpdated: systemManager.securityFeatures.first?.lastUpdated,
                     headerIcon: AnyView(securityStatusIcon),
                     content: {
                         VStack(alignment: .leading, spacing: 12) {
                             HStack {
                                 Text(statusMessage)
                                     .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(StatusUtils.getStatusColors(overallStatus))
+                                    .foregroundColor(systemManager.isLoading ? .secondary : StatusUtils.getStatusColors(overallStatus))
                                     .fixedSize(horizontal: false, vertical: true)
                                 
                                 Spacer()
                                 
-                                Button(action: { 
-                                    withAnimation(.easeInOut(duration: 0.6)) {
-                                        areAllTilesFlipped.toggle()
+                                HStack(spacing: 8) {
+                                    Button(action: {
+                                        systemManager.refreshSecurityStatus()
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "arrow.clockwise")
+                                                .font(.system(size: 14))
+                                            Text("Refresh")
+                                                .font(.system(size: 12, weight: .medium))
+                                        }
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(.ultraThinMaterial)
+                                        .cornerRadius(8)
                                     }
-                                }) {
-                                    HStack(spacing: 6) {
-                                        Image(systemName: "info.circle")
-                                            .font(.system(size: 14))
-                                        Text(areAllTilesFlipped ? "Hide Details" : "Show Details")
-                                            .font(.system(size: 12, weight: .medium))
+                                    .buttonStyle(PlainButtonStyle())
+                                    .disabled(systemManager.isLoading)
+                                    
+                                    Button(action: { 
+                                        withAnimation(.easeInOut(duration: 0.6)) {
+                                            areAllTilesFlipped.toggle()
+                                        }
+                                    }) {
+                                        HStack(spacing: 6) {
+                                            Image(systemName: "info.circle")
+                                                .font(.system(size: 14))
+                                            Text(areAllTilesFlipped ? "Hide Details" : "Show Details")
+                                                .font(.system(size: 12, weight: .medium))
+                                        }
+                                        .padding(.horizontal, 12)
+                                        .padding(.vertical, 6)
+                                        .background(.ultraThinMaterial)
+                                        .cornerRadius(8)
                                     }
-                                    .padding(.horizontal, 12)
-                                    .padding(.vertical, 6)
-                                    .background(.ultraThinMaterial)
-                                    .cornerRadius(8)
+                                    .buttonStyle(PlainButtonStyle())
                                 }
-                                .buttonStyle(PlainButtonStyle())
                             }
                         }
                     }
@@ -119,34 +148,84 @@ struct EnhancedSecurityDashboardView: View {
                 
                 // Tab content
                 if selectedTab == "features" {
-                    // Security Features Grid
-                    LazyVGrid(columns: [
-                        GridItem(.flexible(), spacing: 16),
-                        GridItem(.flexible(), spacing: 16),
-                        GridItem(.flexible(), spacing: 16)
-                    ], spacing: 16) {
-                        if let feature = getFeatureByName("macOS Updates") {
-                            EnhancedSecurityFeatureView(feature: feature, globalFlipped: $areAllTilesFlipped)
+                    if systemManager.isLoading && systemManager.securityFeatures.isEmpty {
+                        // Loading state
+                        LazyVGrid(columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ], spacing: 16) {
+                            ForEach(0..<6, id: \.self) { _ in
+                                LoadingSecurityFeatureView()
+                            }
                         }
-                        
-                        if let feature = getFeatureByName("FileVault") {
-                            EnhancedSecurityFeatureView(feature: feature, globalFlipped: $areAllTilesFlipped)
-                        }
-                        
-                        if let feature = getFeatureByName("Firewall") {
-                            EnhancedSecurityFeatureView(feature: feature, globalFlipped: $areAllTilesFlipped)
-                        }
-                        
-                        if let feature = getFeatureByName("XProtect") {
-                            EnhancedSecurityFeatureView(feature: feature, globalFlipped: $areAllTilesFlipped)
-                        }
-                        
-                        if let feature = getFeatureByName("Gatekeeper") {
-                            EnhancedSecurityFeatureView(feature: feature, globalFlipped: $areAllTilesFlipped)
-                        }
-                        
-                        if let feature = getFeatureByName("System Integrity Protection") {
-                            EnhancedSecurityFeatureView(feature: feature, hideButton: true, globalFlipped: $areAllTilesFlipped)
+                    } else {
+                        // Security Features Grid
+                        LazyVGrid(columns: [
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16),
+                            GridItem(.flexible(), spacing: 16)
+                        ], spacing: 16) {
+                            if let feature = getFeatureByName("macOS Updates") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
+                            
+                            if let feature = getFeatureByName("FileVault") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
+                            
+                            if let feature = getFeatureByName("Firewall") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
+                            
+                            if let feature = getFeatureByName("XProtect") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
+                            
+                            if let feature = getFeatureByName("Gatekeeper") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
+                            
+                            if let feature = getFeatureByName("System Integrity Protection") {
+                                EnhancedSecurityFeatureView(
+                                    feature: feature, 
+                                    hideButton: true, 
+                                    globalFlipped: $areAllTilesFlipped,
+                                    onSettingsOpen: {
+                                        systemManager.openSystemSettings(for: feature.name)
+                                    }
+                                )
+                            }
                         }
                     }
                 } else {
@@ -166,5 +245,38 @@ struct EnhancedSecurityDashboardView: View {
                 endPoint: .bottomTrailing
             )
         )
+        .onAppear {
+            if systemManager.securityFeatures.isEmpty {
+                systemManager.refreshSecurityStatus()
+            }
+        }
+    }
+}
+
+struct LoadingSecurityFeatureView: View {
+    var body: some View {
+        VStack(spacing: 16) {
+            RoundedRectangle(cornerRadius: 16)
+                .fill(.ultraThinMaterial)
+                .frame(width: 80, height: 80)
+                .overlay(
+                    Image(systemName: "arrow.triangle.2.circlepath")
+                        .foregroundColor(.secondary)
+                        .font(.system(size: 24, weight: .medium))
+                        .symbolEffect(.rotate.byLayer, options: .repeat(.continuous))
+                )
+            
+            RoundedRectangle(cornerRadius: 8)
+                .fill(.ultraThinMaterial)
+                .frame(height: 20)
+        }
+        .frame(height: 200)
+        .background(.ultraThinMaterial)
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color.gray.opacity(0.2), lineWidth: 2)
+        )
+        .clipShape(RoundedRectangle(cornerRadius: 16))
+        .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
     }
 }

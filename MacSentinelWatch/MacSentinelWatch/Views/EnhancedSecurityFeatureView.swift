@@ -7,12 +7,20 @@ struct EnhancedSecurityFeatureView: View {
     let hideButton: Bool
     @State private var isFlipped = false
     @Binding var globalFlipped: Bool
+    let onSettingsOpen: (() -> Void)?
     
-    init(feature: SecurityFeature, hideDescription: Bool = false, hideButton: Bool = false, globalFlipped: Binding<Bool> = .constant(false)) {
+    init(
+        feature: SecurityFeature, 
+        hideDescription: Bool = false, 
+        hideButton: Bool = false, 
+        globalFlipped: Binding<Bool> = .constant(false),
+        onSettingsOpen: (() -> Void)? = nil
+    ) {
         self.feature = feature
         self.hideDescription = hideDescription
         self.hideButton = hideButton
         self._globalFlipped = globalFlipped
+        self.onSettingsOpen = onSettingsOpen
     }
     
     private var icon: (name: String, color: Color) {
@@ -120,27 +128,50 @@ struct EnhancedSecurityFeatureView: View {
                 
                 Spacer()
                 
-                // Last updated
-                HStack {
-                    Text("Last Updated:")
-                        .font(.system(size: 10, weight: .medium))
-                        .foregroundColor(.secondary)
-                    
-                    HStack(spacing: 4) {
-                        Image(systemName: "arrow.clockwise")
-                            .font(.system(size: 8))
+                // Footer with last updated and settings button
+                VStack(spacing: 8) {
+                    // Last updated
+                    HStack {
+                        Text("Last Updated:")
+                            .font(.system(size: 10, weight: .medium))
                             .foregroundColor(.secondary)
                         
-                        Text(DateFormatters.formatDate(feature.lastUpdated))
-                            .font(.system(size: 10))
-                            .foregroundColor(.secondary)
+                        HStack(spacing: 4) {
+                            Image(systemName: "arrow.clockwise")
+                                .font(.system(size: 8))
+                                .foregroundColor(.secondary)
+                            
+                            Text(DateFormatters.formatDate(feature.lastUpdated))
+                                .font(.system(size: 10))
+                                .foregroundColor(.secondary)
+                        }
+                        .padding(.horizontal, 6)
+                        .padding(.vertical, 2)
+                        .background(.ultraThinMaterial)
+                        .cornerRadius(4)
+                        
+                        Spacer()
                     }
-                    .padding(.horizontal, 6)
-                    .padding(.vertical, 2)
-                    .background(.ultraThinMaterial)
-                    .cornerRadius(4)
                     
-                    Spacer()
+                    // Settings button (if not hidden and not SIP)
+                    if !hideButton && feature.name != "System Integrity Protection" && feature.name != "XProtect" {
+                        Button(action: {
+                            onSettingsOpen?()
+                        }) {
+                            HStack(spacing: 6) {
+                                Image(systemName: "gear")
+                                    .font(.system(size: 12))
+                                Text("Open Settings")
+                                    .font(.system(size: 12, weight: .medium))
+                            }
+                            .foregroundColor(.blue)
+                            .padding(.horizontal, 12)
+                            .padding(.vertical, 6)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(8)
+                        }
+                        .buttonStyle(PlainButtonStyle())
+                    }
                 }
             }
             .padding(16)
