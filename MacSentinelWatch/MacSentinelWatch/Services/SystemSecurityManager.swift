@@ -1,4 +1,3 @@
-
 import Foundation
 import SwiftUI
 
@@ -47,8 +46,8 @@ class SystemSecurityManager: ObservableObject {
             name: "FileVault",
             description: "Full-disk encryption that protects your data if your Mac is lost or stolen.",
             status: isEnabled ? .enabled : .disabled,
-            lastUpdated: Date(),
-            setting: isEnabled ? "Enabled" : "Disabled"
+            setting: isEnabled ? "Enabled" : "Disabled",
+            lastUpdated: Date()
         )
     }
     
@@ -58,8 +57,8 @@ class SystemSecurityManager: ObservableObject {
             name: "Firewall",
             description: "Controls incoming network connections to protect against unauthorized access.",
             status: isEnabled ? .enabled : .disabled,
-            lastUpdated: Date(),
-            setting: isEnabled ? "Enabled" : "Disabled"
+            setting: isEnabled ? "Enabled" : "Disabled",
+            lastUpdated: Date()
         )
     }
     
@@ -69,8 +68,8 @@ class SystemSecurityManager: ObservableObject {
             name: "Gatekeeper",
             description: "Ensures that only trusted software runs on your Mac by checking developer signatures.",
             status: isEnabled ? .enabled : .disabled,
-            lastUpdated: Date(),
-            setting: isEnabled ? "Enabled" : "Disabled"
+            setting: isEnabled ? "Enabled" : "Disabled",
+            lastUpdated: Date()
         )
     }
     
@@ -79,8 +78,8 @@ class SystemSecurityManager: ObservableObject {
             name: "XProtect",
             description: "Built-in antivirus that automatically scans for malware and updates definitions.",
             status: .enabled, // XProtect is always enabled on macOS
-            lastUpdated: Date(),
-            setting: "Auto-Update Enabled"
+            setting: "Auto-Update Enabled",
+            lastUpdated: Date()
         )
     }
     
@@ -90,8 +89,8 @@ class SystemSecurityManager: ObservableObject {
             name: "System Integrity Protection",
             description: "Protects critical system files and processes from modification by malicious software.",
             status: isEnabled ? .enabled : .disabled,
-            lastUpdated: Date(),
-            setting: isEnabled ? "Enabled" : "Disabled"
+            setting: isEnabled ? "Enabled" : "Disabled",
+            lastUpdated: Date()
         )
     }
     
@@ -101,12 +100,10 @@ class SystemSecurityManager: ObservableObject {
             name: "macOS Updates",
             description: "Keeps your system secure with the latest security patches and system improvements.",
             status: status,
-            lastUpdated: Date(),
-            setting: version
+            setting: version,
+            lastUpdated: Date()
         )
     }
-    
-    // MARK: - System Check Methods
     
     private func checkFileVaultEnabled() -> Bool {
         let task = Process()
