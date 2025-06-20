@@ -378,7 +378,7 @@
             };
             name = Release;
         };
-        E9A7B9FD2B2D8F4C00F8A123 /* Debug */ = {
+        E9A7B9FD2B2D8F4D00F8A123 /* Debug */ = {
             isa = XCBuildConfiguration;
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -387,7 +387,7 @@
                 CODE_SIGN_STYLE = Automatic;
                 COMBINE_HIDPI_IMAGES = YES;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_ASSET_PATHS = MacSentinelWatch/Preview\ Content;
+                DEVELOPMENT_ASSET_PATHS = "MacSentinelWatch/Preview\\ Content";
                 ENABLE_PREVIEWS = YES;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_NSHumanReadableCopyright = "";
@@ -405,7 +405,7 @@
             };
             name = Debug;
         };
-        E9A7B9FE2B2D8F4C00F8A123 /* Release */ = {
+        E9A7B9FE2B2D8F4D00F8A123 /* Release */ = {
             isa = XCBuildConfiguration;
             buildSettings = {
                 ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -414,7 +414,7 @@
                 CODE_SIGN_STYLE = Automatic;
                 COMBINE_HIDPI_IMAGES = YES;
                 CURRENT_PROJECT_VERSION = 1;
-                DEVELOPMENT_ASSET_PATHS = MacSentinelWatch/Preview\ Content;
+                DEVELOPMENT_ASSET_PATHS = "MacSentinelWatch/Preview\\ Content";
                 ENABLE_PREVIEWS = YES;
                 GENERATE_INFOPLIST_FILE = YES;
                 INFOPLIST_KEY_NSHumanReadableCopyright = "";
