@@ -6,111 +6,123 @@ struct MockData {
         return [
             SecurityFeature(
                 name: "macOS Updates",
-                status: .enabled,
-                description: "Your system is up to date with the latest security patches.",
-                lastChecked: Date()
+                description: "Keep your system up to date with the latest security patches",
+                status: .warning,
+                setting: "macOS Sonoma 14.1.2",
+                lastUpdated: Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date()
             ),
             SecurityFeature(
                 name: "System Integrity Protection",
+                description: "Protects critical system files from modification",
                 status: .enabled,
-                description: "SIP protects critical system files and processes.",
-                lastChecked: Date()
+                setting: "Enabled",
+                lastUpdated: Date()
             ),
             SecurityFeature(
                 name: "FileVault",
+                description: "Full-disk encryption to protect your data",
                 status: .enabled,
-                description: "Full disk encryption is active and protecting your data.",
-                lastChecked: Date()
+                setting: "256-bit AES encryption",
+                lastUpdated: Calendar.current.date(byAdding: .hour, value: -6, to: Date()) ?? Date()
             ),
             SecurityFeature(
                 name: "XProtect",
+                description: "Built-in antimalware protection",
                 status: .enabled,
-                description: "Built-in malware protection is active and up to date.",
-                lastChecked: Date()
+                setting: "Version 2169",
+                lastUpdated: Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date()
             ),
             SecurityFeature(
                 name: "Gatekeeper",
+                description: "Verifies downloaded applications before they run",
                 status: .enabled,
-                description: "App notarization and code signing verification is active.",
-                lastChecked: Date()
+                setting: "App Store and identified developers",
+                lastUpdated: Date()
             ),
             SecurityFeature(
                 name: "Firewall",
+                description: "Blocks unauthorized network connections",
                 status: .disabled,
-                description: "Network firewall is currently disabled.",
-                lastChecked: Date()
+                setting: "Disabled",
+                lastUpdated: Calendar.current.date(byAdding: .day, value: -7, to: Date()) ?? Date()
             )
         ]
     }
     
     static func getGatekeeperLogs() -> [LogEntry] {
-        let calendar = Calendar.current
         let now = Date()
-        
         return [
             LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .minute, value: -5, to: now) ?? now,
-                level: "info",
-                source: "Gatekeeper",
-                message: "Application verified successfully",
-                details: "MyApp.app - Developer ID: Apple Development"
+                timestamp: Calendar.current.date(byAdding: .minute, value: -15, to: now) ?? now,
+                application: "Discord",
+                path: "/Applications/Discord.app",
+                action: "allowed",
+                reason: "Signed by identified developer",
+                message: "Application launched successfully",
+                level: "info"
             ),
             LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .hour, value: -2, to: now) ?? now,
-                level: "warning",
-                source: "Gatekeeper",
-                message: "Unsigned application blocked",
-                details: "Unknown-App.dmg - No valid signature found"
+                timestamp: Calendar.current.date(byAdding: .hour, value: -2, to: now) ?? now,
+                application: "Unknown App",
+                path: "/Users/user/Downloads/suspicious-app.app",
+                action: "blocked",
+                reason: "Not signed by identified developer",
+                message: "Application blocked from launching",
+                level: "warning"
             ),
             LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .hour, value: -4, to: now) ?? now,
-                level: "info",
-                source: "Gatekeeper",
-                message: "Notarization check completed",
-                details: "Safari.app - Apple notarized application"
+                timestamp: Calendar.current.date(byAdding: .hour, value: -4, to: now) ?? now,
+                application: "VS Code",
+                path: "/Applications/Visual Studio Code.app",
+                action: "allowed",
+                reason: "Signed by Microsoft Corporation",
+                message: "Application launched successfully",
+                level: "info"
+            ),
+            LogEntry(
+                timestamp: Calendar.current.date(byAdding: .day, value: -1, to: now) ?? now,
+                application: "Malicious Script",
+                path: "/tmp/malware.sh",
+                action: "blocked",
+                reason: "Detected as potential malware",
+                message: "Script execution prevented",
+                level: "error"
             )
         ]
     }
     
     static func getXProtectLogs() -> [LogEntry] {
-        let calendar = Calendar.current
         let now = Date()
-        
         return [
             LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .minute, value: -10, to: now) ?? now,
+                timestamp: Calendar.current.date(byAdding: .minute, value: -30, to: now) ?? now,
+                application: "XProtect",
+                path: "/System/Library/CoreServices/XProtect.bundle",
+                action: "allowed",
+                reason: "System scan completed",
+                message: "Daily system scan completed successfully",
                 level: "info",
-                source: "XProtect",
-                message: "Malware definitions updated",
-                details: "Version 2156 - 1,247 new signatures added"
+                details: "Scanned 45,231 files, no threats detected"
             ),
             LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .hour, value: -1, to: now) ?? now,
-                level: "warning",
-                source: "XProtect",
-                message: "Suspicious file quarantined",
-                details: "file.suspicious - Moved to quarantine folder"
-            ),
-            LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .hour, value: -3, to: now) ?? now,
-                level: "info",
-                source: "XProtect",
-                message: "System scan completed",
-                details: "No threats detected - 245,678 files scanned"
-            ),
-            LogEntry(
-                id: UUID(),
-                timestamp: calendar.date(byAdding: .day, value: -1, to: now) ?? now,
+                timestamp: Calendar.current.date(byAdding: .hour, value: -3, to: now) ?? now,
+                application: "XProtect",
+                path: "/Users/user/Downloads/infected-file.zip",
+                action: "blocked",
+                reason: "Contains known malware signature",
+                message: "Malware detected and quarantined",
                 level: "error",
-                source: "XProtect",
-                message: "Malware detected and removed",
-                details: "Trojan.Generic.12345 - File deleted successfully"
+                details: "Threat: OSX.Trojan.Generic, File moved to quarantine"
+            ),
+            LogEntry(
+                timestamp: Calendar.current.date(byAdding: .hour, value: -6, to: now) ?? now,
+                application: "XProtect",
+                path: "/System/Library/CoreServices/XProtect.bundle",
+                action: "allowed",
+                reason: "Definition update completed",
+                message: "XProtect definitions updated to version 2169",
+                level: "info",
+                details: "Updated virus definitions and malware signatures"
             )
         ]
     }
