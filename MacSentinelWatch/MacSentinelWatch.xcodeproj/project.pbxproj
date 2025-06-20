@@ -10,7 +10,6 @@
 /* Begin PBXBuildFile section */
 		E9A7B9F12B2D8F4C00F8A123 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */; };
 		E9A7B9F32B2D8F4C00F8A123 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */; };
-		E9A7B9F52B2D8F4D00F8A123 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9A7B9F42B2D8F4D00F8A123 /* Assets.xcassets */; };
 		E9A7BA002B2D8F7400F8A123 /* SecurityFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9FF2B2D8F7400F8A123 /* SecurityFeature.swift */; };
 		E9A7BA022B2D8F8A00F8A123 /* LogEntry.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA012B2D8F8A00F8A123 /* LogEntry.swift */; };
 		E9A7BA042B2D8FA200F8A123 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7BA032B2D8FA200F8A123 /* MockData.swift */; };
@@ -35,7 +34,6 @@
 		E9A7B9ED2B2D8F4C00F8A123 /* MacSentinelWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSentinelWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		E9A7B9F42B2D8F4D00F8A123 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9A7B9F92B2D8F4D00F8A123 /* MacSentinelWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSentinelWatch.entitlements; sourceTree = "<group>"; };
 		E9A7B9FF2B2D8F7400F8A123 /* SecurityFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityFeature.swift; sourceTree = "<group>"; };
 		E9A7BA012B2D8F8A00F8A123 /* LogEntry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogEntry.swift; sourceTree = "<group>"; };
@@ -95,7 +93,6 @@
 				E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */,
 				E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */,
 				E9A7BA032B2D8FA200F8A123 /* MockData.swift */,
-				E9A7B9F42B2D8F4D00F8A123 /* Assets.xcassets */,
 				E9A7B9F92B2D8F4D00F8A123 /* MacSentinelWatch.entitlements */,
 			);
 			path = MacSentinelWatch;
@@ -211,7 +208,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9A7B9F52B2D8F4D00F8A123 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,7 +365,6 @@
 		E9A7B9FD2B2D8F4D00F8A123 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
@@ -394,7 +389,6 @@
 		E9A7B9FE2B2D8F4D00F8A123 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
