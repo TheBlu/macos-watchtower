@@ -232,3 +232,41 @@ class SystemSecurityManager: ObservableObject {
         }
     }
 }
+
+// MARK: - Security Status Card View
+
+struct SecurityStatusCard: View {
+    let feature: SecurityFeature
+    let timeAgoString: String
+
+    var body: some View {
+        VStack(alignment: .leading, spacing: 12) {
+            HStack {
+                Text(feature.name)
+                    .font(.headline)
+                Spacer()
+                // Status indicator, e.g. green/red dot or text
+                Text(feature.setting ?? "Unavailable")
+                    .font(.subheadline)
+                    .foregroundColor(feature.status == .enabled ? .green : .red)
+            }
+            Text(feature.description)
+                .font(.body)
+                .foregroundColor(.secondary)
+            if !timeAgoString.isEmpty {
+                HStack(spacing: 4) {
+                    // Remove the clock icon, and replace with "Last Updated:" text
+                    Text("Last Updated: \(timeAgoString)")
+                        .font(.caption)
+                        .foregroundColor(.gray)
+                }
+            }
+        }
+        .padding()
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color(NSColor.windowBackgroundColor))
+                .shadow(color: Color.black.opacity(0.05), radius: 3, x: 0, y: 2)
+        )
+    }
+}
