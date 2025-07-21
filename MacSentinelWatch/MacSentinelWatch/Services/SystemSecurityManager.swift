@@ -57,8 +57,7 @@ class SystemSecurityManager: ObservableObject {
             name: "Firewall",
             description: "Controls incoming network connections to protect against unauthorized access.",
             status: isEnabled ? .enabled : .disabled,
-            setting: isEnabled ? "Enabled" : "Disabled",
-            lastUpdated: Date()
+            setting: isEnabled ? "Enabled" : "Disabled"
         )
     }
     

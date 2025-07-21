@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct ActivityLogsView: View {
@@ -41,15 +40,15 @@ struct ActivityLogsView: View {
             // Table Headers
             HStack {
                 Text("Time")
-                    .frame(width: 150, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("Application")
-                    .frame(width: 150, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("Path")
-                    .frame(minWidth: 200, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("Action")
-                    .frame(width: 80, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 Text("Reason")
-                    .frame(minWidth: 150, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
             }
             .font(.system(size: 12, weight: .medium))
             .padding(.horizontal)
@@ -100,13 +99,13 @@ struct LogEntryRow: View {
     var body: some View {
         HStack(alignment: .top) {
             Text(formatDate(log.timestamp))
-                .frame(width: 150, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             Text(log.application)
-                .frame(width: 150, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             Text(log.path)
                 .lineLimit(1)
                 .truncationMode(.middle)
-                .frame(minWidth: 200, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
             HStack {
                 Text(log.action)
                     .padding(.horizontal, 6)
@@ -115,9 +114,9 @@ struct LogEntryRow: View {
                     .foregroundColor(log.action == "allowed" ? .green : .red)
                     .cornerRadius(10)
             }
-            .frame(width: 80, alignment: .leading)
+            .frame(maxWidth: .infinity, alignment: .leading)
             Text(log.reason)
-                .frame(minWidth: 150, alignment: .leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
         }
         .font(.system(size: 12))
         .padding(.horizontal)

@@ -1,37 +1,11 @@
-
 import SwiftUI
 
 struct SecurityDashboardView: View {
-    @State private var securityFeatures = MockData.getSecurityFeatures()
-    @State private var gatekeeperLogs = MockData.getGatekeeperLogs()
+    @ObservedObject private var viewModel = SecurityViewModel()
     @State private var selectedTab: String = "features"
     
-    private var overallStatus: SecurityStatus {
-        if securityFeatures.allSatisfy({ $0.status == .enabled }) {
-            return .enabled
-        } else if securityFeatures.contains(where: { $0.status == .disabled }) {
-            return .disabled
-        } else {
-            return .warning
-        }
-    }
-    
-    private var statusMessage: String {
-        if overallStatus == .enabled {
-            return "All security features are enabled and up to date."
-        } else if overallStatus == .disabled {
-            let disabledFeatures = securityFeatures
-                .filter { $0.status == .disabled }
-                .map { $0.name }
-                .joined(separator: ", ")
-            return "Some security features are disabled: \(disabledFeatures)."
-        } else {
-            return "Some security features need attention. Check the details below."
-        }
-    }
-    
     private func getFeatureByName(_ name: String) -> SecurityFeature? {
-        return securityFeatures.first(where: { $0.name == name })
+        return viewModel.features.first(where: { $0.name == name })
     }
     
     var body: some View {
@@ -39,14 +13,18 @@ struct SecurityDashboardView: View {
             // Security Status Card
             StatusCardView(
                 title: "Security Status",
-                status: overallStatus,
+                status: viewModel.features.allSatisfy { $0.status == .enabled } ? .enabled :
+                        viewModel.features.contains { $0.status == .disabled } ? .disabled : .warning,
                 description: "Summary of your Mac's security features",
                 content: {
-                    Text(statusMessage)
+                    Text(viewModel.features.allSatisfy { $0.status == .enabled } ? "All security features are enabled and up to date." :
+                         viewModel.features.contains { $0.status == .disabled } ?
+                         "Some security features are disabled: \(viewModel.features.filter { $0.status == .disabled }.map { $0.name }.joined(separator: ", "))." :
+                         "Some security features need attention. Check the details below.")
                         .font(.system(size: 14))
                         .foregroundColor(
-                            overallStatus == .enabled ? .green :
-                            overallStatus == .disabled ? .red : .yellow
+                            viewModel.features.allSatisfy { $0.status == .enabled } ? .green :
+                            viewModel.features.contains { $0.status == .disabled } ? .red : .yellow
                         )
                 }
             )
@@ -78,38 +56,26 @@ struct SecurityDashboardView: View {
             
             // Tab content
             if selectedTab == "features" {
-                // Security Features Grid
+                if !viewModel.errors.isEmpty {
+                    ForEach(viewModel.errors, id: \.self) { error in
+                        Text("⚠️ \(error)")
+                            .foregroundColor(.red)
+                            .padding()
+                    }
+                }
+
                 LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 16) {
-                    if let feature = getFeatureByName("macOS Updates") {
-                        SecurityFeatureView(feature: feature)
-                    }
-                    
-                    if let feature = getFeatureByName("System Integrity Protection") {
-                        SecurityFeatureView(feature: feature, hideButton: true)
-                    }
-                    
-                    if let feature = getFeatureByName("FileVault") {
-                        SecurityFeatureView(feature: feature)
-                    }
-                    
-                    if let feature = getFeatureByName("XProtect") {
-                        SecurityFeatureView(feature: feature)
-                    }
-                    
-                    if let feature = getFeatureByName("Gatekeeper") {
-                        SecurityFeatureView(feature: feature)
-                    }
-                    
-                    if let feature = getFeatureByName("Firewall") {
-                        SecurityFeatureView(feature: feature)
+                    ForEach(viewModel.features) { feature in
+                        SecurityFeatureView(feature: feature, hideButton: feature.name == "System Integrity Protection")
                     }
                 }
             } else {
                 // Activity Logs
-                ActivityLogsView(logs: gatekeeperLogs)
+                ActivityLogsView(logs: viewModel.gatekeeperLogs)
             }
         }
         .padding()
         .background(Color(NSColor.windowBackgroundColor))
+        .onAppear { viewModel.loadFeatures() }
     }
 }

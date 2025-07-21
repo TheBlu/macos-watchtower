@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		89B99B392E14DAEA009C05AF /* SecurityFeatureService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89B99B382E14DAD3009C05AF /* SecurityFeatureService.swift */; };
 		E9A7B9F12B2D8F4C00F8A123 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */; };
 		E9A7B9F32B2D8F4C00F8A123 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */; };
 		E9A7BA002B2D8F7400F8A123 /* SecurityFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A7B9FF2B2D8F7400F8A123 /* SecurityFeature.swift */; };
@@ -30,7 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E9A7B9ED2B2D8F4C00F8A123 /* MacSentinelWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MacSentinelWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		89B99B382E14DAD3009C05AF /* SecurityFeatureService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecurityFeatureService.swift; sourceTree = "<group>"; };
+		E9A7B9ED2B2D8F4C00F8A123 /* Watchtower.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Watchtower.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9A7B9F02B2D8F4C00F8A123 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9A7B9F22B2D8F4C00F8A123 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		E9A7B9F92B2D8F4D00F8A123 /* MacSentinelWatch.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = MacSentinelWatch.entitlements; sourceTree = "<group>"; };
@@ -76,7 +78,7 @@
 		E9A7B9EE2B2D8F4C00F8A123 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				E9A7B9ED2B2D8F4C00F8A123 /* MacSentinelWatch.app */,
+				E9A7B9ED2B2D8F4C00F8A123 /* Watchtower.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -117,6 +119,7 @@
 		E9A7BA122B2D907600F8A123 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				89B99B382E14DAD3009C05AF /* SecurityFeatureService.swift */,
 				E9A7B9FF2B2D8F7400F8A123 /* SecurityFeature.swift */,
 				E9A7BA012B2D8F8A00F8A123 /* LogEntry.swift */,
 			);
@@ -152,9 +155,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		E9A7B9EC2B2D8F4C00F8A123 /* MacSentinelWatch */ = {
+		E9A7B9EC2B2D8F4C00F8A123 /* Watchtower */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = E9A7B9FC2B2D8F4D00F8A123 /* Build configuration list for PBXNativeTarget "MacSentinelWatch" */;
+			buildConfigurationList = E9A7B9FC2B2D8F4D00F8A123 /* Build configuration list for PBXNativeTarget "Watchtower" */;
 			buildPhases = (
 				E9A7B9E92B2D8F4C00F8A123 /* Sources */,
 				E9A7B9EA2B2D8F4C00F8A123 /* Frameworks */,
@@ -164,9 +167,9 @@
 			);
 			dependencies = (
 			);
-			name = MacSentinelWatch;
+			name = Watchtower;
 			productName = MacSentinelWatch;
-			productReference = E9A7B9ED2B2D8F4C00F8A123 /* MacSentinelWatch.app */;
+			productReference = E9A7B9ED2B2D8F4C00F8A123 /* Watchtower.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -197,7 +200,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				E9A7B9EC2B2D8F4C00F8A123 /* MacSentinelWatch */,
+				E9A7B9EC2B2D8F4C00F8A123 /* Watchtower */,
 			);
 		};
 /* End PBXProject section */
@@ -233,6 +236,7 @@
 				E9A7BA1C2B2D914000F8A123 /* EnhancedStatusCardView.swift in Sources */,
 				E9A7BA1E2B2D915000F8A123 /* EnhancedSecurityDashboardView.swift in Sources */,
 				E9A7BA202B2D916000F8A123 /* AppSidebarView.swift in Sources */,
+				89B99B392E14DAEA009C05AF /* SecurityFeatureService.swift in Sources */,
 				E9A7BA222B2D917000F8A123 /* XProtectLogsView.swift in Sources */,
 				E9A7BA242B2D918000F8A123 /* SystemSecurityManager.swift in Sources */,
 				E9A7B9F32B2D8F4C00F8A123 /* ContentView.swift in Sources */,
@@ -364,21 +368,23 @@
 		E9A7B9FD2B2D8F4D00F8A123 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watchtower;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.lovable.MacSentinelWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -390,21 +396,23 @@
 		E9A7B9FE2B2D8F4D00F8A123 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
-				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = Watchtower;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.utilities";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
-				INFOPLIST_KEY_NSMainStoryboardFile = Main;
 				INFOPLIST_KEY_NSPrincipalClass = NSApplication;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = app.lovable.MacSentinelWatch;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -425,7 +433,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		E9A7B9FC2B2D8F4D00F8A123 /* Build configuration list for PBXNativeTarget "MacSentinelWatch" */ = {
+		E9A7B9FC2B2D8F4D00F8A123 /* Build configuration list for PBXNativeTarget "Watchtower" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E9A7B9FD2B2D8F4D00F8A123 /* Debug */,

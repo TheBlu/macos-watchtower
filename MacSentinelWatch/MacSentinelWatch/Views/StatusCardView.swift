@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct StatusCardView<Content: View>: View {
@@ -36,39 +35,15 @@ struct StatusCardView<Content: View>: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
             // Header and content
-            VStack(alignment: .leading, spacing: 8) {
-                // Title and status row
-                HStack {
-                    Text(title)
-                        .font(.system(size: 14, weight: .medium))
-                    
-                    Spacer()
-                    
-                    HStack(spacing: 4) {
-                        Circle()
-                            .fill(status.color)
-                            .frame(width: 8, height: 8)
-                        
-                        Text(status.displayText)
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.secondary)
-                    }
-                }
-                
-                if !description.isEmpty {
-                    Text(description)
-                        .font(.system(size: 12))
-                        .foregroundColor(.secondary)
-                }
-                
-                // Content area
+            VStack(spacing: 8) {
+                Spacer()
                 content
-                    .padding(.top, 2)
-                
+                Text(title)
+                    .font(.system(size: 14, weight: .semibold))
+                    .multilineTextAlignment(.center)
                 Spacer()
             }
-            .padding([.horizontal, .top], 12)
-            .padding(.bottom, 4)
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             
             // Footer with last updated and buttons
             if lastUpdated != nil || footerContent != nil {
@@ -83,20 +58,30 @@ struct StatusCardView<Content: View>: View {
                     
                     Spacer()
                     
-                    if let footer = footerContent {
-                        footer
+                    if footerContent != nil {
+                        // Removed gearshape icon from here as per instructions
+                        EmptyView()
                     }
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 6)
             }
         }
+        .frame(maxWidth: .infinity)
         .background(Color(NSColor.controlBackgroundColor))
         .clipShape(RoundedRectangle(cornerRadius: 8))
         .overlay(
             RoundedRectangle(cornerRadius: 8)
                 .stroke(Color.gray.opacity(0.2), lineWidth: 1)
         )
+        .overlay(alignment: .topTrailing) {
+            Image(systemName: "info.circle")
+                .font(.system(size: 12, weight: .regular))
+                .foregroundColor(.secondary)
+                .frame(width: 20, height: 20) // Explicit frame for consistent positioning
+                .padding(.top, 8)
+                .padding(.trailing, 8)
+        }
         .frame(height: 170)
     }
 }
