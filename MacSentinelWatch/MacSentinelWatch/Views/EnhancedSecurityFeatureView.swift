@@ -1,5 +1,9 @@
-
 import SwiftUI
+
+enum FeatureName {
+    static let gatekeeper = "Gatekeeper"
+    static let macOSUpdates = "macOS Updates"
+}
 
 struct EnhancedSecurityFeatureView: View {
     let feature: SecurityFeature
@@ -10,9 +14,9 @@ struct EnhancedSecurityFeatureView: View {
     let onSettingsOpen: (() -> Void)?
     
     init(
-        feature: SecurityFeature, 
-        hideDescription: Bool = false, 
-        hideButton: Bool = false, 
+        feature: SecurityFeature,
+        hideDescription: Bool = false,
+        hideButton: Bool = false,
         globalFlipped: Binding<Bool> = .constant(false),
         onSettingsOpen: (() -> Void)? = nil
     ) {
@@ -32,55 +36,56 @@ struct EnhancedSecurityFeatureView: View {
     }
     
     private var settingLabel: String {
-        return feature.name == "macOS Updates" ? "Version:" : "Setting:"
+        switch feature.name {
+        case FeatureName.macOSUpdates:
+            return "Version"
+        case FeatureName.gatekeeper:
+            return "Gatekeeper Setting"
+        default:
+            return "Current Setting"
+        }
+    }
+    
+    private func infoButton(filled: Bool) -> some View {
+        Button(action: { withAnimation(.easeInOut(duration: 0.6)) { isFlipped.toggle() } }) {
+            Image(systemName: filled ? "info.circle.fill" : "info.circle")
+                .foregroundColor(filled ? .blue : .secondary)
+                .font(.system(size: 16))
+        }
+        .buttonStyle(PlainButtonStyle())
+        .padding(12)
+        .help("Show details")
     }
     
     var body: some View {
         ZStack {
             // Front of card
-            VStack(spacing: 0) {
-                // Header and content
-                VStack(spacing: 16) {
-                    // Info button
-                    HStack {
-                        Spacer()
-                        Button(action: { withAnimation(.easeInOut(duration: 0.6)) { isFlipped.toggle() } }) {
-                            Image(systemName: "info.circle")
-                                .foregroundColor(.secondary)
-                                .font(.system(size: 16))
-                        }
-                        .buttonStyle(PlainButtonStyle())
+            VStack {
+                Spacer()
+                VStack(spacing: 12) {
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 16)
+                            .fill(.ultraThinMaterial)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 16)
+                                    .stroke(Color.white.opacity(0.2), lineWidth: 1)
+                            )
+                            .frame(width: 80, height: 80)
+                        
+                        Image(systemName: icon.name)
+                            .foregroundColor(icon.color)
+                            .font(.system(size: 32, weight: .medium))
                     }
                     
-                    // Icon
-                    VStack(spacing: 12) {
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 16)
-                                .fill(.ultraThinMaterial)
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 16)
-                                        .stroke(Color.white.opacity(0.2), lineWidth: 1)
-                                )
-                                .frame(width: 80, height: 80)
-                            
-                            Image(systemName: icon.name)
-                                .foregroundColor(icon.color)
-                                .font(.system(size: 32, weight: .medium))
-                        }
-                        
-                        Text(feature.name)
-                            .font(.system(size: 16, weight: .semibold))
-                            .multilineTextAlignment(.center)
-                    }
+                    Text(feature.name)
+                        .font(.system(size: 16, weight: .semibold))
+                        .multilineTextAlignment(.center)
                 }
-                .padding(.horizontal, 16)
-                .padding(.top, 16)
-                .padding(.bottom, 8)
-                
+                .frame(maxWidth: .infinity)
                 Spacer()
             }
             .opacity(isFlipped ? 0 : 1)
-            .rotation3DEffect(.degrees(isFlipped ? 90 : 0), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(.degrees(isFlipped ? 89.9 : 0), axis: (x: 0, y: 1, z: 0))
             
             // Back of card
             VStack(alignment: .leading, spacing: 12) {
@@ -90,13 +95,6 @@ struct EnhancedSecurityFeatureView: View {
                         .font(.system(size: 16, weight: .semibold))
                     
                     Spacer()
-                    
-                    Button(action: { withAnimation(.easeInOut(duration: 0.6)) { isFlipped.toggle() } }) {
-                        Image(systemName: "info.circle.fill")
-                            .foregroundColor(.blue)
-                            .font(.system(size: 16))
-                    }
-                    .buttonStyle(PlainButtonStyle())
                 }
                 
                 // Description
@@ -113,10 +111,10 @@ struct EnhancedSecurityFeatureView: View {
                 // Setting
                 if let setting = feature.setting {
                     VStack(alignment: .leading, spacing: 8) {
-                        Text(feature.name == "macOS Updates" ? "Version" : "Current Setting")
+                        Text(settingLabel)
                             .font(.system(size: 12, weight: .bold))
                             .foregroundColor(.secondary)
-                        
+
                         Text(setting)
                             .font(.system(size: 12, design: .monospaced))
                             .padding(.horizontal, 8)
@@ -128,7 +126,7 @@ struct EnhancedSecurityFeatureView: View {
                 
                 Spacer()
                 
-                // Footer with last updated and settings button
+                // Footer with last updated
                 VStack(spacing: 8) {
                     // Last updated
                     HStack {
@@ -152,31 +150,11 @@ struct EnhancedSecurityFeatureView: View {
                         
                         Spacer()
                     }
-                    
-                    // Settings button (if not hidden and not SIP)
-                    if !hideButton && feature.name != "System Integrity Protection" && feature.name != "XProtect" {
-                        Button(action: {
-                            onSettingsOpen?()
-                        }) {
-                            HStack(spacing: 6) {
-                                Image(systemName: "gear")
-                                    .font(.system(size: 12))
-                                Text("Open Settings")
-                                    .font(.system(size: 12, weight: .medium))
-                            }
-                            .foregroundColor(.blue)
-                            .padding(.horizontal, 12)
-                            .padding(.vertical, 6)
-                            .background(.ultraThinMaterial)
-                            .cornerRadius(8)
-                        }
-                        .buttonStyle(PlainButtonStyle())
-                    }
                 }
             }
             .padding(16)
             .opacity(isFlipped ? 1 : 0)
-            .rotation3DEffect(.degrees(isFlipped ? 0 : -90), axis: (x: 0, y: 1, z: 0))
+            .rotation3DEffect(.degrees(isFlipped ? 0 : -89.9), axis: (x: 0, y: 1, z: 0))
         }
         .frame(height: 200)
         .background(.ultraThinMaterial)
@@ -185,6 +163,23 @@ struct EnhancedSecurityFeatureView: View {
                 .stroke(StatusUtils.getStatusBorderColors(feature.status), lineWidth: 2)
         )
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(alignment: .topTrailing) {
+            infoButton(filled: isFlipped)
+        }
+        .overlay(alignment: .bottomTrailing) {
+            if isFlipped && !hideButton && feature.name != FeatureName.gatekeeper && feature.name != "System Integrity Protection" && feature.name != "XProtect" {
+                Button(action: {
+                    onSettingsOpen?()
+                }) {
+                    Image(systemName: "gear")
+                        .foregroundColor(.blue)
+                        .font(.system(size: 16))
+                }
+                .buttonStyle(PlainButtonStyle())
+                .padding(12)
+                .help("Open Settings")
+            }
+        }
         .shadow(color: .black.opacity(0.1), radius: 10, x: 0, y: 4)
         .onChange(of: globalFlipped) { _, newValue in
             withAnimation(.easeInOut(duration: 0.6)) {

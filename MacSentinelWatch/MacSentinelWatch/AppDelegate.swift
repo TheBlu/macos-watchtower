@@ -1,8 +1,15 @@
-
 import Cocoa
 import SwiftUI
 
 @main
+struct MacSentinelWatchApp {
+    static func main() {
+        let delegate = AppDelegate()
+        NSApplication.shared.delegate = delegate
+        NSApplication.shared.run()
+    }
+}
+
 class AppDelegate: NSObject, NSApplicationDelegate {
     var window: NSWindow!
 
@@ -19,9 +26,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
-        window.title = "MacSentinel Watch - Security Dashboard"
+        window.title = "Watchtower - Security Dashboard"
         window.titlebarAppearsTransparent = true
-        window.styleMask.insert(.fullSizeContentView)
         
         // Set minimum window size
         window.minSize = NSSize(width: 1000, height: 700)

@@ -47,7 +47,7 @@ struct XProtectLogRow: View {
             
             VStack(alignment: .leading, spacing: 4) {
                 HStack {
-                    Text(log.message ?? "No message")
+                    Text(log.message)
                         .font(.system(size: 14, weight: .medium))
                         .foregroundColor(.primary)
                     

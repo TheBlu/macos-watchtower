@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct SecurityFeatureView: View {
@@ -15,38 +14,38 @@ struct SecurityFeatureView: View {
     private func iconForFeature() -> (name: String, color: Color) {
         switch feature.name {
         case "Firewall":
-            return feature.status == .enabled ? 
-                ("shield.lefthalf.filled", .green) : 
-                ("shield.slash", .red)
+            return feature.status == .enabled ?
+                ("network.firewall", .green) :
+                ("network.firewall", .red)
         case "macOS Updates":
             if feature.status == .enabled {
-                return ("arrow.clockwise.circle.fill", .green)
+                return ("laptopcomputer.and.arrow.down", .green)
             } else if feature.status == .warning {
-                return ("exclamationmark.arrow.circlepath", .yellow)
+                return ("laptopcomputer.trianglebadge.exclamationmark", .yellow)
             } else if feature.status == .disabled {
-                return ("xmark.circle", .red)
+                return ("laptopcomputer.trianglebadge.exclamationmark", .red)
             }
         case "FileVault":
             return feature.status == .enabled ?
-                ("lock.fill", .green) :
-                ("lock.open.fill", .red)
+                ("internaldrive.fill.badge.checkmark", .green) :
+                ("internaldrive.fill.badge.exclamationmark", .red)
         case "Gatekeeper":
             return feature.status == .enabled ?
-                ("checkmark.shield.fill", .green) :
-                ("xmark.shield.fill", .red)
+                ("internaldrive.fill.badge.checkmark", .green) :
+                ("internaldrive.fill.badge.exclamationmark", .red)
         case "System Integrity Protection":
             return feature.status == .enabled ?
-                ("internaldrive.fill", .green) :
+                ("internaldrive.fill.badge.checkmark", .green) :
                 ("internaldrive.fill.badge.exclamationmark", .red)
         case "XProtect":
             return feature.status == .enabled ?
-                ("laptopcomputer.and.arrow.down", .green) :
-                ("laptopcomputer.trianglebadge.exclamationmark", .red)
+                ("ladybug.fill", .green) :
+                ("ladybug.fill", .red)
         default:
-            return ("questionmark.circle", .gray)
+            return ("questionmark.circle.fill", .gray)
         }
         
-        return ("questionmark.circle", .gray)
+        return ("questionmark.circle.fill", .gray)
     }
     
     private var statusText: String {
@@ -77,36 +76,32 @@ struct SecurityFeatureView: View {
             description: hideDescription ? "" : feature.description,
             lastUpdated: feature.lastUpdated,
             content: {
-                VStack(alignment: .leading, spacing: 4) {
-                    if let setting = feature.setting {
-                        HStack(spacing: 4) {
-                            Text(settingLabel)
-                                .font(.system(size: 12, weight: .medium))
-                            Text(setting)
-                                .font(.system(size: 12))
-                        }
-                    }
+                VStack(spacing: 8) {
+                    let icon = iconForFeature()
                     
-                    if !statusText.isEmpty {
-                        HStack(spacing: 4) {
-                            let icon = iconForFeature()
-                            Image(systemName: icon.name)
-                                .foregroundColor(icon.color)
-                                .frame(width: 12, height: 12)
-                            Text(statusText)
-                                .font(.system(size: 12))
-                        }
+                    // Icon container with fixed dimensions
+                    ZStack {
+                        Image(systemName: icon.name)
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 36, height: 36)
+                            .foregroundColor(icon.color)
+                            .fontWeight(.medium)
                     }
+                    .frame(width: 60, height: 60) // Fixed container size for all icons
+                    
+                    // Text with fixed dimensions
+                    Text(feature.name)
+                        .font(.system(size: 13, weight: .semibold))
+                        .multilineTextAlignment(.center)
+                        .lineLimit(2)
+                        .frame(height: 32) // Fixed height instead of minHeight
+                        .frame(maxWidth: .infinity)
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             },
-            footerContent: !hideButton && feature.name != "System Integrity Protection" ?
-                AnyView(
-                    Button("Open Settings") {
-                        openSystemSettings(for: feature.name)
-                    }
-                    .font(.system(size: 11))
-                    .controlSize(.small)
-                ) : nil
+            footerContent: nil
         )
     }
     
