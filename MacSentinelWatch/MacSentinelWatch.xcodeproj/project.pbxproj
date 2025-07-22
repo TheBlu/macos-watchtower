@@ -368,6 +368,8 @@
 		E9A7B9FD2B2D8F4D00F8A123 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = /Users/jmac/Downloads/watchtower_icon.png;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -386,7 +388,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.lovable.MacSentinelWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitshell.watchtower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -396,6 +398,8 @@
 		E9A7B9FE2B2D8F4D00F8A123 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = /Users/jmac/Downloads/watchtower_icon.png;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CODE_SIGN_ALLOW_ENTITLEMENTS_MODIFICATION = YES;
 				CODE_SIGN_ENTITLEMENTS = MacSentinelWatch/MacSentinelWatch.entitlements;
 				CODE_SIGN_STYLE = Automatic;
@@ -414,7 +418,7 @@
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = app.lovable.MacSentinelWatch;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bitshell.watchtower;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
