@@ -26,7 +26,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
-        window.title = "MacSentinel Watch - Security Dashboard"
+        window.title = "Watchtower - Security Dashboard"
         window.titlebarAppearsTransparent = true
         
         // Set minimum window size
