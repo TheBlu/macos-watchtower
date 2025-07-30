@@ -256,7 +256,7 @@ struct SecurityStatusCard: View {
             if !timeAgoString.isEmpty {
                 HStack(spacing: 4) {
                     // Remove the clock icon, and replace with "Last Updated:" text
-                    Text("Last Updated: \(timeAgoString)")
+                    Text("Last Refresh: \(timeAgoString)")
                         .font(.caption)
                         .foregroundColor(.gray)
                 }

@@ -38,6 +38,12 @@ struct StatusCardView<Content: View>: View {
             VStack(spacing: 8) {
                 Spacer()
                 content
+                // Warning message in red bold text if description is non-empty
+                if !description.isEmpty {
+                    Text(description)
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundColor(.red)
+                }
                 Text(title)
                     .font(.system(size: 14, weight: .semibold))
                     .multilineTextAlignment(.center)
@@ -51,7 +57,7 @@ struct StatusCardView<Content: View>: View {
                 
                 HStack(alignment: .center) {
                     if let date = lastUpdated {
-                        Text("Last updated: \(formatDate(date))")
+                        Text("Last Refresh: \(formatDate(date))")
                             .font(.system(size: 11))
                             .foregroundColor(.secondary)
                     }
@@ -59,7 +65,7 @@ struct StatusCardView<Content: View>: View {
                     Spacer()
                     
                     if footerContent != nil {
-                        // Removed gearshape icon from here as per instructions
+                        // Clock icon removed as per instructions
                         EmptyView()
                     }
                 }

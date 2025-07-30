@@ -1,4 +1,3 @@
-
 import SwiftUI
 
 struct EnhancedStatusCardView<Content: View>: View {
@@ -53,17 +52,6 @@ struct EnhancedStatusCardView<Content: View>: View {
                     }
                     
                     Spacer()
-                    
-                    HStack(spacing: 6) {
-                        Circle()
-                            .fill(StatusUtils.getStatusColors(status))
-                            .frame(width: 10, height: 10)
-                            .shadow(color: StatusUtils.getStatusColors(status), radius: 4)
-                        
-                        Text(StatusUtils.getStatusDisplayText(status))
-                            .font(.system(size: 12, weight: .medium))
-                            .foregroundColor(.secondary)
-                    }
                 }
                 
                 if !description.isEmpty {
@@ -86,23 +74,17 @@ struct EnhancedStatusCardView<Content: View>: View {
                 
                 HStack {
                     if let date = lastUpdated {
-                        HStack(spacing: 4) {
-                            Image(systemName: "clock")
-                                .font(.system(size: 10))
-                                .foregroundColor(.secondary)
-                            
-                            Text(DateFormatters.formatDate(date))
-                                .font(.system(size: 10))
-                                .foregroundColor(.secondary)
-                        }
-                        .padding(.horizontal, 8)
-                        .padding(.vertical, 4)
-                        .background(.ultraThinMaterial)
-                        .cornerRadius(6)
+                        Text("Last Refresh: \(DateFormatters.formatDate(date))")
+                            .font(.system(size: 10))
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(.ultraThinMaterial)
+                            .cornerRadius(6)
                     }
-                    
+
                     Spacer()
-                    
+
                     if let footer = footerContent {
                         footer
                     }

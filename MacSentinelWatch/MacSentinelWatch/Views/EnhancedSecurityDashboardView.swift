@@ -63,60 +63,97 @@ struct EnhancedSecurityDashboardView: View {
             VStack(spacing: 24) {
                 // Security Status Card
                 EnhancedStatusCardView(
-                    title: "Security Status",
+                    title: "",
                     status: systemManager.isLoading ? .unknown : overallStatus,
-                    description: "Live status of your Mac's security features",
-                    lastUpdated: systemManager.securityFeatures.first?.lastUpdated,
-                    headerIcon: AnyView(securityStatusIcon),
-                    content: {
-                        VStack(alignment: .leading, spacing: 12) {
-                            HStack {
-                                Text(statusMessage)
-                                    .font(.system(size: 14, weight: .medium))
-                                    .foregroundColor(systemManager.isLoading ? .secondary : StatusUtils.getStatusColors(overallStatus))
-                                    .fixedSize(horizontal: false, vertical: true)
-                                
-                                Spacer()
-                                
-                                HStack(spacing: 8) {
-                                    Button(action: {
-                                        systemManager.refreshSecurityStatus()
-                                    }) {
-                                        HStack(spacing: 6) {
-                                            Image(systemName: "arrow.clockwise")
-                                                .font(.system(size: 14))
-                                            Text("Refresh")
-                                                .font(.system(size: 12, weight: .medium))
-                                        }
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(.ultraThinMaterial)
-                                        .cornerRadius(8)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
-                                    .disabled(systemManager.isLoading)
-                                    
-                                    Button(action: { 
-                                        withAnimation(.easeInOut(duration: 0.6)) {
-                                            areAllTilesFlipped.toggle()
-                                        }
-                                    }) {
-                                        HStack(spacing: 6) {
-                                            Image(systemName: "info.circle")
-                                                .font(.system(size: 14))
-                                            Text(areAllTilesFlipped ? "Hide Details" : "Show Details")
-                                                .font(.system(size: 12, weight: .medium))
-                                        }
-                                        .padding(.horizontal, 12)
-                                        .padding(.vertical, 6)
-                                        .background(.ultraThinMaterial)
-                                        .cornerRadius(8)
-                                    }
-                                    .buttonStyle(PlainButtonStyle())
+                    description: "",
+                    lastUpdated: nil,
+                    headerIcon: AnyView(
+                        HStack(alignment: .top) {
+                            HStack(spacing: 6) {
+                                securityStatusIcon
+                                Text("Security Status")
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundColor(.white)
+                            }
+                            Spacer()
+                            VStack(alignment: .trailing, spacing: 4) {
+                                HStack(spacing: 6) {
+                                    Circle()
+                                        .fill(StatusUtils.getStatusColors(overallStatus))
+                                        .frame(width: 10, height: 10)
+                                        .shadow(color: StatusUtils.getStatusColors(overallStatus), radius: 4)
+                                    Text(StatusUtils.getStatusDisplayText(overallStatus))
+                                        .font(.system(size: 12, weight: .medium))
+                                        .foregroundColor(.secondary)
                                 }
                             }
                         }
-                    }
+                    ),
+                    content: {
+                        HStack(alignment: .firstTextBaseline, spacing: 8) {
+                            Text("Live status of your Mac's security features")
+                                .font(.system(size: 13))
+                                .foregroundColor(.secondary)
+
+                            Spacer()
+
+                            if let lastUpdated = systemManager.securityFeatures.first?.lastUpdated {
+                                Text("Last Refresh: \(lastUpdated.formatted(date: .abbreviated, time: .omitted))")
+                                    .font(.system(size: 12))
+                                    .foregroundColor(.secondary)
+                            }
+                        }
+                        .padding(.top, 22)
+                        .padding(.leading, 10)
+                    },
+                    footerContent: AnyView(
+                        HStack(alignment: .firstTextBaseline) {
+                            // Left: red warning
+                            Text(statusMessage)
+                                .font(.system(size: 12))
+                                .fontWeight(.bold)
+                                .foregroundColor(.red)
+
+                            Spacer()
+
+                            // Right: buttons
+                            HStack(spacing: 8) {
+                                Button(action: { systemManager.refreshSecurityStatus() }) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "arrow.clockwise")
+                                            .font(.system(size: 14))
+                                        Text("Refresh")
+                                            .font(.system(size: 12, weight: .medium))
+                                    }
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(8)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                                .disabled(systemManager.isLoading)
+
+                                Button(action: {
+                                    withAnimation(.easeInOut(duration: 0.6)) {
+                                        areAllTilesFlipped.toggle()
+                                    }
+                                }) {
+                                    HStack(spacing: 6) {
+                                        Image(systemName: "info.circle")
+                                            .font(.system(size: 14))
+                                        Text(areAllTilesFlipped ? "Hide Details" : "Show Details")
+                                            .font(.system(size: 12, weight: .medium))
+                                    }
+                                    .padding(.horizontal, 12)
+                                    .padding(.vertical, 4)
+                                    .background(.ultraThinMaterial)
+                                    .cornerRadius(8)
+                                }
+                                .buttonStyle(PlainButtonStyle())
+                            }
+                        }
+                        .padding(.vertical, 2)
+                    )
                 )
                 
                 // Tab buttons
@@ -168,7 +205,7 @@ struct EnhancedSecurityDashboardView: View {
                         ], spacing: 16) {
                             if let feature = getFeatureByName("macOS Updates") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
+                                    feature: feature,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
@@ -178,7 +215,7 @@ struct EnhancedSecurityDashboardView: View {
                             
                             if let feature = getFeatureByName("FileVault") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
+                                    feature: feature,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
@@ -188,7 +225,7 @@ struct EnhancedSecurityDashboardView: View {
                             
                             if let feature = getFeatureByName("Firewall") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
+                                    feature: feature,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
@@ -198,7 +235,7 @@ struct EnhancedSecurityDashboardView: View {
                             
                             if let feature = getFeatureByName("XProtect") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
+                                    feature: feature,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
@@ -208,7 +245,7 @@ struct EnhancedSecurityDashboardView: View {
                             
                             if let feature = getFeatureByName("Gatekeeper") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
+                                    feature: feature,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
@@ -218,8 +255,8 @@ struct EnhancedSecurityDashboardView: View {
                             
                             if let feature = getFeatureByName("System Integrity Protection") {
                                 EnhancedSecurityFeatureView(
-                                    feature: feature, 
-                                    hideButton: true, 
+                                    feature: feature,
+                                    hideButton: true,
                                     globalFlipped: $areAllTilesFlipped,
                                     onSettingsOpen: {
                                         systemManager.openSystemSettings(for: feature.name)
